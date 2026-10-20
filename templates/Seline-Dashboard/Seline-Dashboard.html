@@ -217,7 +217,8 @@
        ======================================== */
     .main {
       flex: 1;
-      margin-left: var(--sidebar-width);
+      /* 宽屏时在侧栏右侧的剩余空间内水平居中；空间不足时偏移为 0，保持原贴左行为 */
+      margin-left: calc(var(--sidebar-width) + max((100% - var(--sidebar-width) - 1400px) / 2, 0px));
       padding: var(--space-6);
       max-width: 1400px;
     }

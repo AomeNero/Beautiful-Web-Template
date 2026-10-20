@@ -1,0 +1,12 @@
+raw/
+
+# 存放私人信息
+.lqs/
+
+# 存放trae的规划文档
+.trae/documents/
+
+# Agent进行设计语言提取的过程产物
+web2template_output/
+# Python 编译缓存
+__pycache__/

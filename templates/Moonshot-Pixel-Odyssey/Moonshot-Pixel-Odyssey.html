@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonshot Pixel Odyssey — 风格文档落地页</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/fusion-pixel-12px-monospaced-sc@5.3.0/400.css" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — Moonshot-Pixel-Odyssey（本页即该风格的自展示）
+   ============================================================ */
+:root {
+  --bg-void: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #7a7a7a;
+  --text-dim: #ffffff4d;
+  --border-hairline: #ffffff26;
+  --border-strong: #ffffff;
+  --fill-inverse: #ffffff;
+  --text-inverse: #000000;
+  --fill-hover: #f7f7f7;
+
+  --font-pixel: "Fusion Pixel 12px Monospaced SC", "Fusion Pixel 12px Mono zh_hans", "SimSun", monospace;
+
+  --fs-hero: clamp(34px, 7vw, 64px);
+  --fs-hero-sub: clamp(18px, 3.4vw, 30px);
+  --fs-display: clamp(24px, 4.6vw, 40px);
+  --fs-h2: clamp(20px, 3.4vw, 30px);
+  --fs-num: clamp(36px, 6vw, 64px);
+  --fs-title: 20px;
+  --fs-nav: 16px;
+  --fs-body: 14px;
+  --fs-small: 12px;
+
+  --edge-x: clamp(16px, 3vw, 40px);
+  --gap-grid: 20px;
+  --gap-buttons: 16px;
+  --gap-nav: clamp(20px, 4vw, 64px);
+
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --t-ui: 0.2s;
+  --t-enter: 0.3s;
+
+  /* 滚动进度（JS 写入），驱动场景渐变 */
+  --p: 0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-pixel);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+canvas { image-rendering: pixelated; display: block; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--text-primary); color: var(--text-inverse); }
+
+/* ============================================================
+   SCENE SHELL — 滚动驱动的渐变场景叙事
+   每个 .scene 为 220vh 的滚动轨道，内部 .scene__pin 粘滞一屏，
+   JS 把滚动进度写入 --p，所有渐变（淡入/缩放/位移/点阵密度）由 --p 派生。
+   ============================================================ */
+.scene { position: relative; height: 220vh; }
+.scene--tall { height: 260vh; }
+.scene__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.scene__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+}
+.scene__label .chev { color: var(--text-secondary); font-size: 24px; }
+
+/* 由 --p 派生的渐变工具类 */
+.sp-fade-in   { opacity: clamp(0, calc((var(--p) - 0.08) * 5), 1); transform: translateY(calc((1 - clamp(0, calc((var(--p) - 0.08) * 5), 1)) * 14px)); }
+.sp-fade-in-2 { opacity: clamp(0, calc((var(--p) - 0.22) * 5), 1); transform: translateY(calc((1 - clamp(0, calc((var(--p) - 0.22) * 5), 1)) * 14px)); }
+.sp-fade-in-3 { opacity: clamp(0, calc((var(--p) - 0.36) * 5), 1); transform: translateY(calc((1 - clamp(0, calc((var(--p) - 0.36) * 5), 1)) * 14px)); }
+.sp-fade-out  { opacity: calc(1 - clamp(0, calc((var(--p) - 0.82) * 6), 1)); }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 60px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--edge-x);
+}
+.header__logo { display: flex; align-items: center; gap: 10px; font-size: var(--fs-nav); font-weight: 500; }
+.header__logo svg { width: 26px; height: 26px; }
+.header__nav { display: flex; align-items: center; gap: var(--gap-nav); font-size: var(--fs-nav); font-weight: 500; }
+.header__nav a { position: relative; padding: 4px 0; }
+.header__nav a::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+  background: var(--border-strong); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t-ui) var(--ease-ui);
+}
+.header__nav a:hover::after, .header__nav a:focus-visible::after { transform: scaleX(1); }
+.header__menu-btn {
+  display: none; background: none; border: 1px solid var(--border-hairline);
+  color: var(--text-primary); font-family: var(--font-pixel); font-size: var(--fs-small);
+  padding: 6px 10px; cursor: pointer;
+}
+.header__drawer {
+  display: none; position: fixed; inset: 0; z-index: 99; background: var(--bg-void);
+  flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+}
+.header__drawer.is-open { display: flex; }
+.header__drawer a { writing-mode: vertical-rl; font-size: var(--fs-title); letter-spacing: 8px; padding: 8px; }
+
+/* ============================================================
+   HERO — 四角散点 + 抖动月食（随滚动放大渐隐）
+   ============================================================ */
+.hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero__moon {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: scale(calc(1 + var(--p) * 1.6));
+  opacity: calc(1 - clamp(0, calc((var(--p) - 0.55) * 3), 1) * 0.85);
+}
+.hero__title { position: absolute; top: clamp(90px, 14vh, 150px); left: var(--edge-x); z-index: 2; }
+.hero__title h1 { font-size: var(--fs-hero); font-weight: 400; line-height: 1.05; }
+.hero__title .hero__sub { margin-top: 12px; font-size: var(--fs-hero-sub); line-height: 1.3; color: var(--text-secondary); }
+.hero__note {
+  position: absolute; left: var(--edge-x); bottom: clamp(80px, 14vh, 130px); z-index: 2;
+  max-width: 420px; background: var(--bg-void); padding: 8px 12px;
+}
+.hero__note h3 { font-size: var(--fs-nav); font-weight: 500; }
+.hero__note p { margin-top: 8px; color: var(--text-secondary); font-size: var(--fs-small); line-height: 1.5; }
+.hero__claim { position: absolute; right: var(--edge-x); bottom: clamp(120px, 20vh, 180px); z-index: 2; text-align: right; }
+.hero__claim .join { font-size: var(--fs-h2); line-height: 1; }
+.hero__claim .build { margin-top: 8px; font-size: var(--fs-display); line-height: 1.05; }
+.hero__title, .hero__note, .hero__claim {
+  opacity: calc(1 - clamp(0, calc((var(--p) - 0.6) * 3), 1));
+  transform: translateY(calc(var(--p) * -30px));
+}
+
+.scroll-hint {
+  position: absolute; left: 0; right: 0; bottom: 18px; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: var(--text-secondary); font-size: var(--fs-small);
+}
+.scroll-hint__chev { width: 18px; height: 12px; animation: hintFloat 2s ease-in-out infinite; }
+@keyframes hintFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* ============================================================
+   PHILOSOPHY — 三原则（随滚动错峰淡入）
+   ============================================================ */
+.philo {
+  width: 100%; max-width: 1180px; margin: 48px auto 0; padding: 0 var(--edge-x);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-grid);
+}
+.philo__item { border-top: 1px solid var(--border-hairline); padding-top: 20px; }
+.philo__item h3 { font-size: var(--fs-title); font-weight: 500; }
+.philo__item p { margin-top: 12px; color: var(--text-secondary); font-size: var(--fs-body); line-height: 1.7; }
+.philo__not {
+  margin: 40px auto 0; max-width: 1180px; padding: 0 var(--edge-x);
+  color: var(--text-dim); font-size: var(--fs-small); text-align: center;
+}
+
+/* ============================================================
+   DNA — 签名要素 + 旋转月球
+   ============================================================ */
+.dna { display: flex; align-items: center; justify-content: center; gap: clamp(24px, 6vw, 90px); padding: 0 var(--edge-x); }
+.dna__list { max-width: 560px; }
+.dna__row { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border-hairline); }
+.dna__row:last-child { border-bottom: none; }
+.dna__idx { color: var(--text-secondary); min-width: 34px; }
+.dna__row h3 { font-size: var(--fs-nav); font-weight: 500; }
+.dna__row p { margin-top: 6px; color: var(--text-secondary); font-size: var(--fs-small); line-height: 1.6; }
+.dna__moon {
+  position: relative; width: clamp(220px, 30vw, 420px); aspect-ratio: 1.35; flex: none;
+  transform: rotate(calc(var(--p) * 40deg - 20deg)) scale(calc(0.85 + var(--p) * 0.35));
+}
+.dna__moon canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dna__arc { position: absolute; inset: -14%; width: 128%; height: 128%; overflow: visible; }
+.dna__arc text { font-family: var(--font-pixel); font-size: 13px; fill: var(--text-secondary); letter-spacing: 6px; }
+
+/* ============================================================
+   TOKENS — 色板 / 字阶 / 表面
+   ============================================================ */
+.tokens { width: 100%; max-width: 1180px; margin: 44px auto 0; padding: 0 var(--edge-x); display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--gap-grid); }
+.panel { border: 1px solid var(--border-hairline); padding: 26px; }
+.panel h3 { font-size: var(--fs-nav); font-weight: 500; color: var(--text-secondary); margin-bottom: 20px; }
+.panel h3::before { content: "▮ "; color: var(--text-primary); }
+.swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.swatch { border: 1px solid var(--border-hairline); }
+.swatch__chip { height: 54px; }
+.swatch__meta { padding: 8px 10px; font-size: var(--fs-small); color: var(--text-secondary); }
+.swatch__meta b { display: block; color: var(--text-primary); font-weight: 500; }
+.type-row { display: flex; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border-hairline); }
+.type-row:last-child { border-bottom: none; }
+.type-row .spec { min-width: 92px; color: var(--text-secondary); font-size: var(--fs-small); }
+.surface-list { list-style: none; }
+.surface-list li { padding: 9px 0; border-bottom: 1px solid var(--border-hairline); color: var(--text-secondary); font-size: var(--fs-body); }
+.surface-list li:last-child { border-bottom: none; }
+.surface-list b { color: var(--text-primary); font-weight: 500; }
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+.kit { width: 100%; max-width: 1180px; margin: 44px auto 0; padding: 0 var(--edge-x); display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-grid); }
+.panel__row { display: flex; flex-wrap: wrap; gap: var(--gap-buttons); align-items: center; }
+.btn-primary {
+  background: var(--fill-inverse); color: var(--text-inverse); border: 1px solid var(--fill-inverse);
+  font-family: var(--font-pixel); font-size: var(--fs-nav); font-weight: 500; padding: 16px 40px; cursor: pointer;
+  transition: background-color var(--t-ui) var(--ease-ui);
+}
+.btn-primary:hover, .btn-primary:focus-visible { background: var(--fill-hover); }
+.btn-terminal {
+  position: relative; background: var(--bg-void); color: var(--text-primary); border: 1px solid var(--border-strong);
+  font-family: var(--font-pixel); font-size: var(--fs-nav); font-weight: 500; padding: 12px 22px; cursor: pointer;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: color var(--t-ui) var(--ease-ui), background-color var(--t-ui) var(--ease-ui);
+}
+.btn-terminal:hover, .btn-terminal:focus-visible { background: var(--fill-inverse); color: var(--text-inverse); }
+.btn-ghost {
+  background: transparent; color: var(--text-primary); border: 1px solid var(--border-hairline);
+  font-family: var(--font-pixel); font-size: var(--fs-nav); padding: 12px 22px; cursor: pointer;
+  transition: border-color var(--t-ui) var(--ease-ui);
+}
+.btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--border-strong); }
+.btn-primary:disabled, .btn-terminal:disabled, .btn-ghost:disabled {
+  color: var(--text-dim); border-color: var(--border-hairline); background: transparent; cursor: not-allowed;
+}
+.field { display: flex; align-items: center; border: 1px solid var(--border-hairline); background: var(--bg-void); transition: border-color var(--t-ui) var(--ease-ui); }
+.field:focus-within { border-color: var(--border-strong); outline: 1px solid var(--border-hairline); outline-offset: 2px; }
+.field__prefix { padding: 0 10px; color: var(--text-secondary); user-select: none; }
+.field input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-family: var(--font-pixel); font-size: var(--fs-body); padding: 12px 12px 12px 0; }
+.field input::placeholder { color: var(--text-dim); }
+.badge { display: inline-block; border: 1px solid var(--border-hairline); color: var(--text-secondary); font-size: var(--fs-small); padding: 2px 8px; }
+.badge--solid { background: var(--fill-inverse); color: var(--text-inverse); border-color: var(--fill-inverse); }
+.badge--dash { border-style: dashed; }
+.card { border: 1px solid var(--border-hairline); padding: 20px; transition: border-color var(--t-ui) var(--ease-ui), transform var(--t-ui) var(--ease-ui); }
+.card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.card h4 { font-size: var(--fs-nav); font-weight: 500; margin-top: 12px; }
+.card p { color: var(--text-secondary); font-size: var(--fs-small); margin-top: 8px; line-height: 1.6; }
+.card--inverse { background: var(--fill-inverse); color: var(--text-inverse); border-color: var(--fill-inverse); }
+.card--inverse p { color: var(--text-inverse); opacity: 0.7; }
+.stat { border-top: 1px solid var(--border-hairline); padding-top: 18px; transition: border-color var(--t-ui) var(--ease-ui); flex: 1; }
+.stat:hover { border-color: var(--border-strong); }
+.stat__num { font-size: var(--fs-num); line-height: 1; }
+.stat h5 { margin-top: 18px; border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: var(--fs-nav); font-weight: 500; }
+.stat p { margin-top: 10px; color: var(--text-secondary); font-size: var(--fs-small); line-height: 1.6; }
+
+/* ============================================================
+   MOTION — 代码雨 + 流程光线演示
+   ============================================================ */
+.motion__rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: calc(0.18 + var(--p) * 0.5); }
+.flowmap { position: relative; width: 100%; max-width: 980px; margin: 40px auto 0; padding: 0 var(--edge-x); }
+.flowmap svg { width: 100%; height: auto; overflow: visible; }
+.flowmap .ray-flow { stroke-dasharray: 6 8; animation: rayMove 2.4s linear infinite; }
+@keyframes rayMove { to { stroke-dashoffset: -14; } }
+.flowmap .node { cursor: pointer; }
+.flowmap .node:hover .node-glow, .flowmap .node:focus-visible .node-glow { animation: hoverRayGlow 1.2s var(--ease-enter) forwards; }
+.flowmap .node:hover .node-badge, .flowmap .node:focus-visible .node-badge { animation: hoverRayEndpoint 0.3s var(--ease-enter) forwards; }
+@keyframes hoverRayGlow { 0% { opacity: 0; } 45% { opacity: 0.95; } 100% { opacity: 0.42; } }
+@keyframes hoverRayEndpoint { 0% { opacity: 0; transform: scale(0.35); } 100% { opacity: 1; transform: scale(1); } }
+.node-badge { transform-origin: center; transform-box: fill-box; }
+.flowmap__caption { margin-top: 18px; text-align: center; color: var(--text-secondary); font-size: var(--fs-small); }
+.motion__tokens { margin: 26px auto 0; max-width: 980px; padding: 0 var(--edge-x); display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* ============================================================
+   CTA + FOOTER
+   ============================================================ */
+.cta { position: relative; min-height: 88svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.cta__bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.85; }
+.cta__body { position: relative; z-index: 2; padding: 40px var(--edge-x); background: radial-gradient(ellipse 60% 70% at center, rgba(0,0,0,0.72), rgba(0,0,0,0) 70%); }
+.cta__body p { font-size: var(--fs-title); line-height: 1.9; text-shadow: 0 0 10px var(--bg-void), 0 0 10px var(--bg-void); }
+.cta__body .btn-primary { margin-top: 32px; }
+.cta__meta { margin-top: 22px; color: var(--text-secondary); font-size: var(--fs-small); }
+.footer { position: relative; z-index: 2; background: var(--bg-void); padding: 44px var(--edge-x) 30px; display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.footer__brand { max-width: 460px; }
+.footer__brand p { margin-top: 16px; color: var(--text-secondary); font-size: var(--fs-small); line-height: 1.9; }
+.footer__cols { display: flex; gap: clamp(40px, 8vw, 110px); }
+.footer__col h4 { font-size: var(--fs-small); font-weight: 500; margin-bottom: 16px; }
+.footer__col a, .footer__col span { display: block; color: var(--text-secondary); font-size: var(--fs-small); line-height: 2.4; }
+.footer__col a:hover { color: var(--text-primary); }
+
+/* ============================================================
+   REVEAL（非粘滞区块用）
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(8px); transition: opacity var(--t-enter) var(--ease-enter) calc(var(--i, 0) * 0.06s), transform var(--t-enter) var(--ease-enter) calc(var(--i, 0) * 0.06s); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ============================================================
+   REDUCED MOTION — 渐变交互降级为静态终态
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scene { height: auto; }
+  .scene__pin { position: static; height: auto; min-height: 100svh; padding: 90px 0 60px; }
+  .sp-fade-in, .sp-fade-in-2, .sp-fade-in-3, .sp-fade-out,
+  .hero__title, .hero__note, .hero__claim, .hero__moon, .dna__moon, .motion__rain {
+    opacity: 1 !important; transform: none !important;
+  }
+  .scroll-hint__chev, .ray-flow { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .philo { grid-template-columns: 1fr; }
+  .tokens, .kit { grid-template-columns: 1fr; }
+  .dna { flex-direction: column; }
+}
+@media (max-width: 768px) {
+  .header__nav { display: none; }
+  .header__menu-btn { display: block; }
+  .hero__title { top: 90px; }
+  .hero__note { position: static; margin: 24px var(--edge-x) 0; max-width: none; }
+  .hero__claim { position: static; text-align: left; margin: 26px var(--edge-x) 0; }
+  .scene__pin { justify-content: flex-start; padding-top: 80px; }
+  .swatches { grid-template-columns: repeat(2, 1fr); }
+  .footer { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="header__logo" href="#top" aria-label="Moonshot Pixel Odyssey">
+    <svg viewBox="0 0 28 28" aria-hidden="true">
+      <rect x="2" y="2" width="24" height="24" fill="#fff"/>
+      <circle cx="14" cy="14" r="8" fill="#000"/>
+      <circle cx="17" cy="11" r="3.2" fill="#fff"/>
+    </svg>
+    <span>Pixel Odyssey</span>
+  </a>
+  <nav class="header__nav" aria-label="主导航">
+    <a href="#philosophy">哲学</a>
+    <a href="#dna">DNA</a>
+    <a href="#tokens">Token</a>
+    <a href="#components">组件</a>
+    <a href="#motion">动效</a>
+    <a href="#doc">文档</a>
+  </nav>
+  <button class="header__menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer">MENU</button>
+</header>
+<nav class="header__drawer" id="drawer" aria-label="移动导航">
+  <a href="#philosophy">哲学</a>
+  <a href="#dna">DNA</a>
+  <a href="#tokens">Token</a>
+  <a href="#components">组件</a>
+  <a href="#motion">动效</a>
+  <a href="#doc">文档</a>
+</nav>
+
+<main id="top">
+  <!-- ============ HERO ============ -->
+  <section class="scene" id="hero" aria-label="风格开场">
+    <div class="scene__pin">
+      <canvas class="hero__bg" id="heroBg" aria-hidden="true"></canvas>
+      <canvas class="hero__moon" id="heroMoon" aria-hidden="true"></canvas>
+      <div class="hero__title">
+        <h1>Moonshot<br>Pixel Odyssey</h1>
+        <p class="hero__sub">1-bit 抖动点阵 × 像素等宽字 × 纯黑深空终端</p>
+      </div>
+      <div class="hero__note">
+        <h3>STYLE PROMPT</h3>
+        <p>本页是同名设计文档的交互式落地页：<br>moonshot-pixel-odyssey.md</p>
+      </div>
+      <div class="hero__claim">
+        <div class="join">Design DNA</div>
+        <div class="build">Read the<br>full prompt</div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-hint__chev" viewBox="0 0 18 12" fill="none" stroke="#7a7a7a" stroke-width="1.5">
+          <path d="M1 1l8 4 8-4"/><path d="M1 7l8 4 8-4"/>
+        </svg>
+        <span>滑动开启探索</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHILOSOPHY ============ -->
+  <section class="scene" id="philosophy">
+    <div class="scene__pin">
+      <div class="scene__label sp-fade-in"><span class="chev">‹</span>设计哲学<span class="chev">›</span></div>
+      <div class="philo">
+        <div class="philo__item sp-fade-in">
+          <h3>明度即色彩</h3>
+          <p>拒绝一切彩色。层级完全由白—灰—黑的明度差与点阵密度表达；品牌色 token 存在但永不登场。</p>
+        </div>
+        <div class="philo__item sp-fade-in-2">
+          <h3>一屏一事</h3>
+          <p>每个场景只承担一个论点，靠滚动的垂直节奏推进叙事，而非视觉轰炸与密集排版。</p>
+        </div>
+        <div class="philo__item sp-fade-in-3">
+          <h3>点阵即影像</h3>
+          <p>所有图像先经 1-bit 有序抖动再呈现，像素格肉眼可见；影像亮度越低，点越稀疏，自然融进黑底。</p>
+        </div>
+      </div>
+      <p class="philo__not sp-fade-in-3">此设计不是霓虹赛博朋克，不是圆角拟物，也不是暗色 SaaS——留下的只有点阵、直线与字节。</p>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-hint__chev" viewBox="0 0 18 12" fill="none" stroke="#7a7a7a" stroke-width="1.5">
+          <path d="M1 1l8 4 8-4"/><path d="M1 7l8 4 8-4"/>
+        </svg>
+        <span>继续了解</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DNA ============ -->
+  <section class="scene scene--tall" id="dna">
+    <div class="scene__pin">
+      <div class="scene__label sp-fade-in"><span class="chev">‹</span>风格 DNA<span class="chev">›</span></div>
+      <div class="dna">
+        <div class="dna__list sp-fade-in-2">
+          <div class="dna__row"><span class="dna__idx">01</span><div><h3>1-bit 抖动点阵影像</h3><p>Bayer 4×4 有序抖动把连续灰阶转为黑白点阵，是全站唯一的影像语言。</p></div></div>
+          <div class="dna__row"><span class="dna__idx">02</span><div><h3>像素等宽字统一</h3><p>Fusion Pixel 一款字打天下，中英文同气质；层级靠字号与明度，不靠字族。</p></div></div>
+          <div class="dna__row"><span class="dna__idx">03</span><div><h3>零圆角 · 零阴影</h3><p>直角 + 1px 白描边的硬约束；深度只由点阵密度与明度差表达。</p></div></div>
+          <div class="dna__row"><span class="dna__idx">04</span><div><h3>终端斜切按钮</h3><p>切角轮廓 + 字符箭头包裹文字，hover 反白，是唯一的图形化按钮语言。</p></div></div>
+          <div class="dna__row"><span class="dna__idx">05</span><div><h3>天体相位叙事</h3><p>月球以不同相位贯穿场景，把滚动进度隐喻进图形本身。</p></div></div>
+          <div class="dna__row"><span class="dna__idx">06</span><div><h3>弧形环绕文字</h3><p>中文沿月球边缘排布成印章式构图，字即图形。</p></div></div>
+        </div>
+        <div class="dna__moon sp-fade-in-3">
+          <canvas id="dnaMoon" aria-hidden="true"></canvas>
+          <svg class="dna__arc" viewBox="0 0 560 420" aria-hidden="true">
+            <defs><path id="arcPath" d="M 80 300 A 210 130 0 0 1 480 300" fill="none"/></defs>
+            <text><textPath href="#arcPath" startOffset="50%" text-anchor="middle">明度即色彩 · 点阵即影像 · 一屏一事</textPath></text>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-hint__chev" viewBox="0 0 18 12" fill="none" stroke="#7a7a7a" stroke-width="1.5">
+          <path d="M1 1l8 4 8-4"/><path d="M1 7l8 4 8-4"/>
+        </svg>
+        <span>继续了解</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TOKENS ============ -->
+  <section class="scene scene--tall" id="tokens">
+    <div class="scene__pin">
+      <div class="scene__label sp-fade-in"><span class="chev">‹</span>设计 Token<span class="chev">›</span></div>
+      <div class="tokens">
+        <div class="panel sp-fade-in-2">
+          <h3>COLOR / 单色体系</h3>
+          <div class="swatches">
+            <div class="swatch"><div class="swatch__chip" style="background:#000000"></div><div class="swatch__meta"><b>bg-void</b>#000000</div></div>
+            <div class="swatch"><div class="swatch__chip" style="background:#ffffff"></div><div class="swatch__meta"><b>text-primary</b>#FFFFFF</div></div>
+            <div class="swatch"><div class="swatch__chip" style="background:#7a7a7a"></div><div class="swatch__meta"><b>text-secondary</b>#7A7A7A</div></div>
+            <div class="swatch"><div class="swatch__chip" style="background:rgba(255,255,255,0.3)"></div><div class="swatch__meta"><b>text-dim</b>#FFFFFF4D</div></div>
+            <div class="swatch"><div class="swatch__chip" style="background:rgba(255,255,255,0.15)"></div><div class="swatch__meta"><b>hairline</b>#FFFFFF26</div></div>
+            <div class="swatch"><div class="swatch__chip" style="background:#fff;border-bottom:14px solid #000"></div><div class="swatch__meta"><b>inverse</b>#FFF / #000</div></div>
+          </div>
+        </div>
+        <div class="panel sp-fade-in-3">
+          <h3>TYPE / 像素字阶</h3>
+          <div class="type-row"><span class="spec">64px</span><span style="font-size:40px;line-height:1">Aa 月</span></div>
+          <div class="type-row"><span class="spec">40px</span><span style="font-size:28px;line-height:1">Aa 月</span></div>
+          <div class="type-row"><span class="spec">30px</span><span style="font-size:22px;line-height:1">Aa 月</span></div>
+          <div class="type-row"><span class="spec">20px</span><span style="font-size:17px;line-height:1">Aa 月</span></div>
+          <div class="type-row"><span class="spec">16px</span><span style="font-size:14px;line-height:1">Aa 月</span></div>
+          <div class="type-row"><span class="spec">12px</span><span style="font-size:11px;line-height:1">Aa 月</span></div>
+        </div>
+        <div class="panel sp-fade-in-2" style="grid-column: 1 / -1;">
+          <h3>SURFACE / 表面与间距</h3>
+          <ul class="surface-list">
+            <li><b>圆角</b>：0 —— 全站直角，像素美学的硬约束</li>
+            <li><b>边框</b>：1px solid，#FFFFFF（强调）与 #FFFFFF26（弱框）两档</li>
+            <li><b>阴影</b>：无 —— 深度只由点阵密度与明度差表达</li>
+            <li><b>间距</b>：4px 像素网格对齐，阶梯 4 / 8 / 12 / 16 / 20 / 40 / 80</li>
+            <li><b>纹理</b>：Bayer 4×4 抖动点阵、网点密度渐变、胶片齿孔、虚线像素路径</li>
+          </ul>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-hint__chev" viewBox="0 0 18 12" fill="none" stroke="#7a7a7a" stroke-width="1.5">
+          <path d="M1 1l8 4 8-4"/><path d="M1 7l8 4 8-4"/>
+        </svg>
+        <span>继续了解</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTS ============ -->
+  <section class="scene scene--tall" id="components">
+    <div class="scene__pin">
+      <div class="scene__label sp-fade-in"><span class="chev">‹</span>组件样式<span class="chev">›</span></div>
+      <div class="kit">
+        <div class="panel sp-fade-in-2">
+          <h3>BUTTONS / 按钮体系</h3>
+          <div class="panel__row">
+            <button class="btn-primary">开始探索 &gt;</button>
+            <button class="btn-terminal">&lt;&lt;&lt; 终端按钮</button>
+            <button class="btn-ghost">描边按钮</button>
+            <button class="btn-terminal" disabled>禁用态</button>
+          </div>
+        </div>
+        <div class="panel sp-fade-in-3">
+          <h3>INPUT &amp; BADGE / 输入与徽章</h3>
+          <div class="field">
+            <span class="field__prefix">&gt;</span>
+            <input type="text" placeholder="输入关键词，例如 dither / pixel / mono">
+          </div>
+          <div class="panel__row" style="margin-top: 18px;">
+            <span class="badge">1-bit</span>
+            <span class="badge badge--solid">DNA</span>
+            <span class="badge badge--dash">MONO</span>
+            <span class="badge">4px GRID</span>
+          </div>
+        </div>
+        <div class="panel sp-fade-in-2">
+          <h3>CARDS / 卡片</h3>
+          <div class="panel__row" style="align-items: stretch;">
+            <div class="card" style="flex:1; min-width: 170px;">
+              <h4>直角边框卡</h4>
+              <p>悬停时边框亮起并轻微上移 2px。</p>
+            </div>
+            <div class="card card--inverse" style="flex:1; min-width: 170px;">
+              <h4>反白强调卡</h4>
+              <p>用于关键动作的强调呈现。</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel sp-fade-in-3">
+          <h3>STATS / 数据列</h3>
+          <div class="panel__row" style="align-items: stretch;">
+            <div class="stat">
+              <div class="stat__num">64</div>
+              <h5>Hero 标题</h5>
+              <p>顶部细线 + 巨型数字 + 灰色描述三段结构。</p>
+            </div>
+            <div class="stat">
+              <div class="stat__num">12</div>
+              <h5>页脚与徽章</h5>
+              <p>悬停时顶部线条由 15% 白提亮为纯白。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-hint__chev" viewBox="0 0 18 12" fill="none" stroke="#7a7a7a" stroke-width="1.5">
+          <path d="M1 1l8 4 8-4"/><path d="M1 7l8 4 8-4"/>
+        </svg>
+        <span>继续了解</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MOTION ============ -->
+  <section class="scene scene--tall" id="motion">
+    <div class="scene__pin">
+      <canvas class="motion__rain" id="codeRain" aria-hidden="true"></canvas>
+      <div class="scene__label sp-fade-in"><span class="chev">‹</span>效果与动画<span class="chev">›</span></div>
+      <div class="flowmap sp-fade-in-2">
+        <svg viewBox="0 0 980 300" role="img" aria-label="风格沉淀四步流程">
+          <path class="ray-flow" d="M 180 220 C 320 220 340 80 490 80 C 640 80 660 220 800 220"
+                fill="none" stroke="#ffffff40" stroke-width="1.5" stroke-dasharray="6 8"/>
+          <g class="node" tabindex="0">
+            <circle class="node-glow" cx="180" cy="220" r="54" fill="none" stroke="#fff" stroke-width="1" opacity="0"/>
+            <circle cx="180" cy="220" r="44" fill="#000" stroke="#fff" stroke-width="1"/>
+            <g transform="translate(152 192)"><rect x="12" y="8" width="32" height="22" fill="none" stroke="#fff"/><rect x="20" y="32" width="16" height="3" fill="#fff"/><rect x="16" y="38" width="24" height="3" fill="#fff"/></g>
+            <rect class="node-badge" x="210" y="178" width="24" height="24" fill="#fff"/>
+            <text x="222" y="195" text-anchor="middle" font-size="13" fill="#000">1</text>
+          </g>
+          <g class="node" tabindex="0">
+            <circle class="node-glow" cx="490" cy="80" r="54" fill="none" stroke="#fff" stroke-width="1" opacity="0"/>
+            <circle cx="490" cy="80" r="44" fill="#000" stroke="#fff" stroke-width="1"/>
+            <g transform="translate(462 52)"><rect x="14" y="6" width="28" height="36" fill="none" stroke="#fff"/><rect x="19" y="13" width="18" height="3" fill="#fff"/><rect x="19" y="19" width="18" height="3" fill="#fff"/><rect x="19" y="25" width="12" height="3" fill="#fff"/></g>
+            <rect class="node-badge" x="520" y="38" width="24" height="24" fill="#fff"/>
+            <text x="532" y="55" text-anchor="middle" font-size="13" fill="#000">2</text>
+          </g>
+          <g class="node" tabindex="0">
+            <circle class="node-glow" cx="800" cy="220" r="54" fill="none" stroke="#fff" stroke-width="1" opacity="0"/>
+            <circle cx="800" cy="220" r="44" fill="#000" stroke="#fff" stroke-width="1"/>
+            <g transform="translate(772 192)"><rect x="10" y="10" width="36" height="26" fill="none" stroke="#fff"/><rect x="16" y="16" width="10" height="10" fill="#fff"/><rect x="30" y="20" width="10" height="10" fill="#fff"/></g>
+            <rect class="node-badge" x="830" y="178" width="24" height="24" fill="#fff"/>
+            <text x="842" y="195" text-anchor="middle" font-size="13" fill="#000">3</text>
+          </g>
+          <g class="node" tabindex="0">
+            <circle class="node-glow" cx="490" cy="220" r="54" fill="none" stroke="#fff" stroke-width="1" opacity="0"/>
+            <circle cx="490" cy="220" r="44" fill="#000" stroke="#fff" stroke-width="1"/>
+            <g transform="translate(462 192)"><circle cx="28" cy="28" r="18" fill="none" stroke="#fff"/><rect x="20" y="18" width="7" height="5" fill="#fff"/><rect x="32" y="26" width="8" height="6" fill="#fff"/></g>
+            <rect class="node-badge" x="520" y="178" width="24" height="24" fill="#fff"/>
+            <text x="532" y="195" text-anchor="middle" font-size="13" fill="#000">4</text>
+          </g>
+        </svg>
+        <p class="flowmap__caption">抓取 → 归纳 → 组件 → 验证：风格文档的沉淀流程，悬停节点查看光线动效</p>
+      </div>
+      <div class="motion__tokens sp-fade-in-3">
+        <span class="badge">标准 0.2s cubic-bezier(.4,0,.2,1)</span>
+        <span class="badge">入场 0.3s cubic-bezier(0,0,.2,1)</span>
+        <span class="badge">错峰 0.06s 阶梯</span>
+        <span class="badge">位移 ≤ 2px</span>
+        <span class="badge badge--dash">prefers-reduced-motion 降级</span>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-hint__chev" viewBox="0 0 18 12" fill="none" stroke="#7a7a7a" stroke-width="1.5">
+          <path d="M1 1l8 4 8-4"/><path d="M1 7l8 4 8-4"/>
+        </svg>
+        <span>继续了解</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="doc">
+    <canvas class="cta__bg" id="ctaBg" aria-hidden="true"></canvas>
+    <div class="cta__body reveal">
+      <p>把这套 DNA 交给下一个页面<br>让 1-bit 的点阵继续折射光</p>
+      <a class="btn-primary" href="./Moonshot-Pixel-Odyssey.md">阅读 Moonshot-Pixel-Odyssey.md &gt;</a>
+      <div class="cta__meta">风格ID moonshot-pixel-odyssey · 模式 Dark · 字体 Fusion Pixel 12px Mono</div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__brand">
+    <div class="header__logo">
+      <svg viewBox="0 0 28 28" aria-hidden="true">
+        <rect x="2" y="2" width="24" height="24" fill="#fff"/>
+        <circle cx="14" cy="14" r="8" fill="#000"/>
+        <circle cx="17" cy="11" r="3.2" fill="#fff"/>
+      </svg>
+      <span>Pixel Odyssey</span>
+    </div>
+    <p>单文件 · 零构建 · :root Token 优先<br>滚动驱动的渐变场景叙事 · 明度即色彩</p>
+  </div>
+  <div class="footer__cols">
+    <div class="footer__col">
+      <h4>文档章节</h4>
+      <a href="#philosophy">设计哲学</a>
+      <a href="#dna">风格 DNA</a>
+      <a href="#tokens">设计 Token</a>
+    </div>
+    <div class="footer__col">
+      <h4>实现</h4>
+      <a href="#components">组件样式</a>
+      <a href="#motion">效果与动画</a>
+      <span>响应式 1024 / 768</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   BAYER DITHER ENGINE — 1-bit 点阵影像程序化生成
+   ============================================================ */
+const BAYER4 = [
+  [0, 8, 2, 10],
+  [12, 4, 14, 6],
+  [3, 11, 1, 9],
+  [15, 7, 13, 5],
+];
+
+function ditherTo(canvas, painter, scale = 3) {
+  const w = Math.max(80, Math.round(canvas.clientWidth / scale));
+  const h = Math.max(60, Math.round(canvas.clientHeight / scale));
+  const off = document.createElement("canvas");
+  off.width = w; off.height = h;
+  const octx = off.getContext("2d");
+  painter(octx, w, h);
+  const img = octx.getImageData(0, 0, w, h);
+  const d = img.data;
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+      const threshold = (BAYER4[y & 3][x & 3] + 0.5) * 16;
+      const v = lum > threshold ? 255 : 0;
+      d[i] = d[i + 1] = d[i + 2] = v;
+      d[i + 3] = 255;
+    }
+  }
+  canvas.width = w; canvas.height = h;
+  canvas.getContext("2d").putImageData(img, 0, 0);
+}
+
+function seededRandom(seed) {
+  let s = seed >>> 0;
+  return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+}
+
+function paintEclipse(ctx, w, h) {
+  const rand = seededRandom(20231001);
+  ctx.fillStyle = "#141414"; ctx.fillRect(0, 0, w, h);
+  for (let i = 0; i < w * h / 260; i++) {
+    const v = 90 + rand() * 120;
+    ctx.fillStyle = `rgb(${v},${v},${v})`;
+    ctx.fillRect(rand() * w, rand() * h * 0.75, 1, 1);
+  }
+  for (const cx of [w * 0.12, w * 0.88]) {
+    const g = ctx.createLinearGradient(cx - w * 0.05, 0, cx + w * 0.05, 0);
+    g.addColorStop(0, "rgba(255,255,255,0)"); g.addColorStop(0.5, "rgba(255,255,255,0.28)"); g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g; ctx.fillRect(cx - w * 0.05, h * 0.12, w * 0.1, h * 0.7);
+  }
+  const cx = w * 0.5, cy = h * 0.48, r = Math.min(w, h) * 0.34;
+  const halo = ctx.createRadialGradient(cx, cy, r * 0.9, cx, cy, r * 1.35);
+  halo.addColorStop(0, "rgba(255,255,255,0.30)"); halo.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = halo; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = "#000"; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI * 0.72, -Math.PI * 0.28); ctx.stroke();
+  const mr = Math.min(w, h) * 0.075;
+  const mg = ctx.createRadialGradient(cx - mr * 0.35, cy - mr * 0.35, mr * 0.15, cx, cy, mr);
+  mg.addColorStop(0, "#ffffff"); mg.addColorStop(0.6, "#bdbdbd"); mg.addColorStop(1, "#4a4a4a");
+  ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(cx, cy, mr, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "#0a0a0a";
+  ctx.beginPath(); ctx.moveTo(0, h); ctx.lineTo(0, h * 0.82); ctx.lineTo(w * 0.18, h * 0.72);
+  ctx.lineTo(w * 0.36, h * 0.86); ctx.lineTo(w * 0.6, h * 0.8); ctx.lineTo(w * 0.82, h * 0.9);
+  ctx.lineTo(w, h * 0.78); ctx.lineTo(w, h); ctx.fill();
+}
+
+function paintMoonEllipse(ctx, w, h) {
+  const rand = seededRandom(777001);
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, w, h);
+  for (let i = 0; i < w * h / 420; i++) {
+    const v = 50 + rand() * 90;
+    ctx.fillStyle = `rgb(${v},${v},${v})`;
+    ctx.fillRect(rand() * w, rand() * h, 1, 1);
+  }
+  ctx.save(); ctx.translate(w / 2, h / 2); ctx.rotate(-0.45);
+  const rx = w * 0.34, ry = h * 0.22;
+  const g = ctx.createRadialGradient(-rx * 0.35, -ry * 0.4, rx * 0.1, 0, 0, rx);
+  g.addColorStop(0, "#e6e6e6"); g.addColorStop(0.5, "#8c8c8c"); g.addColorStop(1, "#3a3a3a");
+  ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
+  for (let i = 0; i < 16; i++) {
+    const a = rand() * Math.PI * 2, dd = Math.sqrt(rand()) * rx * 0.8;
+    ctx.fillStyle = `rgba(${45 + rand() * 60},${45 + rand() * 60},${45 + rand() * 60},0.55)`;
+    ctx.beginPath();
+    ctx.ellipse(Math.cos(a) * dd, Math.sin(a) * dd * (ry / rx), rx * (0.05 + rand() * 0.12), ry * (0.05 + rand() * 0.12), 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function paintMountains(ctx, w, h) {
+  const rand = seededRandom(555123);
+  const sky = ctx.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, "#060606"); sky.addColorStop(0.55, "#171717"); sky.addColorStop(1, "#070707");
+  ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
+  for (let i = 0; i < w * h / 500; i++) {
+    const v = 20 + rand() * 40;
+    ctx.fillStyle = `rgb(${v},${v},${v})`;
+    ctx.fillRect(rand() * w, rand() * h * 0.5, 1, 1);
+  }
+  for (let i = 0; i < 200; i++) {
+    const x = rand() * w, y = h * (0.42 + rand() * 0.3);
+    const v = 30 + rand() * 70;
+    ctx.fillStyle = `rgba(${v},${v},${v},0.14)`;
+    ctx.beginPath(); ctx.ellipse(x, y, w * (0.05 + rand() * 0.12), h * (0.015 + rand() * 0.04), 0, 0, Math.PI * 2); ctx.fill();
+  }
+  for (const [base, dark, alpha] of [[0.72, 10, 0.9], [0.82, 6, 0.95], [0.92, 2, 1]]) {
+    ctx.fillStyle = `rgba(${dark},${dark},${dark},${alpha})`;
+    ctx.beginPath(); ctx.moveTo(0, h);
+    let y = h * base;
+    for (let x = 0; x <= w; x += w / 24) {
+      y = h * base + Math.sin(x * 0.013 + base * 40) * h * 0.06 + (rand() - 0.5) * h * 0.045;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(w, h); ctx.fill();
+  }
+}
+
+/* ---- 代码雨 ---- */
+const GLYPHS = "01<>[]{}/\\|=+-*$#@%&_ABCDEF0123456789";
+let rainState = null;
+function resizeCodeRain(canvas) {
+  const w = Math.round(canvas.clientWidth / 4);
+  const h = Math.round(canvas.clientHeight / 4);
+  canvas.width = w; canvas.height = h;
+  rainState = { w, h, drops: Array.from({ length: Math.ceil(w / 6) }, () => Math.random() * h) };
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, w, h);
+}
+function stepCodeRain(canvas) {
+  if (!rainState) return;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "rgba(0,0,0,0.14)"; ctx.fillRect(0, 0, rainState.w, rainState.h);
+  ctx.fillStyle = "rgba(255,255,255,0.34)";
+  for (let i = 0; i < rainState.drops.length; i++) {
+    ctx.fillText(GLYPHS[(Math.random() * GLYPHS.length) | 0], i * 6, rainState.drops[i] * 6);
+    if (rainState.drops[i] * 6 > rainState.h && Math.random() > 0.975) rainState.drops[i] = 0;
+    rainState.drops[i] += 0.45;
+  }
+}
+
+/* ============================================================
+   SCROLL ENGINE — 把滚动进度写入每个场景的 --p（渐变交互核心）
+   ============================================================ */
+const sceneEls = Array.from(document.querySelectorAll(".scene"));
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function updateScrollProgress() {
+  const vh = window.innerHeight || 1;
+  for (const s of sceneEls) {
+    const rect = s.getBoundingClientRect();
+    const total = s.offsetHeight - vh;
+    const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    s.style.setProperty("--p", p.toFixed(4));
+  }
+}
+let scrollTicking = false;
+window.addEventListener("scroll", () => {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(() => { updateScrollProgress(); scrollTicking = false; });
+}, { passive: true });
+
+/* ============================================================
+   BOOTSTRAP
+   ============================================================ */
+const scenes = [
+  ["heroBg", paintEclipse, 4],
+  ["heroMoon", paintEclipse, 5],
+  ["dnaMoon", paintMoonEllipse, 2],
+  ["ctaBg", paintMountains, 4],
+];
+function renderScenes() {
+  for (const [id, painter, scale] of scenes) {
+    const el = document.getElementById(id);
+    if (el) ditherTo(el, painter, scale);
+  }
+  const rain = document.getElementById("codeRain");
+  if (rain) resizeCodeRain(rain);
+}
+
+const io = new IntersectionObserver((entries) => {
+  for (const e of entries) if (e.isIntersecting) e.target.classList.add("is-in");
+}, { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+const menuBtn = document.getElementById("menuBtn");
+const drawer = document.getElementById("drawer");
+menuBtn.addEventListener("click", () => {
+  const open = drawer.classList.toggle("is-open");
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.textContent = open ? "CLOSE" : "MENU";
+});
+drawer.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+  drawer.classList.remove("is-open");
+  menuBtn.setAttribute("aria-expanded", "false");
+  menuBtn.textContent = "MENU";
+}));
+
+let rainTimer = null;
+function startRain() {
+  const canvas = document.getElementById("codeRain");
+  if (!canvas || reduceMotion) return;
+  stopRain();
+  rainTimer = setInterval(() => stepCodeRain(canvas), 90);
+}
+function stopRain() { if (rainTimer) { clearInterval(rainTimer); rainTimer = null; } }
+
+renderScenes();
+updateScrollProgress();
+startRain();
+if (reduceMotion) {
+  const c = document.getElementById("codeRain");
+  if (c) stepCodeRain(c);
+}
+let rsTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(rsTimer);
+  rsTimer = setTimeout(() => { stopRain(); renderScenes(); updateScrollProgress(); startRain(); }, 250);
+});
+</script>
+</body>
+</html>

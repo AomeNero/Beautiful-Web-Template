@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seline Dashboard - 组件库</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       Design Tokens
+       ======================================== */
+    :root {
+      /* Colors */
+      --background: #FFFFFF;
+      --card: #FFFFFF;
+      --foreground: #0C0A09;
+      --text-secondary: #78726D;
+      --text-muted: #A8A29E;
+      --primary: #3BA6F1;
+      --primary-hover: #2D8BD4;
+      --primary-foreground: #F8FAFC;
+      --border: #E5E7EB;
+      --input: #D6D3D1;
+      --muted: #F5F5F4;
+      --muted-hover: #E7E5E4;
+
+      /* Typography */
+      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      /* Borders */
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.05);
+      --shadow-focus: 0 0 0 2px rgba(59, 166, 241, 0.7);
+
+      /* Transitions */
+      --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Layout */
+      --sidebar-width: 240px;
+    }
+
+    /* ========================================
+       Base Styles
+       ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========================================
+       Layout
+       ======================================== */
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ========================================
+       Sidebar
+       ======================================== */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--background);
+      border-right: 1px solid var(--border);
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar__logo {
+      width: 24px;
+      height: 24px;
+    }
+
+    .sidebar__title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .sidebar__trial {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .sidebar__project {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--muted);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-4);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .sidebar__time {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-4);
+      padding: 0 var(--space-3);
+    }
+
+    .sidebar__time-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      flex: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition-fast);
+    }
+
+    .nav-item:hover {
+      background: var(--muted);
+      color: var(--foreground);
+    }
+
+    .nav-item--active {
+      background: var(--muted);
+      color: var(--foreground);
+    }
+
+    .nav-item--active .nav-item__icon {
+      color: var(--primary);
+    }
+
+    .nav-item__icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .nav-item__label {
+      flex: 1;
+    }
+
+    .nav-item__shortcut {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .sidebar__footer {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .sidebar__footer .nav-item {
+      font-size: 13px;
+    }
+
+    /* ========================================
+       Main Content
+       ======================================== */
+    .main {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: var(--space-6);
+      max-width: 1400px;
+    }
+
+    /* ========================================
+       Top Toolbar
+       ======================================== */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-6);
+    }
+
+    .toolbar__title {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.6px;
+      margin-bottom: var(--space-1);
+    }
+
+    .toolbar__subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .toolbar__actions {
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+    }
+
+    .toolbar__btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--foreground);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .toolbar__btn:hover {
+      background: var(--muted);
+    }
+
+    .toolbar__btn--live {
+      position: relative;
+    }
+
+    .toolbar__btn--live::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      50% { opacity: 0.5; }
+    }
+
+    /* ========================================
+       Cards
+       ======================================== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+
+    .card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .card__title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .card__subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* ========================================
+       Empty State
+       ======================================== */
+    .empty-state {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      padding: var(--space-8);
+    }
+
+    .empty-state__content {
+      flex: 1;
+    }
+
+    .empty-state__title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: var(--space-3);
+    }
+
+    .empty-state__text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-5);
+      line-height: 1.6;
+    }
+
+    .empty-state__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .empty-state__illustration {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+    }
+
+    /* ========================================
+       Buttons
+       ======================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border: none;
+      height: 38px;
+    }
+
+    .btn--primary {
+      background: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    .btn--primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn--secondary {
+      background: var(--card);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .btn--secondary:hover {
+      background: var(--muted);
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========================================
+       Stats Grid
+       ======================================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+    }
+
+    .stat-card__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .stat-card__icon {
+      width: 18px;
+      height: 18px;
+      color: var(--text-secondary);
+    }
+
+    .stat-card__label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .stat-card__value {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card__change {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .stat-card__change svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ========================================
+       Chart Card
+       ======================================== */
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+
+    .chart-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .chart-card__title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .chart-card__value {
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .chart-card__change {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-left: var(--space-2);
+    }
+
+    .chart-area {
+      height: 200px;
+      background: linear-gradient(to bottom, transparent 0%, var(--muted) 100%);
+      border-radius: var(--radius-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-x-axis {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-3);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ========================================
+       Tabs
+       ======================================== */
+    .tabs {
+      display: inline-flex;
+      background: var(--muted);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .tab {
+      padding: var(--space-1) var(--space-3);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border: none;
+      background: transparent;
+      font-family: var(--font-body);
+    }
+
+    .tab:hover {
+      color: var(--foreground);
+    }
+
+    .tab--active {
+      background: var(--card);
+      color: var(--foreground);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ========================================
+       Table
+       ======================================== */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: var(--space-3) var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .table th {
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .table tr:hover td {
+      background: var(--muted);
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ========================================
+       Pagination
+       ======================================== */
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .pagination__btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .pagination__btn:hover {
+      background: var(--muted);
+    }
+
+    .pagination__btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ========================================
+       AI Assistant
+       ======================================== */
+    .ai-assistant {
+      position: fixed;
+      bottom: var(--space-6);
+      left: calc(var(--sidebar-width) + var(--space-6));
+      right: var(--space-6);
+      max-width: 600px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-3);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .ai-assistant__icon {
+      width: 20px;
+      height: 20px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .ai-assistant__input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: var(--font-body);
+      color: var(--foreground);
+    }
+
+    .ai-assistant__input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .ai-assistant__btn {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .ai-assistant__btn:hover {
+      background: var(--primary-hover);
+    }
+
+    /* ========================================
+       Responsive
+       ======================================== */
+    @media (max-width: 1024px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar--open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .empty-state {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .ai-assistant {
+        left: var(--space-4);
+        right: var(--space-4);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      @keyframes pulse {
+        50% { opacity: 1; }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <svg class="sidebar__logo" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        <span class="sidebar__title">Seline</span>
+        <span class="sidebar__trial">Free trial</span>
+      </div>
+
+      <div class="sidebar__project">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        aomenero.com
+      </div>
+
+      <div class="sidebar__time">
+        <span>TIME</span>
+        <span class="sidebar__time-value">07:22 AM</span>
+      </div>
+
+      <nav class="sidebar__nav">
+        <a href="#" class="nav-item nav-item--active">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <span class="nav-item__label">Dashboard</span>
+          <span class="nav-item__shortcut">D</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span class="nav-item__label">Visitors</span>
+          <span class="nav-item__shortcut">V</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span class="nav-item__label">Funnels</span>
+          <span class="nav-item__shortcut">F</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span class="nav-item__label">Settings</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <span class="nav-item__label">Installation</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span class="nav-item__label">Docs</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="nav-item__label">Give feedback</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          <span class="nav-item__label">Live chat</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span class="nav-item__label">Sign out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div>
+          <h1 class="toolbar__title">Dashboard</h1>
+          <p class="toolbar__subtitle">aomenero.com</p>
+        </div>
+        <div class="toolbar__actions">
+          <button class="toolbar__btn toolbar__btn--live">Live</button>
+          <button class="toolbar__btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" y1="21" x2="4" y2="14"/>
+              <line x1="4" y1="10" x2="4" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12" y2="3"/>
+              <line x1="20" y1="21" x2="20" y2="16"/>
+              <line x1="20" y1="12" x2="20" y2="3"/>
+              <line x1="1" y1="14" x2="7" y2="14"/>
+              <line x1="9" y1="8" x2="15" y2="8"/>
+              <line x1="17" y1="16" x2="23" y2="16"/>
+            </svg>
+            Filter
+          </button>
+          <button class="toolbar__btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Last 30 days
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State Card -->
+      <div class="card">
+        <div class="empty-state">
+          <div class="empty-state__content">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--text-secondary); font-size: 14px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 2s linear infinite;">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+              </svg>
+              waiting for data
+            </div>
+            <h2 class="empty-state__title">Add our script to your website to bring your dashboard to life.</h2>
+            <p class="empty-state__text">Works with all popular tools and frameworks such as Framer, Webflow, Next.js, Vue.js, Shopify and WordPress.</p>
+            <div class="empty-state__actions">
+              <button class="btn btn--primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"/>
+                  <polyline points="8 6 2 12 8 18"/>
+                </svg>
+                Install Seline
+              </button>
+              <button class="btn btn--secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                Docs & Guides
+              </button>
+            </div>
+          </div>
+          <div class="empty-state__illustration">
+            <!-- Placeholder for illustration -->
+            <svg viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="80" r="40" fill="#F5F5F4"/>
+              <rect x="60" y="120" width="80" height="60" rx="8" fill="#E5E7EB"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <span class="stat-card__label">Total Visits</span>
+          </div>
+          <div class="stat-card__value">0</div>
+          <div class="stat-card__change">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            0%
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span class="stat-card__label">Views per Visit</span>
+          </div>
+          <div class="stat-card__value">0.00</div>
+          <div class="stat-card__change">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            0%
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="stat-card__label">Visit Duration</span>
+          </div>
+          <div class="stat-card__value">0s</div>
+          <div class="stat-card__change">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            0%
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span class="stat-card__label">Bounce Rate</span>
+          </div>
+          <div class="stat-card__value">0%</div>
+          <div class="stat-card__change">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            0%
+          </div>
+        </div>
+      </div>
+
+      <!-- Unique Visitors Chart -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div>
+            <div class="chart-card__title">Unique Visitors</div>
+            <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">0 online</div>
+          </div>
+          <div>
+            <span class="chart-card__value">0</span>
+            <span class="chart-card__change">↗ 0% vs previous 30 days</span>
+          </div>
+        </div>
+        <div class="chart-area"></div>
+        <div class="chart-x-axis">
+          <span>21.</span><span>23.</span><span>25.</span><span>27.</span><span>29.</span>
+          <span>01.</span><span>03.</span><span>05.</span><span>07.</span><span>09.</span>
+          <span>11.</span><span>13.</span><span>15.</span><span>17.</span><span>19.</span>
+        </div>
+      </div>
+
+      <!-- Page Views Chart -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div class="chart-card__title">Page Views</div>
+          <div>
+            <span class="chart-card__value">0</span>
+            <span class="chart-card__change">↗ 0% vs previous 30 days</span>
+          </div>
+        </div>
+        <div class="chart-area"></div>
+      </div>
+
+      <!-- Pages Table -->
+      <div class="card">
+        <div class="card__header">
+          <div>
+            <div class="card__title">Pages</div>
+            <div class="card__subtitle">0 unique pages</div>
+          </div>
+          <div class="tabs">
+            <button class="tab tab--active">Top</button>
+            <button class="tab">Entry</button>
+            <button class="tab">Exit</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Views</th>
+              <th>Visitors</th>
+              <th>Bounce Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 40px;">No data yet</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button class="pagination__btn" disabled>←</button>
+          <span>Page 1 of 1</span>
+          <button class="pagination__btn" disabled>→</button>
+        </div>
+      </div>
+
+      <!-- Sources Table -->
+      <div class="card">
+        <div class="card__header">
+          <div>
+            <div class="card__title">Sources</div>
+            <div class="card__subtitle">0 referrers</div>
+          </div>
+          <div class="tabs">
+            <button class="tab">Channels</button>
+            <button class="tab tab--active">Referrers</button>
+            <button class="tab">Keywords</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Visitors</th>
+              <th>Views</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3" style="text-align: center; color: var(--text-muted); padding: 40px;">No data yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Events -->
+      <div class="card">
+        <div class="card__header">
+          <div>
+            <div class="card__title">Events</div>
+            <div class="card__subtitle">0 custom events happened</div>
+          </div>
+        </div>
+        <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+          <p style="margin-bottom: 8px;">No custom events just yet.</p>
+          <p>Learn how to send them at our <a href="#" style="color: var(--primary); text-decoration: none;">documentation ↗</a></p>
+        </div>
+      </div>
+
+      <!-- Locations -->
+      <div class="card">
+        <div class="card__header">
+          <div>
+            <div class="card__title">Locations</div>
+            <div class="card__subtitle">0 countries</div>
+          </div>
+          <div class="tabs">
+            <button class="tab tab--active">Country</button>
+            <button class="tab">Region</button>
+            <button class="tab">City</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Visitors</th>
+              <th>Views</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3" style="text-align: center; color: var(--text-muted); padding: 40px;">No data yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- AI Assistant -->
+  <div class="ai-assistant">
+    <svg class="ai-assistant__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+      <path d="M2 12l10 5 10-5"/>
+    </svg>
+    <input type="text" class="ai-assistant__input" placeholder="Ask Seline...">
+    <button class="ai-assistant__btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="19" x2="12" y2="5"/>
+        <polyline points="5 12 12 5 19 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <style>
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</body>
+</html>

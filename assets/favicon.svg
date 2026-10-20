@@ -2,14 +2,10 @@
   <!-- 纸面底 -->
   <rect width="100" height="100" rx="22" fill="#F5F2EB"/>
   <rect x="0.75" y="0.75" width="98.5" height="98.5" rx="21.25" fill="none" stroke="#191713" stroke-opacity="0.14" stroke-width="1.5"/>
-  <!-- 入射光：理性的一笔 -->
-  <path d="M14 50 H46" stroke="#191713" stroke-width="3" stroke-linecap="round"/>
-  <!-- 棱镜 -->
-  <path d="M50 26 L74 50 L50 74 Z" fill="#191713"/>
-  <!-- 出射光谱：感性的三笔 -->
-  <path d="M72 46 L88 34" stroke="#4A54C9" stroke-width="4" stroke-linecap="round"/>
-  <path d="M74 50 L90 50" stroke="#C2451E" stroke-width="4" stroke-linecap="round"/>
-  <path d="M72 54 L88 66" stroke="#B98A2E" stroke-width="4" stroke-linecap="round"/>
-  <!-- 朱砂印章 -->
-  <rect x="16" y="70" width="14" height="14" rx="3" fill="#C2451E" transform="rotate(-6 23 77)"/>
+  <g transform="translate(10 10) scale(0.8)">
+    <!-- 宝石线稿 -->
+    <path d="M30 26 H70 L86 50 L50 84 L14 50 Z" stroke="#191713" stroke-width="7" stroke-linejoin="round" fill="none"/>
+    <!-- 金色台面 -->
+    <path d="M30 26 H70 L61 50 H39 Z" fill="#B98A2E"/>
+  </g>
 </svg>

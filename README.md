@@ -48,6 +48,26 @@
 
 > 流动的网格渐变，极光效果，鲜明色彩过渡，受 Stripe 与 Vercel 启发的现代初创美学。
 
+### [AI Chatbot Platform](./templates/AI-Chatbot-Platform/)
+
+<p>
+  <img src="./assets/screenshots/AI-Chatbot-Platform-01.png" width="32.5%" alt="AI Chatbot Platform — slide 01" />
+  <img src="./assets/screenshots/AI-Chatbot-Platform-02.png" width="32.5%" alt="AI Chatbot Platform — slide 02" />
+  <img src="./assets/screenshots/AI-Chatbot-Platform-03.png" width="32.5%" alt="AI Chatbot Platform — slide 03" />
+</p>
+
+> AI 原生 UI 与极简主义的融合，靛蓝渐变主色，对话式交互界面，磨砂玻璃导航，深色页脚。
+
+### [AI Writing Assistant](./templates/AI-Writing-Assistant/)
+
+<p>
+  <img src="./assets/screenshots/AI-Writing-Assistant-01.png" width="32.5%" alt="AI Writing Assistant — slide 01" />
+  <img src="./assets/screenshots/AI-Writing-Assistant-02.png" width="32.5%" alt="AI Writing Assistant — slide 02" />
+  <img src="./assets/screenshots/AI-Writing-Assistant-03.png" width="32.5%" alt="AI Writing Assistant — slide 03" />
+</p>
+
+> AI 原生写作工具落地页，紫罗兰渐变主色，编辑器 Mockup 展示，磨砂玻璃导航，深色页脚。
+
 ### [Bauhaus](./templates/Bauhaus/)
 
 <p>
@@ -57,6 +77,16 @@
 </p>
 
 > 大胆的几何现代主义，以圆、方、三角为基本形。三原色（红/蓝/黄）调色板配以硬朗黑边和硬阴影。兼具功能性与构成主义不对称的艺术感。
+
+### [Beauty-Spa](./templates/Beauty-Spa/)
+
+<p>
+  <img src="./assets/screenshots/Beauty-Spa-01.png" width="32.5%" alt="Beauty-Spa — slide 01" />
+  <img src="./assets/screenshots/Beauty-Spa-02.png" width="32.5%" alt="Beauty-Spa — slide 02" />
+  <img src="./assets/screenshots/Beauty-Spa-03.png" width="32.5%" alt="Beauty-Spa — slide 03" />
+</p>
+
+> 柔和水疗美学，浅粉背景配金色 CTA，Playfair Display 衬线标题与 DM Sans 正文，漂浮徽章与圆角卡片营造宁静疗愈氛围。
 
 ### [Bold Typography](./templates/Bold-Typography/)
 
@@ -88,6 +118,16 @@
 
 > 复古像素游戏 CRT 美学与粗野主义设计融合。近黑背景配 3px 硬白边框，零圆角，硬偏移阴影。采用 Press Start 2P 像素字体、Space Mono 等宽字体、霓虹绿点缀（#22c55e）、CRT 扫描线叠加、像素网格背景、故障动画与阶梯式过渡，唤起 8 位游戏机与早期黑客终端的质感。
 
+### [CEX-Trading](./templates/CEX-Trading/)
+
+<p>
+  <img src="./assets/screenshots/CEX-Trading-01.png" width="32.5%" alt="CEX-Trading — slide 01" />
+  <img src="./assets/screenshots/CEX-Trading-02.png" width="32.5%" alt="CEX-Trading — slide 02" />
+  <img src="./assets/screenshots/CEX-Trading-03.png" width="32.5%" alt="CEX-Trading — slide 03" />
+</p>
+
+> 专业加密货币交易所暗色风格，金黄 (#F0B90B) 品牌色，DM Sans 标题搭配 JetBrains Mono 数据字体，绿色/红色涨跌语义色，交易小部件与市场行情表格为核心视觉元素。
+
 ### [Claymorphism](./templates/Claymorphism/)
 
 <p>
@@ -97,6 +137,26 @@
 </p>
 
 > 超写实 3D 美学，模拟柔软可充气的黏土物件，多层阴影堆叠、糖果店般鲜艳色彩、触觉微交互与有机漂浮的环境元素，营造高级而趣味的数字玩具体验。
+
+### [Coworking Space](./templates/Coworking-Space/)
+
+<p>
+  <img src="./assets/screenshots/Coworking-Space-01.png" width="32.5%" alt="Coworking Space — slide 01" />
+  <img src="./assets/screenshots/Coworking-Space-02.png" width="32.5%" alt="Coworking Space — slide 02" />
+  <img src="./assets/screenshots/Coworking-Space-03.png" width="32.5%" alt="Coworking Space — slide 03" />
+</p>
+
+> 活力块面与毛玻璃融合的联合办公空间风格。紫粉渐变主色配薄荷绿点缀，圆角卡片与柔和阴影，Space Grotesk 几何标题与 DM Sans 正文，渐变胶囊按钮与毛玻璃导航栏，块面布局传递现代协作氛围。
+
+### [Crypto Wallet](./templates/Crypto-Wallet/)
+
+<p>
+  <img src="./assets/screenshots/Crypto-Wallet-01.png" width="32.5%" alt="Crypto Wallet — slide 01" />
+  <img src="./assets/screenshots/Crypto-Wallet-02.png" width="32.5%" alt="Crypto Wallet — slide 02" />
+  <img src="./assets/screenshots/Crypto-Wallet-03.png" width="32.5%" alt="Crypto Wallet — slide 03" />
+</p>
+
+> 深空暗色加密钱包风格。青蓝到紫色渐变主色贯穿 CTA 与标题高亮，玻璃拟态卡片配霓虹辉光阴影，Space Grotesk 几何标题搭配 DM Sans 正文，链色编码系统与钱包 UI 模型传递专业金融科技质感。
 
 ### [Cyberpunk](./templates/Cyberpunk/)
 
@@ -118,6 +178,16 @@
 
 > 提取自 cursor.com 首页的暖纸浅色风格。三层暖纸白底色（#F7F7F4 → #F2F1ED → #E6E5E0）配暖墨黑（#26251E）胶囊按钮，古典浪漫主义油画"策展舞台"托起 4px 圆角白色产品窗口模型，零偏移弥散阴影、字重 400 负字距大标题与双色标题法，朱砂橙（#C8451D）仅用于文字链接的单点强调。严肃工具的人文温度。
 
+### [Customer Support CRM](./templates/Customer-Support-CRM/)
+
+<p>
+  <img src="./assets/screenshots/Customer-Support-CRM-01.png" width="32.5%" alt="Customer Support CRM — slide 01" />
+  <img src="./assets/screenshots/Customer-Support-CRM-02.png" width="32.5%" alt="Customer Support CRM — slide 02" />
+  <img src="./assets/screenshots/Customer-Support-CRM-03.png" width="32.5%" alt="Customer Support CRM — slide 03" />
+</p>
+
+> 柔和靛蓝 SaaS 客服 CRM 风格，浅薰衣草底色配蓝紫主色，圆润卡片与全渠道工单界面，Space Grotesk 标题与 DM Sans 正文，AI 辅助客服与三级定价。
+
 ### [DeepSeek Harness Navy Glow](./templates/DeepSeek-Harness-Navy-Glow/)
 
 <p>
@@ -127,6 +197,46 @@
 </p>
 
 > 提取自 deepseek.com/harness 的深空蓝产品发布风格。钢蓝到近黑的星云渐变 Hero 以 1:1 应用窗口实景（macOS 红黄绿灯、侧栏、聊天气泡、输入栏）替代插画；#0A0A0A 舞台上的 #151517 Bento 卡片用 0.5px 发丝边定义轮廓，卡内浮动 UI 切片（插件面板、Diff 面板、定时任务卡、执行轨迹）讲述产品能力；液态玻璃胶囊导航（blur 32px）随滚动收拢，Fragment Mono 大字距徽章是唯一技术签名，终局 CTA 以星尘粒子与蓝色辉光收尾。字重 400/500、负字距标题的克制深邃。
+
+### [DeFi-Yield](./templates/DeFi-Yield/)
+
+<p>
+  <img src="./assets/screenshots/DeFi-Yield-01.png" width="32.5%" alt="DeFi-Yield — slide 01" />
+  <img src="./assets/screenshots/DeFi-Yield-02.png" width="32.5%" alt="DeFi-Yield — slide 02" />
+  <img src="./assets/screenshots/DeFi-Yield-03.png" width="32.5%" alt="DeFi-Yield — slide 03" />
+</p>
+
+> 赛博朋克风 DeFi 收益平台，近黑背景配青色网格纹理，霓虹青/绿/品红多色点缀，Space Grotesk 几何标题与 Space Mono 等宽标签，渐变 CTA 按钮与发光数据卡片。
+
+### [Developer-Tools](./templates/Developer-Tools/)
+
+<p>
+  <img src="./assets/screenshots/Developer-Tools-01.png" width="32.5%" alt="Developer-Tools — slide 01" />
+  <img src="./assets/screenshots/Developer-Tools-02.png" width="32.5%" alt="Developer-Tools — slide 02" />
+  <img src="./assets/screenshots/Developer-Tools-03.png" width="32.5%" alt="Developer-Tools — slide 03" />
+</p>
+
+> 近黑终端美学，霓虹绿（#39ff14）单色强调贯穿全局。Space Grotesk 几何标题配 JetBrains Mono 代码块，1px 微边框卡片系统，命令行安装提示与 macOS 代码窗口装饰，为开发者工具产品打造的极致暗色落地页。
+
+### [DEX-Swap](./templates/DEX-Swap/)
+
+<p>
+  <img src="./assets/screenshots/DEX-Swap-01.png" width="32.5%" alt="DEX-Swap — slide 01" />
+  <img src="./assets/screenshots/DEX-Swap-02.png" width="32.5%" alt="DEX-Swap — slide 02" />
+  <img src="./assets/screenshots/DEX-Swap-03.png" width="32.5%" alt="DEX-Swap — slide 03" />
+</p>
+
+> 去中心化交易所界面，深海军蓝背景配蓝绿渐变品牌色，Space Grotesk 几何标题与 DM Sans 正文，Swap 交易卡片与特性网格布局，紫色渐变 CTA 按钮。
+
+### [Digital Banking](./templates/Digital-Banking/)
+
+<p>
+  <img src="./assets/screenshots/Digital-Banking-01.png" width="32.5%" alt="Digital Banking — slide 01" />
+  <img src="./assets/screenshots/Digital-Banking-02.png" width="32.5%" alt="Digital Banking — slide 02" />
+  <img src="./assets/screenshots/Digital-Banking-03.png" width="32.5%" alt="Digital Banking — slide 03" />
+</p>
+
+> 深蓝金融科技美学，手机模型实景展示银行 App UI（余额卡片、交易列表、操作按钮），蓝紫渐变点缀，APY 利率大字视觉锚，FDIC/SOC 2 信任徽章贯穿全页，传递安全、现代、专业的数字银行形象。
 
 ### [Enterprise](./templates/Enterprise/)
 
@@ -138,6 +248,16 @@
 
 > 现代 SaaS 美学，在专业与亲和之间取得平衡。鲜艳的靛蓝/紫色渐变、柔和彩色阴影、等距纵深感与干净的几何无衬线字体。
 
+### [Educational Platform](./templates/Educational-Platform/)
+
+<p>
+  <img src="./assets/screenshots/Educational-Platform-01.png" width="32.5%" alt="Educational Platform — slide 01" />
+  <img src="./assets/screenshots/Educational-Platform-02.png" width="32.5%" alt="Educational Platform — slide 02" />
+  <img src="./assets/screenshots/Educational-Platform-03.png" width="32.5%" alt="Educational Platform — slide 03" />
+</p>
+
+> 活泼教育平台落地页，采用 Claymorphism 黏土拟态风格。薄荷绿主调搭配柔和粉彩块面，硬偏移阴影营造"积木堆叠"触感。Fredoka 圆润标题 + DM Sans 正文，大圆角卡片与彩色图标容器，传递友好、可信赖的学习氛围。
+
 ### [Flat Design](./templates/Flat-Design/)
 
 <p>
@@ -147,6 +267,36 @@
 </p>
 
 > 一种以移除深度提示（阴影、斜面、渐变）为核心的设计哲学，转而倚重纯粹的色彩、字体与布局。利落、扁平、几何化，配以大胆的色块分割。
+
+### [Fintech Crypto Dashboard](./templates/Fintech-Crypto-Dashboard/)
+
+<p>
+  <img src="./assets/screenshots/Fintech-Crypto-Dashboard/Fintech-Crypto-Dashboard-01.png" width="32.5%" alt="Fintech Crypto Dashboard — slide 01" />
+  <img src="./assets/screenshots/Fintech-Crypto-Dashboard/Fintech-Crypto-Dashboard-02.png" width="32.5%" alt="Fintech Crypto Dashboard — slide 02" />
+  <img src="./assets/screenshots/Fintech-Crypto-Dashboard/Fintech-Crypto-Dashboard-03.png" width="32.5%" alt="Fintech Crypto Dashboard — slide 03" />
+</p>
+
+> 金融科技加密交易仪表盘，深蓝 OLED 背景搭配霓虹绿/蓝渐变，玻璃拟态导航与网格背景，专业级数据可视化风格。
+
+### [Fitness & Gym](./templates/Fitness-Gym/)
+
+<p>
+  <img src="./assets/screenshots/Fitness-Gym-01.png" width="32.5%" alt="Fitness & Gym — slide 01" />
+  <img src="./assets/screenshots/Fitness-Gym-02.png" width="32.5%" alt="Fitness & Gym — slide 02" />
+  <img src="./assets/screenshots/Fitness-Gym-03.png" width="32.5%" alt="Fitness & Gym — slide 03" />
+</p>
+
+> 活力块面式健身应用落地页，OLED 深黑背景搭配亮橙/绿色点缀，Barlow Condensed 粗体标题传递力量感，浮动 UI 卡片增加层次。
+
+### [Gaming Platform](./templates/Gaming-Platform/)
+
+<p>
+  <img src="./assets/screenshots/Gaming-Platform-01.png" width="32.5%" alt="Gaming Platform — slide 01" />
+  <img src="./assets/screenshots/Gaming-Platform-02.png" width="32.5%" alt="Gaming Platform — slide 02" />
+  <img src="./assets/screenshots/Gaming-Platform-03.png" width="32.5%" alt="Gaming Platform — slide 03" />
+</p>
+
+> 3D 超写实与复古未来主义游戏美学，深色虚空背景配霓虹绿/品红/青色点缀，网格纹理，粗体块状标题，发光按钮与卡片。
 
 ### [Glassmorphism](./templates/Glassmorphism/)
 
@@ -158,6 +308,16 @@
 
 > 苹果风格美学，搭配丰富的网格渐变、高级感模糊与克制的布局。
 
+### [Health & Wellness](./templates/Health-Wellness/)
+
+<p>
+  <img src="./assets/screenshots/Health-Wellness-01.png" width="32.5%" alt="Health & Wellness — slide 01" />
+  <img src="./assets/screenshots/Health-Wellness-02.png" width="32.5%" alt="Health & Wellness — slide 02" />
+  <img src="./assets/screenshots/Health-Wellness-03.png" width="32.5%" alt="Health & Wellness — slide 03" />
+</p>
+
+> 新拟态软 UI 健康应用落地页，薄荷绿渐变主色，柔和双向阴影，Space Grotesk 几何标题，手机模型展示冥想界面。
+
 ### [Industrial](./templates/Industrial/)
 
 <p>
@@ -167,6 +327,16 @@
 </p>
 
 > 受 Dieter Rams 与 Teenage Engineering 启发的高保真工业拟物美学。触感新拟态元素、哑光塑料表面与安全橙点缀。每个组件都模拟实体硬件，具备逼真光照、机械交互与螺丝、散热孔、LED 指示灯等制造细节。
+
+### [Investment Platform](./templates/Investment-Platform/)
+
+<p>
+  <img src="./assets/screenshots/Investment-Platform-01.png" width="32.5%" alt="Investment Platform — slide 01" />
+  <img src="./assets/screenshots/Investment-Platform-02.png" width="32.5%" alt="Investment Platform — slide 02" />
+  <img src="./assets/screenshots/Investment-Platform-03.png" width="32.5%" alt="Investment Platform — slide 03" />
+</p>
+
+> 深色投资交易平台落地页，深蓝背景配蓝紫渐变强调色，Space Grotesk 几何标题配 DM Sans 正文与 JetBrains Mono 数据字体，圆角卡片与发光阴影，传递专业金融科技感。
 
 ### [Kinetic](./templates/Kinetic/)
 
@@ -178,6 +348,16 @@
 
 > 动效优先的设计，字体是主要视觉媒介。无限跑马灯、视口缩放文字、滚动触发动画与激进的大写样式。高对比、粗野主义能量，富有节奏感的运动。
 
+### [Legal Services](./templates/Legal-Services/)
+
+<p>
+  <img src="./assets/screenshots/Legal-Services-01.png" width="32.5%" alt="Legal Services — slide 01" />
+  <img src="./assets/screenshots/Legal-Services-02.png" width="32.5%" alt="Legal Services — slide 02" />
+  <img src="./assets/screenshots/Legal-Services-03.png" width="32.5%" alt="Legal Services — slide 03" />
+</p>
+
+> 法律专业服务落地页，海军蓝与金色双色体系，Playfair Display 衬线标题搭配 DM Sans 正文，盾牌徽标、金色 CTA、全幅 Hero 背景图与深色页脚，传递权威与信赖。
+
 ### [Luxury](./templates/Luxury/)
 
 <p>
@@ -187,6 +367,16 @@
 </p>
 
 > 优雅的衬线字体配单色调色板与金色点缀。极慢动画、慷慨留白与建筑般的精准。高端时尚杂志的编辑美学，通过细腻阴影与层次营造深度。
+
+### [Luxury E-commerce](./templates/Luxury-Ecommerce/)
+
+<p>
+  <img src="./assets/screenshots/Luxury-Ecommerce-01.png" width="32.5%" alt="Luxury E-commerce — slide 01" />
+  <img src="./assets/screenshots/Luxury-Ecommerce-02.png" width="32.5%" alt="Luxury E-commerce — slide 02" />
+  <img src="./assets/screenshots/Luxury-Ecommerce-03.png" width="32.5%" alt="Luxury E-commerce — slide 03" />
+</p>
+
+> Liquid Glass + Glassmorphism 奢华电商风格。磨砂玻璃导航、奶油白背景、Playfair Display 衬线标题、金色点缀与毛玻璃徽章。
 
 ### [Material Design](./templates/Material-Design/)
 
@@ -207,6 +397,26 @@
 </p>
 
 > 冲突的图案、密集的布局、过饱和的色彩、刻意的视觉杂乱。多多益善。
+
+### [Mental Health](./templates/Mental-Health/)
+
+<p>
+  <img src="./assets/screenshots/Mental-Health-01.png" width="32.5%" alt="Mental Health — slide 01" />
+  <img src="./assets/screenshots/Mental-Health-02.png" width="32.5%" alt="Mental Health — slide 02" />
+  <img src="./assets/screenshots/Mental-Health-03.png" width="32.5%" alt="Mental Health — slide 03" />
+</p>
+
+> 柔和薄荷绿与薰衣草紫点缀的心理健康应用风格，圆润卡片、新拟态阴影与呼吸感布局，传递宁静与专业信赖。
+
+### [Medical-Clinic](./templates/Medical-Clinic/)
+
+<p>
+  <img src="./assets/screenshots/Medical-Clinic-01.png" width="32.5%" alt="Medical-Clinic — slide 01" />
+  <img src="./assets/screenshots/Medical-Clinic-02.png" width="32.5%" alt="Medical-Clinic — slide 02" />
+  <img src="./assets/screenshots/Medical-Clinic-03.png" width="32.5%" alt="Medical-Clinic — slide 03" />
+</p>
+
+> 专业医疗诊所门户，蓝色信任体系配红色紧急 CTA，DM Sans 几何字体，圆角卡片与浮动徽章，传递可信赖的医疗服务形象。
 
 ### [MiMo Warm Halftone](./templates/MiMo-Warm-Halftone/)
 
@@ -258,6 +468,16 @@
 
 > 1-bit 抖动点阵影像 + Fusion Pixel 像素等宽字 + 纯黑虚空的滚动场景叙事。月球天体随滚动换相位、终端斜切缺口按钮、`‹ ›` 尖括号区块标题与四角散点构图——仿佛整站运行在太空探测器的单色终端上。零圆角、零阴影、零彩色，明度即色彩。
 
+### [Music Streaming](./templates/Music-Streaming/)
+
+<p>
+  <img src="./assets/screenshots/Music-Streaming-01.png" width="32.5%" alt="Music Streaming — slide 01" />
+  <img src="./assets/screenshots/Music-Streaming-02.png" width="32.5%" alt="Music Streaming — slide 02" />
+  <img src="./assets/screenshots/Music-Streaming-03.png" width="32.5%" alt="Music Streaming — slide 03" />
+</p>
+
+> 深色音乐流媒体落地页，近黑背景搭配 Spotify 绿主色与霓虹紫/粉渐变点缀，Space Grotesk 粗体标题，浮动播放器卡片与圆形艺人头像网格，传递沉浸式音乐体验。
+
 ### [Neo Brutalism](./templates/Neo-Brutalism/)
 
 <p>
@@ -288,6 +508,26 @@
 
 > 纯黑白、高对比、紧凑网格、报纸美学、锐利线条、编辑深度。
 
+### [NFT-Art-Gallery](./templates/NFT-Art-Gallery/)
+
+<p>
+  <img src="./assets/screenshots/NFT-Art-Gallery-01.png" width="32.5%" alt="NFT-Art-Gallery — slide 01" />
+  <img src="./assets/screenshots/NFT-Art-Gallery-02.png" width="32.5%" alt="NFT-Art-Gallery — slide 02" />
+  <img src="./assets/screenshots/NFT-Art-Gallery-03.png" width="32.5%" alt="NFT-Art-Gallery — slide 03" />
+</p>
+
+> 极简画廊风格 NFT 艺术展示，衬线标题配无衬线正文，黑白灰主调，灰度头像与毛玻璃叠加卡片，让艺术品成为唯一焦点。
+
+### [NFT-Web3](./templates/NFT-Web3/)
+
+<p>
+  <img src="./assets/screenshots/NFT-Web3-01.png" width="32.5%" alt="NFT-Web3 — slide 01" />
+  <img src="./assets/screenshots/NFT-Web3-02.png" width="32.5%" alt="NFT-Web3 — slide 02" />
+  <img src="./assets/screenshots/NFT-Web3-03.png" width="32.5%" alt="NFT-Web3 — slide 03" />
+</p>
+
+> Web3/NFT 市场平台暗色美学，品红-青双色霓虹渐变，Orbitron 科幻标题，玻璃质感卡片与实时拍卖倒计时，营造去中心化交易的霓虹脉冲氛围。
+
 ### [Organic](./templates/Organic/)
 
 <p>
@@ -297,6 +537,16 @@
 </p>
 
 > 大地灵感的调色板，含苔藓绿、赤陶与沙色调。有机水滴形、颗粒质感叠加、不对称圆角与柔和阴影。拥抱侘寂哲学，透出温暖与自然的不完美。
+
+### [Payment Gateway](./templates/Payment-Gateway/)
+
+<p>
+  <img src="./assets/screenshots/Payment-Gateway-01.png" width="32.5%" alt="Payment Gateway — slide 01" />
+  <img src="./assets/screenshots/Payment-Gateway-02.png" width="32.5%" alt="Payment Gateway — slide 02" />
+  <img src="./assets/screenshots/Payment-Gateway-03.png" width="32.5%" alt="Payment Gateway — slide 03" />
+</p>
+
+> 专业支付网关 SaaS 风格，靛蓝主色搭配深蓝代码块，渐变文字点缀，干净卡片式布局，Stripe 式金融科技美学。
 
 ### [Playful Geometric](./templates/Playful-Geometric/)
 
@@ -318,6 +568,26 @@
 
 > 以优雅衬线字体为中心的编辑风极简设计系统。温暖象牙白背景配细腻纸张质感、考究间距、分隔线与古典比例，营造永恒而文学化的美学。通过分层渐变与多色调阴影增强深度。设计以克制与排印之美低语出精致。
 
+### [Pet Grooming Claymorphism](./templates/Pet-Grooming/)
+
+<p>
+  <img src="./assets/screenshots/Pet-Grooming-01.png" width="32.5%" alt="Pet Grooming Claymorphism — slide 01" />
+  <img src="./assets/screenshots/Pet-Grooming-02.png" width="32.5%" alt="Pet Grooming Claymorphism — slide 02" />
+  <img src="./assets/screenshots/Pet-Grooming-03.png" width="32.5%" alt="Pet Grooming Claymorphism — slide 03" />
+</p>
+
+> 温暖活泼的宠物美容服务落地页，采用 Claymorphism 粘土拟态风格。橙色主调（#FF8C42）搭配圆润造型（50px 胶囊按钮、24px 卡片圆角）与硬阴影（3-8px 橙色半透明偏移），创造"粘土玩具"般的亲切质感。Space Grotesk 标题 + DM Sans 正文，渐变标题文字，浮动服务卡片。
+
+### [Pet-Adoption](./templates/Pet-Adoption/)
+
+<p>
+  <img src="./assets/screenshots/Pet-Adoption-01.png" width="32.5%" alt="Pet-Adoption — slide 01" />
+  <img src="./assets/screenshots/Pet-Adoption-02.png" width="32.5%" alt="Pet-Adoption — slide 02" />
+  <img src="./assets/screenshots/Pet-Adoption-03.png" width="32.5%" alt="Pet-Adoption — slide 03" />
+</p>
+
+> 温暖友好的宠物领养平台风格。暖奶油色画布配珊瑚色（#E07A5F）主调与鼠尾草绿（#81B29A）点缀，Fredoka 圆润标题搭配 DM Sans 正文，全圆角卡片与胶囊按钮，爱心图标贯穿全站，深海军蓝 CTA 区块形成强烈对比，传递"每个宠物都值得永远的家"的情感温度。
+
 ### [Qoder Mint Garden](./templates/Qoder-Mint-Garden/)
 
 <p>
@@ -328,6 +598,26 @@
 
 > 薄荷灰白大留白画布上的森林绿单点强调。绿野跑道弧带舞台托起悬浮出血的白色产品窗口，胶囊按钮带薄瓷内高光，不对称卡片拼贴里再叠白色 UI 浮卡。清新、可信、有生机的 AI 工作台营销语言。
 
+### [Restaurant & Food](./templates/Restaurant-Food/)
+
+<p>
+  <img src="./assets/screenshots/Restaurant-Food-01.png" width="32.5%" alt="Restaurant & Food — slide 01" />
+  <img src="./assets/screenshots/Restaurant-Food-02.png" width="32.5%" alt="Restaurant & Food — slide 02" />
+  <img src="./assets/screenshots/Restaurant-Food-03.png" width="32.5%" alt="Restaurant & Food — slide 03" />
+</p>
+
+> 高端餐厅落地页，暖白背景（#FFFAF0）搭配深棕硬阴影（#2C1810）与珊瑚橙主色（#FF6B35）。Playfair Display SC 衬线标题 + DM Sans 正文，块状边框布局，图片拼贴网格，运动驱动入场动画。
+
+### [Real Estate Luxury](./templates/Real-Estate-Luxury/)
+
+<p>
+  <img src="./assets/screenshots/Real-Estate-Luxury-01.png" width="32.5%" alt="Real Estate Luxury — slide 01" />
+  <img src="./assets/screenshots/Real-Estate-Luxury-02.png" width="32.5%" alt="Real Estate Luxury — slide 02" />
+  <img src="./assets/screenshots/Real-Estate-Luxury-03.png" width="32.5%" alt="Real Estate Luxury — slide 03" />
+</p>
+
+> Glassmorphism + Minimalism 豪华房地产风格。Cinzel 衬线标题配 DM Sans 正文，金色点缀与深蓝主色。毛玻璃导航栏、全幅 Hero 背景图、悬浮搜索栏与统计数据。专业、高端、可信赖的房地产品牌形象。
+
 ### [SaaS](./templates/SaaS/)
 
 <p>
@@ -337,6 +627,26 @@
 </p>
 
 > 兼具简洁美学与动感执行的大胆、极简现代视觉系统。标志性的电光蓝渐变、考究的双字体搭配（Calistoga + Inter）、动画首屏图形、反差色区块与贯穿全局的微交互。专业而具设计前瞻性——自信而不杂乱。
+
+### [SaaS Analytics Dashboard](./templates/SaaS-Analytics-Dashboard/)
+
+<p>
+  <img src="./assets/screenshots/SaaS-Analytics-Dashboard-01.png" width="32.5%" alt="SaaS Analytics Dashboard — slide 01" />
+  <img src="./assets/screenshots/SaaS-Analytics-Dashboard-02.png" width="32.5%" alt="SaaS Analytics Dashboard — slide 02" />
+  <img src="./assets/screenshots/SaaS-Analytics-Dashboard-03.png" width="32.5%" alt="SaaS Analytics Dashboard — slide 03" />
+</p>
+
+> 现代 SaaS 数据分析平台落地页，Glassmorphism 毛玻璃效果结合 Flat Design，蓝紫渐变主调，数据可视化仪表盘预览。
+
+### [Sales CRM Platform](./templates/Sales-CRM-Platform/)
+
+<p>
+  <img src="./assets/screenshots/Sales-CRM-Platform-01.png" width="32.5%" alt="Sales CRM Platform — slide 01" />
+  <img src="./assets/screenshots/Sales-CRM-Platform-02.png" width="32.5%" alt="Sales CRM Platform — slide 02" />
+  <img src="./assets/screenshots/Sales-CRM-Platform-03.png" width="32.5%" alt="Sales CRM Platform — slide 03" />
+</p>
+
+> 专业 SaaS 销售 CRM 平台落地页，蓝色主调搭配橙色 CTA，Kanban 管道视图，AI 功能展示，干净卡片式布局。
 
 ### [Seline Dashboard](./templates/Seline-Dashboard/)
 
@@ -368,6 +678,16 @@
 
 > 对国际字体排印风格（1950 年代）的严谨实现。以客观字体、无衬线字体（Inter）、带细腻纹理图案的数学网格，以及严格的黑/白/红调色板为特征。优先考虑可读性、精准、非对称组织，以及通过分层图案营造的视觉深度。
 
+### [Sustainability Platform](./templates/Sustainability-Platform/)
+
+<p>
+  <img src="./assets/screenshots/Sustainability-Platform-01.png" width="32.5%" alt="Sustainability Platform — slide 01" />
+  <img src="./assets/screenshots/Sustainability-Platform-02.png" width="32.5%" alt="Sustainability Platform — slide 02" />
+  <img src="./assets/screenshots/Sustainability-Platform-03.png" width="32.5%" alt="Sustainability Platform — slide 03" />
+</p>
+
+> 有机亲生物 + 极简主义可持续平台落地页。暖白画布配森林绿主色，Fraunces 衬线大标题与 DM Sans 正文，圆角卡片与柔和阴影，传递自然、可信、专业的环保品牌形象。
+
 ### [Terminal](./templates/Terminal/)
 
 <p>
@@ -377,6 +697,16 @@
 </p>
 
 > 原始、功能性且复古未来主义的命令行界面美学。高对比、等宽精准与闪烁光标。
+
+### [Telemedicine](./templates/Telemedicine/)
+
+<p>
+  <img src="./assets/screenshots/Telemedicine-01.png" width="32.5%" alt="Telemedicine — slide 01" />
+  <img src="./assets/screenshots/Telemedicine-02.png" width="32.5%" alt="Telemedicine — slide 02" />
+  <img src="./assets/screenshots/Telemedicine-03.png" width="32.5%" alt="Telemedicine — slide 03" />
+</p>
+
+> 远程医疗平台落地页，蓝绿渐变主色体系，Space Grotesk 几何标题配 DM Sans 正文，圆角卡片与柔和蓝色阴影，视频通话场景 Hero 与医生卡片网格，传递专业可信赖的医疗科技感。
 
 ### [Trae Matrix Mint](./templates/Trae-Matrix-Mint/)
 
@@ -388,6 +718,16 @@
 
 > 提取自 trae.cn 的深色开发者工具美学。纯黑虚空（#0A0B0D / #000）上以薄荷绿（#32F08C）为唯一强调色，点阵像素云 Hero 由数千抖动方块构成；等宽绿色编号 `[01]` 组织功能卡片，演示面板用虚线连接器与色块节点呈现"设计图"质感；2px/4px 锐角体系与菱形 ◆ 母题贯穿细节，页脚以巨型裁切字标绿带收尾。终端般的锋利与信号感。
 
+### [Travel-Tourism](./templates/Travel-Tourism/)
+
+<p>
+  <img src="./assets/screenshots/Travel-Tourism-01.png" width="32.5%" alt="Travel-Tourism — slide 01" />
+  <img src="./assets/screenshots/Travel-Tourism-02.png" width="32.5%" alt="Travel-Tourism — slide 02" />
+  <img src="./assets/screenshots/Travel-Tourism-03.png" width="32.5%" alt="Travel-Tourism — slide 03" />
+</p>
+
+> 薰衣草画布上的旅行探索风格。橙色 CTA 与蓝色高亮双强调色体系，浮动白色胶囊导航栏，照片拼贴 Hero 配浮动"Next Trip"卡片，集成搜索栏与信任数据，Space Grotesk 几何标题 + DM Sans 正文，深色页脚收尾。冒险感与可信赖感并存。
+
 ### [Vaporwave](./templates/Vaporwave/)
 
 <p>
@@ -397,6 +737,26 @@
 </p>
 
 > 一场怀旧、霓虹弥漫的 80 年代复古未来主义之旅。高对比霓虹粉与青色映衬深邃虚空紫。数字网格、发光地平线、超现实日落渐变与 CRT 扫描线叠加，构筑沉浸式合成世界。
+
+### [Veterinary Clinic](./templates/Veterinary-Clinic/)
+
+<p>
+  <img src="./assets/screenshots/Veterinary-Clinic-01.png" width="32.5%" alt="Veterinary Clinic — slide 01" />
+  <img src="./assets/screenshots/Veterinary-Clinic-02.png" width="32.5%" alt="Veterinary Clinic — slide 02" />
+  <img src="./assets/screenshots/Veterinary-Clinic-03.png" width="32.5%" alt="Veterinary Clinic — slide 03" />
+</p>
+
+> 温暖专业的兽医诊所风格。青绿色主调配珊瑚橙紧急强调色，浮动信息卡叠加 Hero 照片，大圆角卡片系统，深蓝文字替代纯黑营造柔和医疗氛围，传递信赖与关怀。
+
+### [Wedding & Events](./templates/Wedding-Events/)
+
+<p>
+  <img src="./assets/screenshots/Wedding-Events-01.png" width="32.5%" alt="Wedding & Events — slide 01" />
+  <img src="./assets/screenshots/Wedding-Events-02.png" width="32.5%" alt="Wedding & Events — slide 02" />
+  <img src="./assets/screenshots/Wedding-Events-03.png" width="32.5%" alt="Wedding & Events — slide 03" />
+</p>
+
+> Soft UI Evolution + Aurora UI 婚礼策划落地页，奶油粉色调，柔和粉色双向阴影，Cormorant Garamond 衬线标题，金色点缀，浪漫优雅气质。
 
 ### [Web3](./templates/Web3/)
 

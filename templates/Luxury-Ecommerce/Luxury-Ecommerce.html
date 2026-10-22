@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON — Luxury E-commerce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET & TOKENS ============ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Colors */
+  --bg: #FFFFFF;
+  --bg-cream: #FAF9F6;
+  --bg-dark: #000000;
+  --text-primary: #0F172A;
+  --text-secondary: #6B6B6B;
+  --text-muted: rgba(15, 23, 42, 0.6);
+  --accent-gold: #FFD700;
+  --border: #E2E8F0;
+  --border-light: #E5E5E5;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-strong: rgba(255, 255, 255, 0.8);
+
+  /* Typography */
+  --font-display: "Playfair Display", "Noto Serif SC", Georgia, serif;
+  --font-body: "DM Sans", "Noto Sans SC", "Inter", system-ui, sans-serif;
+
+  /* Spacing */
+  --section-padding: 96px;
+  --container-max: 1280px;
+  --grid-gap: 32px;
+
+  /* Radius */
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-glass: 0 4px 24px rgba(0, 0, 0, 0.06);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.3s var(--ease);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--accent-gold); color: var(--text-primary); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ============ LAYOUT ============ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 768px) {
+  .container { padding: 0 40px; }
+}
+@media (min-width: 1024px) {
+  .container { padding: 0 64px; }
+}
+
+section {
+  padding: 64px 0;
+  position: relative;
+}
+@media (min-width: 768px) {
+  section { padding: 80px 0; }
+}
+@media (min-width: 1024px) {
+  section { padding: var(--section-padding) 0; }
+}
+
+/* ============ TYPOGRAPHY ============ */
+.font-display { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--text-secondary);
+}
+
+.gold-line {
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent-gold);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+/* ============ HEADER / NAV ============ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.nav-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+@media (min-width: 768px) {
+  .nav-inner { padding: 0 40px; height: 80px; }
+}
+@media (min-width: 1024px) {
+  .nav-inner { padding: 0 64px; }
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 40px;
+}
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+}
+
+.nav-links a {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-icon {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: opacity var(--transition);
+  position: relative;
+}
+.nav-icon:hover { opacity: 0.6; }
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--accent-gold);
+  color: var(--text-primary);
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+@media (min-width: 768px) {
+  .menu-toggle { display: none; }
+}
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: var(--transition);
+}
+
+/* Mobile nav */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 99;
+  padding: 32px 24px;
+}
+.mobile-nav.open { display: block; }
+.mobile-nav a {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 500;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.1) 70%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  padding: 0 24px;
+}
+@media (min-width: 768px) {
+  .hero-content { padding: 0 40px; max-width: 700px; }
+}
+@media (min-width: 1024px) {
+  .hero-content { padding: 0 64px; }
+}
+
+.hero-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.hero-label span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--text-secondary);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero-desc {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-color: var(--text-primary);
+}
+.btn-primary:hover {
+  background: #1a2332;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+.btn-outline:hover {
+  background: var(--text-primary);
+  color: #FFFFFF;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+}
+
+/* ============ OUR STORY ============ */
+.story { background: var(--bg); }
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .story-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+
+.story-image-wrap {
+  position: relative;
+}
+
+.story-image-wrap img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.story-badge {
+  position: absolute;
+  bottom: -24px;
+  right: 24px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 24px 32px;
+  box-shadow: var(--shadow-glass);
+}
+@media (min-width: 768px) {
+  .story-badge { right: -24px; bottom: 32px; }
+}
+
+.story-badge-number {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.story-badge-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+}
+
+.story-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.story-text p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.story-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 40px 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.value-icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.value-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.value-desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+/* ============ COLLECTIONS ============ */
+.collections { background: var(--bg-cream); }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-header .eyebrow {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+}
+
+.product-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.product-image {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.product-card:hover .product-image-overlay { opacity: 1; }
+
+.product-info {
+  padding: 20px;
+}
+
+.product-name {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.product-price {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+/* ============ BANNER / DARK SECTION ============ */
+.banner {
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 80px 24px;
+}
+@media (min-width: 768px) {
+  .banner { padding: 120px 40px; }
+}
+@media (min-width: 1024px) {
+  .banner { padding: 140px 64px; }
+}
+
+.banner h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  margin-bottom: 20px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner p {
+  font-size: 1.0625rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.btn-white {
+  background: #FFFFFF;
+  color: var(--text-primary);
+  border-color: #FFFFFF;
+}
+.btn-white:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* ============ TESTIMONIALS ============ */
+.testimonials { background: var(--bg); }
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+@media (min-width: 768px) {
+  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .testimonial-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.testimonial-card {
+  background: var(--bg-cream);
+  border-radius: var(--radius);
+  padding: 32px;
+  border: 1px solid var(--border-light);
+  transition: all var(--transition);
+}
+.testimonial-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.testimonial-stars {
+  color: var(--accent-gold);
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.testimonial-text {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--border);
+}
+
+.testimonial-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.testimonial-role {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* ============ NEWSLETTER ============ */
+.newsletter {
+  background: var(--bg-cream);
+  text-align: center;
+}
+
+.newsletter h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.newsletter p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 520px;
+  margin: 0 auto;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 16px 20px;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  background: transparent;
+  color: var(--text-primary);
+}
+.newsletter-form input::placeholder { color: var(--text-muted); }
+
+.newsletter-form button {
+  padding: 16px 32px;
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+.newsletter-form button:hover { background: #1a2332; }
+
+/* ============ FOOTER ============ */
+.site-footer {
+  background: var(--bg-cream);
+  padding: 64px 0 0;
+}
+@media (min-width: 768px) {
+  .site-footer { padding: 80px 0 0; }
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+@media (min-width: 768px) {
+  .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 32px; }
+}
+
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+.footer-brand-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  margin-bottom: 12px;
+}
+
+.footer-col a {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--text-primary); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border-light);
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.footer-copy {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  font-size: 1.125rem;
+}
+.footer-socials a:hover { color: var(--text-primary); }
+
+/* ============ SVG ICON HELPERS ============ */
+.icon-svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ RESPONSIVE UTILITIES ============ */
+@media (max-width: 767px) {
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  .story-values { gap: 16px; }
+  .value-desc { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">MAISON</a>
+    <ul class="nav-links">
+      <li><a href="#collections">New Arrivals</a></li>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#footer">Boutiques</a></li>
+    </ul>
+    <div class="nav-actions">
+      <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24" style="position:relative">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+        <path d="M3 6h18"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+        <span class="cart-badge">2</span>
+      </svg>
+      <button class="menu-toggle" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#collections" onclick="this.parentElement.classList.remove('open')">New Arrivals</a>
+  <a href="#collections" onclick="this.parentElement.classList.remove('open')">Collections</a>
+  <a href="#story" onclick="this.parentElement.classList.remove('open')">Our Story</a>
+  <a href="#footer" onclick="this.parentElement.classList.remove('open')">Boutiques</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80" alt="Luxury boutique interior" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">
+      <span class="gold-line"></span>
+      <span>Autumn / Winter 2024</span>
+    </div>
+    <h1 class="hero-title">The Art of<br><em>Timeless</em> Elegance</h1>
+    <p class="hero-desc">Discover our curated collection of exceptional pieces, crafted with uncompromising attention to detail.</p>
+    <div class="hero-actions">
+      <a href="#collections" class="btn btn-primary">Explore Collection</a>
+      <a href="#story" class="btn btn-outline">Book Appointment</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-number">150+</div>
+        <div class="stat-label">Exclusive Pieces</div>
+      </div>
+      <div>
+        <div class="stat-number">48</div>
+        <div class="stat-label">Global Boutiques</div>
+      </div>
+      <div>
+        <div class="stat-number">1892</div>
+        <div class="stat-label">Est. Paris</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUR STORY ============ -->
+<section class="story" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-image-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" alt="Artisan craftsmanship" loading="lazy">
+        <div class="story-badge">
+          <div class="story-badge-number">130+</div>
+          <div class="story-badge-label">Years of Excellence</div>
+        </div>
+      </div>
+      <div class="story-text">
+        <h2>A Legacy of<br>Timeless Craftsmanship</h2>
+        <p>Since 1892, Maison has been synonymous with uncompromising quality and timeless design. Our artisans carry forward centuries-old techniques, blending tradition with contemporary vision.</p>
+        <p>Each piece in our collection tells a story—of meticulous craftsmanship, of rare materials sourced from around the world, and of an unwavering commitment to excellence.</p>
+        <div class="story-values">
+          <div>
+            <div class="value-icon">&#10024;</div>
+            <div class="value-title">Quality</div>
+            <div class="value-desc">Uncompromising standards</div>
+          </div>
+          <div>
+            <div class="value-icon">&#9829;</div>
+            <div class="value-title">Passion</div>
+            <div class="value-desc">Artisan dedication</div>
+          </div>
+          <div>
+            <div class="value-icon">&#9201;</div>
+            <div class="value-title">Timeless</div>
+            <div class="value-desc">Enduring design</div>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline">Discover Our Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLLECTIONS ============ -->
+<section class="collections" id="collections">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Explore</span>
+      <h2>Our Collections</h2>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Leather handbag" loading="lazy">
+          <div class="product-image-overlay"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Artisan Leather Bag</div>
+          <div class="product-price">$2,450</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Luxury watch" loading="lazy">
+          <div class="product-image-overlay"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Heritage Timepiece</div>
+          <div class="product-price">$8,900</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="Designer sunglasses" loading="lazy">
+          <div class="product-image-overlay"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Signature Eyewear</div>
+          <div class="product-price">$680</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600&q=80" alt="Luxury shoes" loading="lazy">
+          <div class="product-image-overlay"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Handcrafted Oxfords</div>
+          <div class="product-price">$1,290</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=600&q=80" alt="Silk scarf" loading="lazy">
+          <div class="product-image-overlay"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Silk Heritage Scarf</div>
+          <div class="product-price">$420</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=600&q=80" alt="Fine jewelry" loading="lazy">
+          <div class="product-image-overlay"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Diamond Pendant</div>
+          <div class="product-price">$12,500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BANNER ============ -->
+<section class="banner">
+  <h2>The Pursuit of Perfection</h2>
+  <p>Every Maison piece undergoes 200+ quality checks before reaching our boutiques. Experience the difference of true craftsmanship.</p>
+  <a href="#" class="btn btn-white">Visit a Boutique</a>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Voices</span>
+      <h2>What Our Clients Say</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"The attention to detail is extraordinary. Every piece feels like a work of art. Maison has redefined what luxury means to me."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);"></div>
+          <div>
+            <div class="testimonial-name">Isabelle Laurent</div>
+            <div class="testimonial-role">Paris, France</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"From the boutique experience to the packaging, everything exudes elegance. The heritage timepiece I purchased is simply magnificent."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);"></div>
+          <div>
+            <div class="testimonial-name">James Chen</div>
+            <div class="testimonial-role">Shanghai, China</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"I've been a loyal client for over a decade. The consistency in quality and the personal service keep me coming back every season."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);"></div>
+          <div>
+            <div class="testimonial-name">Sofia Martinez</div>
+            <div class="testimonial-role">Milan, Italy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter" id="newsletter">
+  <div class="container">
+    <h2>Stay in Touch</h2>
+    <p>Subscribe to receive updates on new arrivals, exclusive offers, and styling tips.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault()">
+      <input type="email" placeholder="Enter your email" aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">MAISON</div>
+        <p class="footer-brand-desc">Crafting timeless elegance since 1892. Paris &bull; Milan &bull; New York &bull; Tokyo</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="#">Personal Styling</a></li>
+          <li><a href="#">Alterations</a></li>
+          <li><a href="#">Gift Cards</a></li>
+          <li><a href="#">Store Locator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2024 Maison. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="Instagram">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="Pinterest">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.25 2.67 7.9 6.44 9.34-.09-.78-.17-1.99.04-2.85.18-.78 1.17-4.97 1.17-4.97s-.3-.6-.3-1.48c0-1.39.81-2.43 1.81-2.43.86 0 1.27.64 1.27 1.41 0 .86-.55 2.14-.83 3.33-.24 1 .5 1.81 1.48 1.81 1.78 0 3.14-1.87 3.14-4.58 0-2.39-1.72-4.07-4.18-4.07-2.85 0-4.52 2.14-4.52 4.35 0 .86.33 1.78.75 2.28.08.1.09.19.07.29-.08.31-.25 1.01-.28 1.15-.05.19-.16.23-.37.14-1.38-.64-2.24-2.66-2.24-4.28 0-3.48 2.53-6.67 7.29-6.67 3.82 0 6.8 2.72 6.8 6.36 0 3.8-2.4 6.86-5.73 6.86-1.12 0-2.17-.58-2.53-1.27l-.69 2.63c-.25.96-.93 2.16-1.38 2.89.99.31 2.03.47 3.12.47 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

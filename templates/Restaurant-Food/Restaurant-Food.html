@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant &amp; Food - Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Colors */
+  --primary: #FF6B35;
+  --primary-hover: #E55A25;
+  --primary-light: rgba(255, 107, 53, 0.1);
+  --background: #FFFFFF;
+  --background-warm: #FFFAF0;
+  --background-dark: #2C1810;
+  --foreground: #2C1810;
+  --muted: #6B5344;
+  --border: #2C1810;
+  --border-light: #E8DDD4;
+
+  /* Shadows */
+  --shadow-sm: 4px 4px 0px 0px #2C1810;
+  --shadow-md: 6px 6px 0px 0px #2C1810;
+  --shadow-soft: 0px 4px 16px 0px rgba(44, 24, 16, 0.06);
+
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Typography */
+  --font-display: 'Playfair Display SC', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 80px;
+  --space-4xl: 128px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--foreground);
+  background: var(--background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Header ===== */
+.header {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.header-inner {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--foreground);
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--foreground);
+}
+
+.btn-outline:hover {
+  background: rgba(44, 24, 16, 0.05);
+}
+
+.btn-outline:active {
+  transform: translateY(2px);
+}
+
+/* ===== Hero ===== */
+.hero {
+  padding: var(--space-4xl) var(--space-md) var(--space-3xl);
+  max-width: 1152px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  min-height: 100vh;
+}
+
+.hero-content {
+  padding-top: 80px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: var(--space-lg);
+  letter-spacing: 0.05em;
+}
+
+.hero-badge .star {
+  color: var(--primary);
+  font-size: 16px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-md);
+}
+
+.hero-title .highlight {
+  color: var(--primary);
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.hero-meta {
+  display: flex;
+  gap: var(--space-lg);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-meta .icon {
+  color: var(--primary);
+}
+
+.hero-images {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  padding-top: 40px;
+}
+
+.hero-img {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border);
+  aspect-ratio: 4/3;
+}
+
+.hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-img:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.hero-img:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  aspect-ratio: auto;
+}
+
+.hero-img:nth-child(3) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.hero-img:nth-child(4) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.hero-stat {
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+  background: var(--primary);
+  color: #fff;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--border);
+}
+
+.hero-stat .number {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hero-stat .label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ===== Section Divider ===== */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.section-divider .line {
+  width: 80px;
+  height: 1px;
+  background: var(--border-light);
+}
+
+.section-divider .icon {
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-xl);
+}
+
+/* ===== Menu Section ===== */
+.menu-section {
+  padding: var(--space-3xl) var(--space-md);
+  background: var(--background-warm);
+}
+
+.menu-section .container {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.menu-card {
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0px 0px #2C1810;
+}
+
+.menu-card-img {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+
+.menu-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover .menu-card-img img {
+  transform: scale(1.05);
+}
+
+.menu-card-body {
+  padding: var(--space-md);
+}
+
+.menu-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-xs);
+}
+
+.menu-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.menu-card-price {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.menu-card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.menu-card-tag {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: var(--space-xs);
+  letter-spacing: 0.05em;
+}
+
+/* ===== About Section ===== */
+.about-section {
+  padding: var(--space-3xl) var(--space-md);
+}
+
+.about-section .container {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.about-image {
+  position: relative;
+}
+
+.about-image img {
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border);
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.about-quote {
+  position: absolute;
+  bottom: -30px;
+  right: -20px;
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-md);
+  max-width: 280px;
+}
+
+.about-quote .quote-icon {
+  color: var(--primary);
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.about-quote p {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.about-quote .author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  font-style: normal;
+}
+
+.about-content {
+  padding-left: var(--space-lg);
+}
+
+.about-content .section-title {
+  text-align: left;
+  margin-bottom: var(--space-md);
+}
+
+.about-content p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.stat-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  text-align: center;
+  background: var(--background-warm);
+}
+
+.stat-card .number {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.stat-card .label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* ===== Reservation Section ===== */
+.reservation-section {
+  padding: var(--space-3xl) var(--space-md);
+  background: var(--background-dark);
+  color: #fff;
+}
+
+.reservation-section .container {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.reservation-content .section-title {
+  text-align: left;
+  color: #fff;
+  margin-bottom: var(--space-md);
+}
+
+.reservation-content p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.reservation-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.reservation-info-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.reservation-info-item .icon {
+  color: var(--primary);
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.reservation-form {
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.reservation-form h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: var(--space-sm);
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 14px var(--space-sm);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--foreground);
+  background: var(--background);
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.reservation-form .btn-primary {
+  width: 100%;
+  margin-top: var(--space-sm);
+  padding: 16px;
+  font-size: 16px;
+}
+
+/* ===== Testimonials Section ===== */
+.testimonials-section {
+  padding: var(--space-3xl) var(--space-md);
+}
+
+.testimonials-section .container {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.testimonial-card {
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+}
+
+.testimonial-stars {
+  color: var(--primary);
+  font-size: 18px;
+  margin-bottom: var(--space-sm);
+  letter-spacing: 2px;
+}
+
+.testimonial-text {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+  font-style: italic;
+}
+
+.testimonial-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin-bottom: var(--space-sm);
+}
+
+.testimonial-author {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.testimonial-role {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: var(--space-2xl) var(--space-md) var(--space-lg);
+  background: var(--background-dark);
+  color: #fff;
+}
+
+.footer .container {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-brand .logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: var(--space-sm);
+}
+
+.footer-brand p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 18px;
+  transition: background 0.3s ease;
+}
+
+.footer-social a:hover {
+  background: var(--primary);
+}
+
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.05em;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  margin-bottom: 10px;
+}
+
+.footer-col a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    min-height: auto;
+    padding-top: 120px;
+  }
+
+  .hero-content {
+    padding-top: 0;
+  }
+
+  .hero-title {
+    font-size: 56px;
+  }
+
+  .hero-images {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-section .container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .about-content {
+    padding-left: 0;
+  }
+
+  .about-content .section-title {
+    text-align: center;
+  }
+
+  .reservation-section .container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 40px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-meta {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .hero-images {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-img:nth-child(2) {
+    grid-row: auto;
+    aspect-ratio: 4/3;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .stat-card .number {
+    font-size: 24px;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .about-quote {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: var(--space-sm);
+    max-width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">La Maison</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#reservation">Reservation</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#reservation" class="btn btn-primary">Book a Table</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="star">&#9733;</span>
+      Award-Winning Cuisine
+    </div>
+    <h1 class="hero-title">
+      Experience<br>
+      <span class="highlight">Culinary Art</span>
+    </h1>
+    <p class="hero-desc">
+      Discover the finest flavors crafted with passion. Fresh ingredients, timeless recipes, and an unforgettable dining experience await you.
+    </p>
+    <div class="hero-actions">
+      <a href="#reservation" class="btn btn-primary">Reserve a Table</a>
+      <a href="#menu" class="btn btn-outline">View Menu</a>
+    </div>
+    <div class="hero-meta">
+      <span><span class="icon">&#128337;</span> Open Daily 11AM - 11PM</span>
+      <span><span class="icon">&#128205;</span> 123 Gourmet Street, NYC</span>
+    </div>
+  </div>
+  <div class="hero-images">
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop" alt="Fine dining plate">
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=500&fit=crop" alt="Gourmet food">
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop" alt="Fresh salad">
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1607532941433-304659e8198a?w=400&h=300&fit=crop" alt="Chef preparing food">
+    </div>
+    <div class="hero-stat">
+      <div class="number">15+</div>
+      <div class="label">Years of Excellence</div>
+    </div>
+  </div>
+</section>
+
+<!-- Menu Section -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="section-divider">
+      <span class="line"></span>
+      <span class="icon">&#128214;</span>
+      <span class="line"></span>
+    </div>
+    <h2 class="section-title">Our Menu</h2>
+    <div class="menu-grid">
+      <div class="menu-card animate-in">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1541014741259-de529411b96a?w=400&h=250&fit=crop" alt="Bruschetta">
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <h3 class="menu-card-title">Bruschetta Trio</h3>
+            <span class="menu-card-price">$18</span>
+          </div>
+          <p class="menu-card-desc">Toasted ciabatta with heirloom tomatoes, fresh basil, and aged balsamic reduction.</p>
+          <span class="menu-card-tag">STARTER</span>
+        </div>
+      </div>
+      <div class="menu-card animate-in">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=250&fit=crop" alt="Wagyu Steak">
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <h3 class="menu-card-title">Wagyu Ribeye</h3>
+            <span class="menu-card-price">$89</span>
+          </div>
+          <p class="menu-card-desc">A5 Japanese Wagyu, truffle butter, roasted garlic, and seasonal vegetables.</p>
+          <span class="menu-card-tag">MAIN</span>
+        </div>
+      </div>
+      <div class="menu-card animate-in">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=250&fit=crop" alt="Dessert">
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <h3 class="menu-card-title">Cr&egrave;me Br&ucirc;l&eacute;e</h3>
+            <span class="menu-card-price">$16</span>
+          </div>
+          <p class="menu-card-desc">Classic vanilla bean custard with caramelized sugar crust and fresh berries.</p>
+          <span class="menu-card-tag">DESSERT</span>
+        </div>
+      </div>
+      <div class="menu-card animate-in">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=400&h=250&fit=crop" alt="Lobster">
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <h3 class="menu-card-title">Lobster Thermidor</h3>
+            <span class="menu-card-price">$72</span>
+          </div>
+          <p class="menu-card-desc">Whole Maine lobster with cognac cream sauce, gruyere, and herbs.</p>
+          <span class="menu-card-tag">MAIN</span>
+        </div>
+      </div>
+      <div class="menu-card animate-in">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400&h=250&fit=crop" alt="Wine">
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <h3 class="menu-card-title">Wine Selection</h3>
+            <span class="menu-card-price">$24</span>
+          </div>
+          <p class="menu-card-desc">Curated selection of fine wines from Bordeaux, Burgundy, and Napa Valley.</p>
+          <span class="menu-card-tag">WINE</span>
+        </div>
+      </div>
+      <div class="menu-card animate-in">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&h=250&fit=crop" alt="Cocktail">
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <h3 class="menu-card-title">Signature Cocktails</h3>
+            <span class="menu-card-price">$19</span>
+          </div>
+          <p class="menu-card-desc">Handcrafted cocktails with premium spirits, fresh herbs, and house-made syrups.</p>
+          <span class="menu-card-tag">COCKTAIL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-image animate-in">
+      <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&h=450&fit=crop" alt="Chef Marco Bellini">
+      <div class="about-quote">
+        <div class="quote-icon">&ldquo;</div>
+        <p>Cooking is about passion, so it may look slightly temperamental in a way that it's too assertive to the naked eye.</p>
+        <div class="author">&mdash; Chef Marco Bellini</div>
+      </div>
+    </div>
+    <div class="about-content animate-in">
+      <div class="section-divider" style="justify-content: flex-start;">
+        <span class="line"></span>
+        <span class="icon">&#9830;</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">Our Story</h2>
+      <p>
+        Founded in 2008, La Maison has been a cornerstone of culinary excellence in the heart of New York City. Our journey began with a simple vision: to create dishes that tell stories and bring people together.
+      </p>
+      <p>
+        Under the guidance of Executive Chef Marco Bellini, our kitchen transforms the finest seasonal ingredients into memorable dining experiences. Every dish is a celebration of tradition, innovation, and passion.
+      </p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="number">15+</div>
+          <div class="label">Years</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">50K+</div>
+          <div class="label">Happy Guests</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">3</div>
+          <div class="label">Michelin Stars</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reservation Section -->
+<section class="reservation-section" id="reservation">
+  <div class="container">
+    <div class="reservation-content animate-in">
+      <div class="section-divider" style="justify-content: flex-start;">
+        <span class="line" style="background: rgba(255,255,255,0.2);"></span>
+        <span class="icon">&#128197;</span>
+        <span class="line" style="background: rgba(255,255,255,0.2);"></span>
+      </div>
+      <h2 class="section-title">Reserve Your Table</h2>
+      <p>
+        Join us for an unforgettable dining experience. Whether it's a romantic dinner, a business lunch, or a celebration with friends, we'll make every moment special.
+      </p>
+      <div class="reservation-info">
+        <div class="reservation-info-item">
+          <span class="icon">&#128337;</span>
+          <span>Open Daily: 11:00 AM - 11:00 PM</span>
+        </div>
+        <div class="reservation-info-item">
+          <span class="icon">&#128205;</span>
+          <span>123 Gourmet Street, New York, NY 10001</span>
+        </div>
+        <div class="reservation-info-item">
+          <span class="icon">&#128222;</span>
+          <span>+1 (212) 555-0189</span>
+        </div>
+        <div class="reservation-info-item">
+          <span class="icon">&#9993;</span>
+          <span>reservations@lamaison.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="reservation-form animate-in">
+      <h3>Book a Table</h3>
+      <form onsubmit="return false;">
+        <div class="form-group">
+          <label for="res-date">Date</label>
+          <input type="date" id="res-date" value="2024-12-20">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="res-time">Time</label>
+            <select id="res-time">
+              <option>6:00 PM</option>
+              <option>6:30 PM</option>
+              <option>7:00 PM</option>
+              <option>7:30 PM</option>
+              <option>8:00 PM</option>
+              <option>8:30 PM</option>
+              <option>9:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="res-guests">Guests</label>
+            <select id="res-guests">
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6+ Guests</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="res-name">Full Name</label>
+          <input type="text" id="res-name" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label for="res-email">Email</label>
+          <input type="email" id="res-email" placeholder="your@email.com">
+        </div>
+        <button type="submit" class="btn btn-primary">Reserve Now</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-divider">
+      <span class="line"></span>
+      <span class="icon">&#10022;</span>
+      <span class="line"></span>
+    </div>
+    <h2 class="section-title">What Our Guests Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-in">
+        <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial-text">"An extraordinary culinary journey. Every dish tells a story, and the attention to detail is impeccable. A must-visit for any food enthusiast."</p>
+        <div class="testimonial-divider"></div>
+        <div class="testimonial-author">Sarah Mitchell</div>
+        <div class="testimonial-role">Food Critic, NY Times</div>
+      </div>
+      <div class="testimonial-card animate-in">
+        <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial-text">"We've celebrated every anniversary here for the past 5 years. The ambiance, service, and food never disappoint. Simply the best in the city."</p>
+        <div class="testimonial-divider"></div>
+        <div class="testimonial-author">James Rodriguez</div>
+        <div class="testimonial-role">Regular Guest</div>
+      </div>
+      <div class="testimonial-card animate-in">
+        <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial-text">"The Wagyu ribeye is hands down the best steak I've ever had. Chef Marco's passion shines through in every bite. Absolutely phenomenal!"</p>
+        <div class="testimonial-divider"></div>
+        <div class="testimonial-author">Emily Chen</div>
+        <div class="testimonial-role">Food Blogger</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">La Maison</div>
+        <p>Experience culinary excellence in the heart of New York City. Award-winning cuisine, exceptional service, unforgettable moments.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">&#9741;</a>
+          <a href="#" aria-label="Twitter">&#120143;</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#">Starters</a></li>
+          <li><a href="#">Mains</a></li>
+          <li><a href="#">Desserts</a></li>
+          <li><a href="#">Wine List</a></li>
+          <li><a href="#">Cocktails</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <ul>
+          <li><a href="#">Reservations</a></li>
+          <li><a href="#">Private Events</a></li>
+          <li><a href="#">Gift Cards</a></li>
+          <li><a href="#">Catering</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">The Team</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 La Maison. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.animate-in').forEach(el => {
+  observer.observe(el);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>

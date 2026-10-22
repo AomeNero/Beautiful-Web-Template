@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veterinary Clinic - Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ===== Colors ===== */
+  --primary: #4A90A4;
+  --primary-hover: #3D7A8C;
+  --primary-light: rgba(74, 144, 164, 0.1);
+  --primary-lighter: rgba(74, 144, 164, 0.06);
+  --accent: #E76F51;
+  --accent-hover: #D45A3E;
+  --accent-light: rgba(231, 111, 81, 0.12);
+  --secondary: #6BB5A2;
+  --secondary-light: rgba(107, 181, 162, 0.1);
+  --background: #FFFFFF;
+  --background-alt: #F8FBFC;
+  --foreground: #1E3A4C;
+  --muted: #5A7A8A;
+  --muted-light: #8FA3AD;
+  --border: #D4E5EB;
+  --border-strong: #4A90A4;
+  --footer-bg: #2C5364;
+  --footer-text: rgba(255, 255, 255, 0.7);
+  --footer-text-hover: #FFFFFF;
+  --orange-accent: #F4A261;
+  --orange-light: rgba(244, 162, 97, 0.12);
+  --success: #6BB5A2;
+  --white: #FFFFFF;
+
+  /* ===== Shadows ===== */
+  --shadow-sm: 0 2px 8px rgba(30, 58, 76, 0.06);
+  --shadow-md: 0 4px 16px rgba(30, 58, 76, 0.1);
+  --shadow-lg: 0 8px 32px rgba(30, 58, 76, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(74, 144, 164, 0.15);
+
+  /* ===== Borders ===== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* ===== Typography ===== */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* ===== Spacing ===== */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 80px;
+  --space-4xl: 96px;
+
+  /* ===== Transitions ===== */
+  --transition-fast: 0.15s ease-out;
+  --transition-base: 0.2s ease-out;
+  --transition-slow: 0.3s ease-out;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--foreground);
+  background: var(--background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ===== Container ===== */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); }
+
+/* ===== Header ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-sm) 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--foreground);
+}
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+.nav { display: flex; gap: var(--space-lg); }
+.nav a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color var(--transition-base);
+}
+.nav a:hover { color: var(--primary); }
+.header-actions { display: flex; align-items: center; gap: var(--space-sm); }
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--foreground);
+  margin: 5px 0;
+  transition: var(--transition-base);
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+.btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-accent {
+  background: var(--accent);
+  color: var(--white);
+}
+.btn-accent:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn-accent:active { transform: translateY(0); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  padding: 10px 16px;
+}
+.btn-ghost:hover { color: var(--primary); }
+
+.btn-sm {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* ===== Hero ===== */
+.hero {
+  background: var(--background-alt);
+  padding: var(--space-4xl) 0;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: var(--space-lg);
+}
+.hero-badge svg { width: 16px; height: 16px; }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin-bottom: var(--space-md);
+}
+.hero h1 .highlight { color: var(--primary); }
+.hero-desc {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+  max-width: 520px;
+}
+.hero-buttons { display: flex; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+.hero-trust {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  max-width: 400px;
+}
+.trust-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.trust-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.trust-icon.primary { background: var(--primary-light); color: var(--primary); }
+.trust-icon.secondary { background: var(--secondary-light); color: var(--secondary); }
+.trust-icon svg { width: 20px; height: 20px; }
+.trust-label { font-weight: 700; font-size: 15px; color: var(--foreground); }
+.trust-sub { font-size: 13px; color: var(--muted); }
+
+.hero-image-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: visible;
+}
+.hero-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  background: var(--border);
+}
+.float-card {
+  position: absolute;
+  background: var(--background);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm) var(--space-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.float-card-top {
+  top: -20px;
+  left: -20px;
+}
+.float-card-bottom {
+  bottom: -16px;
+  right: -16px;
+}
+.float-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.float-icon.teal { background: var(--primary); color: var(--white); }
+.float-icon.orange { background: var(--orange-accent); color: var(--white); }
+.float-icon svg { width: 22px; height: 22px; }
+.float-title { font-weight: 700; font-size: 15px; color: var(--foreground); }
+.float-sub { font-size: 13px; color: var(--muted); }
+
+/* ===== Section Title ===== */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-sm);
+}
+.section-header p {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ===== Team Cards ===== */
+.team-section {
+  padding: var(--space-4xl) 0;
+  background: var(--background);
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+.team-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+.team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.team-photo {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  background: var(--background-alt);
+}
+.team-info { padding: var(--space-sm); }
+.team-name {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--foreground);
+  margin-bottom: 2px;
+}
+.team-role {
+  font-size: 14px;
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+.team-specialty {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+.team-exp {
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+/* ===== Emergency CTA ===== */
+.emergency-section {
+  padding: var(--space-4xl) 0;
+  background: var(--background-alt);
+}
+.emergency-card {
+  background: linear-gradient(135deg, #E76F51 0%, #F09080 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  color: var(--white);
+}
+.emergency-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+.emergency-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border-radius: 50%;
+}
+.emergency-card h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+.emergency-card p {
+  font-size: 16px;
+  opacity: 0.9;
+  line-height: 1.7;
+}
+.emergency-list { list-style: none; }
+.emergency-list li {
+  padding: var(--space-xs) 0;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.emergency-list li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--white);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== Appointment Form ===== */
+.appointment-section {
+  padding: var(--space-4xl) 0;
+  background: var(--background);
+}
+.appointment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+.contact-info h3 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+.contact-info > p {
+  color: var(--muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary);
+}
+.contact-icon svg { width: 20px; height: 20px; }
+.contact-label { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
+.contact-value { font-weight: 600; font-size: 15px; color: var(--foreground); }
+
+.form-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+.form-group { margin-bottom: var(--space-sm); }
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: var(--space-xs);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--foreground);
+  background: var(--background);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  outline: none;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--muted-light);
+  opacity: 0.7;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-focus);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-submit { width: 100%; margin-top: var(--space-sm); }
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: var(--space-3xl) 0 var(--space-lg);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+.footer-brand .logo {
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+.footer-brand .logo-icon { background: var(--primary); }
+.footer-brand p {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+}
+.social-links { display: flex; gap: var(--space-xs); }
+.social-link {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  transition: background var(--transition-base);
+}
+.social-link:hover { background: rgba(255, 255, 255, 0.2); }
+.social-link svg { width: 18px; height: 18px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-md);
+}
+.footer-col ul li { margin-bottom: var(--space-xs); }
+.footer-col ul a {
+  font-size: 14px;
+  color: var(--footer-text);
+  transition: color var(--transition-base);
+}
+.footer-col ul a:hover { color: var(--footer-text-hover); }
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+.footer-bottom-links { display: flex; gap: var(--space-md); }
+.footer-bottom-links a {
+  color: var(--footer-text);
+  transition: color var(--transition-base);
+}
+.footer-bottom-links a:hover { color: var(--footer-text-hover); }
+
+/* ===== Badges ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+}
+.badge-primary { background: var(--primary-light); color: var(--primary); }
+.badge-accent { background: var(--accent-light); color: var(--accent); }
+.badge-success { background: var(--secondary-light); color: var(--secondary); }
+.badge-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+/* ===== Animations ===== */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ===== Responsive: 1024px ===== */
+@media (max-width: 1024px) {
+  .hero h1 { font-size: 44px; }
+  .hero-inner { gap: var(--space-lg); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+  .emergency-card { grid-template-columns: 1fr; }
+  .appointment-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Responsive: 768px ===== */
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .hamburger { display: block; }
+  .header-actions .btn { display: none; }
+  .header-actions .btn-accent { display: inline-flex; }
+
+  .hero { padding: var(--space-2xl) 0; min-height: auto; }
+  .hero-inner { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .hero h1 { font-size: 36px; }
+  .hero-desc { font-size: 16px; }
+  .hero-buttons { flex-direction: column; }
+  .hero-buttons .btn { width: 100%; }
+  .hero-trust { grid-template-columns: 1fr; }
+  .float-card-top { top: -12px; left: 12px; }
+  .float-card-bottom { bottom: -12px; right: 12px; }
+
+  .section-header h2 { font-size: 32px; }
+  .team-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+
+  .emergency-card { padding: var(--space-lg); }
+  .emergency-card h2 { font-size: 28px; }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .footer-bottom { flex-direction: column; gap: var(--space-sm); text-align: center; }
+}
+
+/* ===== Demo Section Labels ===== */
+.demo-label {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+.demo-section {
+  padding: var(--space-2xl) 0;
+  border-bottom: 1px solid var(--border);
+}
+.demo-section:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v2a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/><path d="M12 14c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z"/></svg>
+      </div>
+      PetCare Clinic
+    </a>
+    <nav class="nav">
+      <a href="#services">Services</a>
+      <a href="#team">Our Team</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#" class="btn btn-accent btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Emergency
+      </a>
+      <a href="#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-content animate-in">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Trusted by 10,000+ Pet Parents
+      </div>
+      <h1>Compassionate Care for Your <span class="highlight">Beloved Pets</span></h1>
+      <p class="hero-desc">Expert veterinary services with a gentle touch. We treat every pet like family, providing the highest quality care they deserve.</p>
+      <div class="hero-buttons">
+        <a href="#appointment" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book Appointment
+        </a>
+        <a href="#services" class="btn btn-outline">Our Services</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-card">
+          <div class="trust-icon primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="trust-label">Licensed</div>
+            <div class="trust-sub">AVMA Certified</div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon secondary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div class="trust-label">4.9 Rating</div>
+            <div class="trust-sub">500+ Reviews</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-wrap animate-in">
+      <div class="hero-image" style="background: linear-gradient(135deg, #D4E5EB 0%, #B8D4E0 100%); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px;">
+        [Pet Care Photo]
+      </div>
+      <div class="float-card float-card-top">
+        <div class="float-icon teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="float-title">Open 7 Days</div>
+          <div class="float-sub">8AM - 8PM</div>
+        </div>
+      </div>
+      <div class="float-card float-card-bottom">
+        <div class="float-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="float-title">15+ Years</div>
+          <div class="float-sub">Experience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUTTONS DEMO ===== -->
+<section class="demo-section">
+  <div class="container">
+    <span class="demo-label">Button System</span>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+      <a href="#" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Book Appointment
+      </a>
+      <a href="#" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Emergency
+      </a>
+      <a href="#" class="btn btn-outline">Our Services</a>
+      <a href="#" class="btn btn-ghost">Learn More</a>
+      <a href="#" class="btn btn-primary btn-sm">Small Primary</a>
+      <a href="#" class="btn btn-accent btn-sm">Small Accent</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BADGES DEMO ===== -->
+<section class="demo-section">
+  <div class="container">
+    <span class="demo-label">Badges</span>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <span class="badge badge-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Trusted by 10,000+ Pet Parents
+      </span>
+      <span class="badge badge-accent">24/7 Emergency</span>
+      <span class="badge badge-success">AVMA Certified</span>
+      <span class="badge badge-outline">Wellness Exam</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM SECTION ===== -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="section-header animate-in">
+      <h2>Meet Our Expert Vets</h2>
+      <p>Our dedicated team of veterinary professionals is committed to providing the best care for your pets.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card animate-in">
+        <div class="team-photo" style="background: linear-gradient(135deg, #E8F0F2 0%, #D4E5EB 100%);"></div>
+        <div class="team-info">
+          <div class="team-name">Dr. Sarah Mitchell</div>
+          <div class="team-role">Chief Veterinarian</div>
+          <div class="team-specialty">
+            <span>Internal Medicine</span>
+            <span class="team-exp">15+ years</span>
+          </div>
+        </div>
+      </div>
+      <div class="team-card animate-in">
+        <div class="team-photo" style="background: linear-gradient(135deg, #E0EBF0 0%, #C8DCE5 100%);"></div>
+        <div class="team-info">
+          <div class="team-name">Dr. James Chen</div>
+          <div class="team-role">Veterinary Surgeon</div>
+          <div class="team-specialty">
+            <span>Orthopedic Surgery</span>
+            <span class="team-exp">12+ years</span>
+          </div>
+        </div>
+      </div>
+      <div class="team-card animate-in">
+        <div class="team-photo" style="background: linear-gradient(135deg, #E5F0EC 0%, #CCE5DC 100%);"></div>
+        <div class="team-info">
+          <div class="team-name">Dr. Emily Rodriguez</div>
+          <div class="team-role">Veterinarian</div>
+          <div class="team-specialty">
+            <span>Exotic Animals</span>
+            <span class="team-exp">8+ years</span>
+          </div>
+        </div>
+      </div>
+      <div class="team-card animate-in">
+        <div class="team-photo" style="background: linear-gradient(135deg, #E8ECF5 0%, #D0D8E8 100%);"></div>
+        <div class="team-info">
+          <div class="team-name">Dr. Michael Thompson</div>
+          <div class="team-role">Emergency Vet</div>
+          <div class="team-specialty">
+            <span>Critical Care</span>
+            <span class="team-exp">10+ years</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EMERGENCY CTA ===== -->
+<section class="emergency-section">
+  <div class="container">
+    <div class="emergency-card animate-in">
+      <div>
+        <div class="emergency-badge">24/7 Emergency Services</div>
+        <h2>Signs of Pet Emergency</h2>
+        <p>Don't wait if your pet shows any of these symptoms. Our emergency team is available around the clock.</p>
+      </div>
+      <ul class="emergency-list">
+        <li>Difficulty breathing or choking</li>
+        <li>Severe vomiting or diarrhea</li>
+        <li>Loss of consciousness</li>
+        <li>Seizures or tremors</li>
+        <li>Severe bleeding or trauma</li>
+        <li>Sudden inability to walk</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APPOINTMENT FORM ===== -->
+<section class="appointment-section" id="appointment">
+  <div class="container">
+    <div class="appointment-grid">
+      <div class="contact-info animate-in">
+        <h3>Book an Appointment</h3>
+        <p>Schedule a visit for your pet. We'll confirm your appointment within 2 hours during business hours.</p>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">(555) 123-4567</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Address</div>
+            <div class="contact-value">123 Pet Care Lane, Animal City</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Hours</div>
+            <div class="contact-value">Mon-Sun: 8AM - 8PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-card animate-in">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pet Name</label>
+            <input type="text" placeholder="Your pet's name">
+          </div>
+          <div class="form-group">
+            <label>Service Type</label>
+            <select>
+              <option>Wellness Exam</option>
+              <option>Vaccination</option>
+              <option>Surgery</option>
+              <option>Dental Care</option>
+              <option>Emergency</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Date</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label>Preferred Time</label>
+            <select>
+              <option>Morning (8AM-12PM)</option>
+              <option>Afternoon (12PM-4PM)</option>
+              <option>Evening (4PM-8PM)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Additional Notes</label>
+          <textarea placeholder="Any special concerns or requests..."></textarea>
+        </div>
+        <button class="btn btn-primary form-submit">Request Appointment</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v2a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/><path d="M12 14c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z"/></svg>
+          </div>
+          PetCare Clinic
+        </a>
+        <p>Compassionate veterinary care for your beloved pets. Open 7 days a week.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Wellness Exams</a></li>
+          <li><a href="#">Vaccinations</a></li>
+          <li><a href="#">Surgery</a></li>
+          <li><a href="#">Dental Care</a></li>
+          <li><a href="#">Emergency Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Pet Care Tips</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Insurance</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 PetCare Clinic. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for entrance animations
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.animate-in').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>

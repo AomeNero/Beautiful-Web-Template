@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coworking Space — Vibrant Block-based + Glassmorphism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ── Colors ── */
+    --bg: #FFFFFF;
+    --bg-alt: #F8FAFC;
+    --bg-dark: #0F172A;
+    --fg: #0F172A;
+    --text-muted: #475569;
+    --text-light: #94A3B8;
+    --accent-primary: #6366F1;
+    --accent-secondary: #EC4899;
+    --accent-success: #10B981;
+    --accent-warning: #F97316;
+    --border: #E2E8F0;
+    --border-light: rgba(255, 255, 255, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --gradient: linear-gradient(135deg, #6366F1, #EC4899);
+    --gradient-text: linear-gradient(135deg, #6366F1, #EC4899);
+
+    /* ── Shadows ─ */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+
+    /* ── Typography ── */
+    --font-heading: "Space Grotesk", sans-serif;
+    --font-body: "DM Sans", sans-serif;
+
+    /* ── Radius ── */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-full: 999px;
+
+    /* ── Transitions ── */
+    --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+  section { position: relative; }
+
+  /* ── Gradient Text ── */
+  .gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.9375rem;
+    padding: 0.875rem 1.75rem; border-radius: var(--radius-full); cursor: pointer;
+    transition: all var(--transition); text-decoration: none; line-height: 1;
+    white-space: nowrap; border: none;
+  }
+  .btn-primary {
+    background: var(--gradient); color: #fff;
+    box-shadow: var(--shadow-glow);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.23); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-outline {
+    background: transparent; color: var(--fg);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { background: var(--bg-alt); border-color: #CBD5E1; }
+  .btn-outline-dark {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .btn-outline-dark:hover { background: rgba(255, 255, 255, 0.1); }
+  .btn-icon { font-size: 1.1rem; }
+
+  /* ── Badge ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    padding: 0.375rem 1rem; border-radius: var(--radius-full);
+    font-size: 0.875rem; font-weight: 500;
+    background: rgba(99, 102, 241, 0.1); color: var(--accent-primary);
+  }
+  .badge-icon { font-size: 0.75rem; }
+
+  /* ── Header / Nav ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px; max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 0.625rem;
+    font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem;
+  }
+  .logo-icon {
+    width: 32px; height: 32px; border-radius: var(--radius-sm);
+    background: var(--gradient); display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 0.875rem;
+  }
+  .nav-links { display: none; gap: 0.25rem; align-items: center; }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+  .nav-links a {
+    font-weight: 500; font-size: 0.9375rem; color: var(--text-muted);
+    padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
+    transition: all var(--transition);
+  }
+  .nav-links a:hover { color: var(--fg); background: var(--bg-alt); }
+  .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-login {
+    font-weight: 500; font-size: 0.9375rem; color: var(--text-muted);
+    padding: 0.5rem 0.875rem; transition: color var(--transition);
+  }
+  .nav-login:hover { color: var(--fg); }
+  .nav-cta { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
+  .nav-toggle {
+    display: flex; flex-direction: column; gap: 4px;
+    background: none; border: none; cursor: pointer; padding: 0.5rem;
+  }
+  @media (min-width: 768px) { .nav-toggle { display: none; } }
+  .nav-toggle span {
+    width: 20px; height: 2px; background: var(--fg); border-radius: 2px;
+    transition: all var(--transition);
+  }
+
+  /* ─ Hero ── */
+  .hero {
+    padding: 5rem 0 4rem;
+    background: linear-gradient(180deg, rgba(99, 102, 241, 0.03) 0%, var(--bg) 100%);
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .hero-inner { grid-template-columns: 1.1fr 1fr; gap: 4rem; }
+  }
+  .hero-badge { margin-bottom: 1.5rem; }
+  .hero-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+  .hero-desc {
+    font-size: 1.125rem; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 2rem; max-width: 540px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+  .hero-stats { display: flex; flex-wrap: wrap; gap: 2.5rem; }
+  .stat-number {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: 1.75rem; color: var(--accent-primary);
+  }
+  .stat-label { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.125rem; }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative; display: none;
+  }
+  @media (min-width: 1024px) { .hero-visual { display: block; } }
+  .hero-image {
+    width: 100%; border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+  .hero-image img { width: 100%; height: 380px; object-fit: cover; }
+  .hero-float-card {
+    position: absolute; background: var(--glass-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-light); border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem; box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-float-card-1 { top: 2rem; right: -1.5rem; }
+  .hero-float-card-2 { bottom: 2rem; left: -1.5rem; }
+  .float-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.125rem; flex-shrink: 0;
+  }
+  .float-icon-purple { background: rgba(99, 102, 241, 0.1); color: var(--accent-primary); }
+  .float-icon-green { background: rgba(16, 185, 129, 0.1); color: var(--accent-success); }
+  .float-title { font-weight: 600; font-size: 0.9375rem; }
+  .float-desc { font-size: 0.8125rem; color: var(--text-muted); }
+
+  /* ── Amenities ── */
+  .amenities { padding: 5rem 0; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 0.75rem;
+  }
+  .section-desc { font-size: 1.0625rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+  .amenities-grid {
+    display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+  }
+  @media (min-width: 768px) { .amenities-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .amenities-grid { grid-template-columns: repeat(4, 1fr); } }
+  .amenity-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.75rem 1.5rem;
+    text-align: center; transition: all var(--transition);
+  }
+  .amenity-card:hover {
+    transform: translateY(-4px); box-shadow: var(--shadow-lg);
+    border-color: rgba(99, 102, 241, 0.2);
+  }
+  .amenity-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem; font-size: 1.25rem;
+  }
+  .amenity-icon-purple { background: rgba(99, 102, 241, 0.1); color: var(--accent-primary); }
+  .amenity-icon-pink { background: rgba(236, 72, 153, 0.1); color: var(--accent-secondary); }
+  .amenity-icon-green { background: rgba(16, 185, 129, 0.1); color: var(--accent-success); }
+  .amenity-icon-orange { background: rgba(249, 115, 22, 0.1); color: var(--accent-warning); }
+  .amenity-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.375rem; }
+  .amenity-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* ─ Pricing ── */
+  .pricing { padding: 5rem 0; background: var(--bg-alt); }
+  .pricing-grid {
+    display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+  }
+  @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .pricing-grid { grid-template-columns: repeat(4, 1fr); } }
+  .pricing-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2rem 1.5rem;
+    transition: all var(--transition); position: relative;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .pricing-card.featured {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                var(--gradient) border-box;
+    box-shadow: var(--shadow-lg);
+  }
+  .pricing-popular {
+    position: absolute; top: -0.75rem; left: 50%; transform: translateX(-50%);
+    background: var(--gradient); color: #fff;
+    padding: 0.25rem 0.875rem; border-radius: var(--radius-full);
+    font-size: 0.75rem; font-weight: 600; white-space: nowrap;
+  }
+  .pricing-name { font-weight: 600; font-size: 1.125rem; margin-bottom: 0.25rem; }
+  .pricing-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .pricing-price {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: 2.5rem; line-height: 1; margin-bottom: 0.25rem;
+  }
+  .pricing-period { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+  .pricing-features { list-style: none; margin-bottom: 1.5rem; }
+  .pricing-features li {
+    font-size: 0.875rem; color: var(--text-muted); padding: 0.375rem 0;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .pricing-features li::before {
+    content: "\2713"; color: var(--accent-success); font-weight: 700;
+  }
+  .pricing-btn { width: 100%; }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    padding: 5rem 0; background: var(--bg-dark);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+    position: relative; color: #fff;
+  }
+  .cta-desc {
+    font-size: 1.0625rem; color: rgba(255, 255, 255, 0.7);
+    max-width: 560px; margin: 0 auto 2rem; position: relative;
+  }
+  .cta-actions {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+    margin-bottom: 2.5rem; position: relative;
+  }
+  .cta-features {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
+    position: relative;
+  }
+  .cta-feature {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.9375rem; color: rgba(255, 255, 255, 0.8);
+  }
+  .cta-feature-icon { color: var(--accent-success); font-size: 1.125rem; }
+
+  /* ── Footer ── */
+  footer { padding: 4rem 0 2rem; background: var(--bg); border-top: 1px solid var(--border); }
+  .footer-inner {
+    display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  @media (min-width: 768px) {
+    .footer-inner { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 2rem; }
+  }
+  .footer-brand-desc {
+    font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6;
+    margin: 1rem 0 1.5rem; max-width: 280px;
+  }
+  .footer-social { display: flex; gap: 0.75rem; }
+  .footer-social a {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg-alt); display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem; color: var(--text-muted); transition: all var(--transition);
+  }
+  .footer-social a:hover { background: var(--accent-primary); color: #fff; }
+  .footer-col-title {
+    font-weight: 600; font-size: 0.9375rem; margin-bottom: 1rem;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.625rem; }
+  .footer-links a {
+    font-size: 0.875rem; color: var(--text-muted); transition: color var(--transition);
+  }
+  .footer-links a:hover { color: var(--fg); }
+  .footer-bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+    font-size: 0.8125rem; color: var(--text-muted);
+  }
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { transition: color var(--transition); }
+  .footer-bottom-links a:hover { color: var(--fg); }
+
+  /* ─ Animations ── */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-float-card-1 { animation: float 6s ease-in-out infinite; }
+  .hero-float-card-2 { animation: float 6s ease-in-out infinite 1s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════ -->
+<header>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </span>
+      WorkHub
+    </a>
+    <nav class="nav-links">
+      <a href="#spaces">Spaces</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#pricing">Membership</a>
+      <a href="#locations">Locations</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#" class="nav-login">Log in</a>
+      <a href="#" class="btn btn-primary nav-cta">Book a Tour</a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge badge">
+          <span class="badge-icon">&#9733;</span> Rated #1 Coworking Space in NYC
+        </div>
+        <h1 class="hero-title">Work Better,<br><span class="gradient-text">Together</span></h1>
+        <p class="hero-desc">Flexible workspaces designed for productivity, creativity, and community. Join thousands of professionals who've found their perfect work environment.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">
+            <span class="btn-icon">&#128197;</span> Book a Free Tour
+          </a>
+          <a href="#" class="btn btn-outline">
+            <span class="btn-icon">&#9654;</span> Watch Video
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-number">5,000+</div>
+            <div class="stat-label">Members</div>
+          </div>
+          <div>
+            <div class="stat-number">12</div>
+            <div class="stat-label">Locations</div>
+          </div>
+          <div>
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=500&fit=crop" alt="Modern coworking space interior">
+        </div>
+        <div class="hero-float-card hero-float-card-1">
+          <div class="float-icon float-icon-purple">&#128246;</div>
+          <div>
+            <div class="float-title">High-Speed WiFi</div>
+            <div class="float-desc">1Gbps fiber</div>
+          </div>
+        </div>
+        <div class="hero-float-card hero-float-card-2">
+          <div class="float-icon float-icon-green">&#10003;</div>
+          <div>
+            <div class="float-title">24/7 Access</div>
+            <div class="float-desc">Work anytime</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     AMENITIES
+═══════════════════════════════════════════ -->
+<section class="amenities" id="amenities">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge" style="margin-bottom:1rem;">Everything You Need</div>
+      <h2 class="section-title">Premium <span class="gradient-text">Amenities</span></h2>
+      <p class="section-desc">Everything you need to do your best work, all in one place.</p>
+    </div>
+    <div class="amenities-grid">
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-purple">&#128246;</div>
+        <div class="amenity-title">High-Speed WiFi</div>
+        <div class="amenity-desc">1Gbps fiber internet with backup connection</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-pink">&#128424;</div>
+        <div class="amenity-title">Print & Scan</div>
+        <div class="amenity-desc">Professional printing and scanning services</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-green">&#128231;</div>
+        <div class="amenity-title">Mail Handling</div>
+        <div class="amenity-desc">Business address and mail services</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-orange">&#128337;</div>
+        <div class="amenity-title">24/7 Access</div>
+        <div class="amenity-desc">Work on your schedule, anytime</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-purple">&#128274;</div>
+        <div class="amenity-title">Secure Access</div>
+        <div class="amenity-desc">Keycard entry and 24/7 security</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-pink">&#128101;</div>
+        <div class="amenity-title">Community Events</div>
+        <div class="amenity-desc">Networking and social events</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-green">&#9749;</div>
+        <div class="amenity-title">Kitchen & Caf&eacute;</div>
+        <div class="amenity-desc">Free coffee, tea, and snacks</div>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon amenity-icon-orange">&#127909;</div>
+        <div class="amenity-title">Meeting Rooms</div>
+        <div class="amenity-desc">Bookable rooms with AV equipment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRICING
+═══════════════════════════════════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge" style="margin-bottom:1rem;">Membership Plans</div>
+      <h2 class="section-title">Simple, <span class="gradient-text">Flexible Pricing</span></h2>
+      <p class="section-desc">Choose the plan that fits your work style. All plans include a 7-day free trial.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Day Pass</div>
+        <div class="pricing-desc">Perfect for occasional visits</div>
+        <div class="pricing-price">$35<span style="font-size:1rem;font-weight:400;color:var(--text-muted)">/day</span></div>
+        <ul class="pricing-features">
+          <li>Hot desk access</li>
+          <li>High-speed WiFi</li>
+          <li>Kitchen access</li>
+          <li>Community events</li>
+        </ul>
+        <a href="#" class="btn btn-outline pricing-btn">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Hot Desk</div>
+        <div class="pricing-desc">Flexible seating for regulars</div>
+        <div class="pricing-price">$199<span style="font-size:1rem;font-weight:400;color:var(--text-muted)">/month</span></div>
+        <ul class="pricing-features">
+          <li>Unlimited hot desk</li>
+          <li>Print & scan credits</li>
+          <li>Mail handling</li>
+          <li>2 meeting room hours</li>
+        </ul>
+        <a href="#" class="btn btn-outline pricing-btn">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-popular">Most Popular</div>
+        <div class="pricing-name">Dedicated Desk</div>
+        <div class="pricing-desc">Your own permanent workspace</div>
+        <div class="pricing-price">$399<span style="font-size:1rem;font-weight:400;color:var(--text-muted)">/month</span></div>
+        <ul class="pricing-features">
+          <li>Permanent desk</li>
+          <li>Lockable storage</li>
+          <li>Unlimited printing</li>
+          <li>10 meeting room hours</li>
+          <li>Guest passes (5/mo)</li>
+        </ul>
+        <a href="#" class="btn btn-primary pricing-btn">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Private Office</div>
+        <div class="pricing-desc">For teams who need privacy</div>
+        <div class="pricing-price">$899<span style="font-size:1rem;font-weight:400;color:var(--text-muted)">/month</span></div>
+        <ul class="pricing-features">
+          <li>Private enclosed office</li>
+          <li>Up to 4 team members</li>
+          <li>Custom branding</li>
+          <li>Unlimited meeting rooms</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="btn btn-outline pricing-btn">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CTA SECTION
+═══════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title">Ready to Find Your Perfect<br><span class="gradient-text">Workspace?</span></h2>
+    <p class="cta-desc">Join our community of 5,000+ professionals. Book a free tour today and experience the WorkHub difference.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn btn-primary">Book a Free Tour</a>
+      <a href="#" class="btn btn-outline-dark">Contact Sales</a>
+    </div>
+    <div class="cta-features">
+      <div class="cta-feature">
+        <span class="cta-feature-icon">&#10003;</span> 7-day free trial
+      </div>
+      <div class="cta-feature">
+        <span class="cta-feature-icon">&#10003;</span> No credit card required
+      </div>
+      <div class="cta-feature">
+        <span class="cta-feature-icon">&#10003;</span> Cancel anytime
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a href="#" class="logo">
+          <span class="logo-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </span>
+          WorkHub
+        </a>
+        <p class="footer-brand-desc">Flexible workspaces for modern professionals. Work better, together.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="X">&#120143;</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Instagram">&#9744;</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Spaces</div>
+        <ul class="footer-links">
+          <li><a href="#">Hot Desks</a></li>
+          <li><a href="#">Dedicated Desks</a></li>
+          <li><a href="#">Private Offices</a></li>
+          <li><a href="#">Meeting Rooms</a></li>
+          <li><a href="#">Event Spaces</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Locations</div>
+        <ul class="footer-links">
+          <li><a href="#">Manhattan</a></li>
+          <li><a href="#">Brooklyn</a></li>
+          <li><a href="#">San Francisco</a></li>
+          <li><a href="#">Austin</a></li>
+          <li><a href="#">All Locations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Referral Program</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2024 WorkHub. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

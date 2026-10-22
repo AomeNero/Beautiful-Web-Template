@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer-Support-CRM — 客户支持 CRM 组件库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Customer-Support-CRM — 客户支持 CRM 组件库
+   柔和靛蓝 SaaS 风格：浅薰衣草底色 × 蓝主色 × 圆润卡片
+   全渠道工单管理界面，AI 辅助客服，三级定价
+   ============================================================ */
+
+/* ── Token Layer ── */
+:root {
+  /* Colors */
+  --bg-page: #F8FAFC;
+  --bg-alt: #F1F5F9;
+  --bg-white: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-indigo-tint: rgba(99, 102, 241, 0.08);
+  --bg-green-tint: rgba(16, 185, 129, 0.08);
+  --bg-purple-tint: rgba(139, 92, 246, 0.08);
+  --bg-amber-tint: rgba(245, 158, 11, 0.08);
+  --bg-cyan-tint: rgba(6, 182, 212, 0.08);
+  --bg-pink-tint: rgba(244, 114, 182, 0.08);
+  --bg-blue-tint: rgba(24, 119, 242, 0.08);
+  --bg-red-tint: rgba(228, 64, 95, 0.08);
+  --bg-nav: rgba(255, 255, 255, 0.9);
+
+  --primary: #6366F1;
+  --primary-hover: #4F46E5;
+  --primary-light: rgba(99, 102, 241, 0.1);
+  --primary-glow: rgba(99, 102, 241, 0.3);
+
+  --text-primary: #0F172A;
+  --text-secondary: #1E293B;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --text-white: #FFFFFF;
+
+  --border: #E2E8F0;
+  --border-focus: #6366F1;
+
+  --green: #10B981;
+  --green-light: rgba(16, 185, 129, 0.1);
+  --amber: #F59E0B;
+  --amber-light: rgba(245, 158, 11, 0.1);
+  --cyan: #06B6D4;
+  --cyan-light: rgba(6, 182, 212, 0.1);
+  --pink: #F472B6;
+  --pink-light: rgba(244, 114, 182, 0.1);
+  --purple: #8B5CF6;
+  --purple-light: rgba(139, 92, 246, 0.1);
+  --blue: #1877F2;
+  --blue-light: rgba(24, 119, 242, 0.1);
+  --red: #E4405F;
+  --red-light: rgba(228, 64, 95, 0.1);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --fs-hero: clamp(36px, 4vw + 16px, 56px);
+  --fs-h2: clamp(28px, 2.5vw + 12px, 40px);
+  --fs-h3: 22px;
+  --fs-h4: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-xs: 12px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-base: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-section: 96px;
+
+  /* Borders */
+  --r-pill: 100px;
+  --r-card: 16px;
+  --r-btn: 12px;
+  --r-input: 12px;
+  --r-sm: 8px;
+  --r-avatar: 50%;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-primary: 0 4px 14px rgba(99, 102, 241, 0.3);
+  --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(244, 114, 182, 0.05) 100%);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout */
+  --max-width: 1280px;
+  --container-padding: 32px;
+}
+
+/* ── Dark Theme ── */
+html[data-theme="dark"] {
+  --bg-page: #0F172A;
+  --bg-alt: #1E293B;
+  --bg-white: #1E293B;
+  --bg-card: #1E293B;
+  --bg-indigo-tint: rgba(99, 102, 241, 0.15);
+  --bg-green-tint: rgba(16, 185, 129, 0.15);
+  --bg-purple-tint: rgba(139, 92, 246, 0.15);
+  --bg-amber-tint: rgba(245, 158, 11, 0.15);
+  --bg-cyan-tint: rgba(6, 182, 212, 0.15);
+  --bg-pink-tint: rgba(244, 114, 182, 0.15);
+  --bg-blue-tint: rgba(24, 119, 242, 0.15);
+  --bg-red-tint: rgba(228, 64, 95, 0.15);
+  --bg-nav: rgba(15, 23, 42, 0.9);
+
+  --primary: #818CF8;
+  --primary-hover: #6366F1;
+  --primary-light: rgba(129, 140, 248, 0.15);
+  --primary-glow: rgba(129, 140, 248, 0.3);
+
+  --text-primary: #F1F5F9;
+  --text-secondary: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-light: #64748B;
+
+  --border: #334155;
+  --border-focus: #818CF8;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-primary: 0 4px 14px rgba(129, 140, 248, 0.3);
+  --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  --gradient-soft: linear-gradient(135deg, rgba(129, 140, 248, 0.08) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(244, 114, 182, 0.08) 100%);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+  background: var(--bg-page);
+  line-height: 1.6;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--primary-hover); }
+
+img { max-width: 100%; display: block; }
+
+/* ── Container ── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* ── Section ── */
+.section {
+  padding: var(--space-section) 0;
+}
+.section-alt {
+  background: var(--bg-alt);
+}
+
+/* ── Reveal Animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-nav);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.navbar-brand-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+}
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.navbar-links a {
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+.navbar-links a:hover {
+  color: var(--text-primary);
+}
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: var(--r-btn);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  text-decoration: none;
+  line-height: 1;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 20px var(--primary-glow);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.btn-secondary {
+  background: var(--bg-white);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 12px 16px;
+}
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background: var(--bg-alt);
+}
+.btn-lg {
+  padding: 16px 32px;
+  font-size: var(--fs-body);
+  border-radius: var(--r-btn);
+}
+.btn-pill {
+  border-radius: var(--r-pill);
+}
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--r-sm);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 80px 0 60px;
+  background: var(--gradient-soft);
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.hero-badge .star { color: var(--amber); }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.hero h1 .accent {
+  color: var(--primary);
+}
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 576px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.hero-trust {
+  font-size: var(--fs-small);
+  color: var(--text-light);
+}
+
+/* ============================================================
+   TICKET PREVIEW (Mock UI)
+   ============================================================ */
+.ticket-preview {
+  max-width: 1024px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.ticket-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.ticket-dots {
+  display: flex;
+  gap: 6px;
+}
+.ticket-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.ticket-dots span:nth-child(1) { background: #FF5F57; }
+.ticket-dots span:nth-child(2) { background: #FFBD2E; }
+.ticket-dots span:nth-child(3) { background: #28C840; }
+.ticket-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-alt);
+  border-radius: var(--r-sm);
+  color: var(--text-light);
+  font-size: var(--fs-small);
+}
+.ticket-list {
+  padding: 16px 24px;
+}
+.ticket-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  margin-bottom: 12px;
+  transition: box-shadow var(--transition-fast);
+}
+.ticket-item:hover {
+  box-shadow: var(--shadow-card);
+}
+.ticket-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-avatar);
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  flex-shrink: 0;
+}
+.ticket-info { flex: 1; min-width: 0; }
+.ticket-title {
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.ticket-title .ticket-id {
+  font-weight: 400;
+  color: var(--text-light);
+  font-size: var(--fs-small);
+  margin-left: 8px;
+}
+.ticket-meta {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.ticket-status {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  flex-shrink: 0;
+}
+.ticket-status.open {
+  color: var(--amber);
+  background: var(--bg-amber-tint);
+}
+.ticket-status.pending {
+  color: var(--cyan);
+  background: var(--bg-cyan-tint);
+}
+.ticket-status.resolved {
+  color: var(--green);
+  background: var(--bg-green-tint);
+}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--bg-indigo-tint);
+  color: var(--primary);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  margin-bottom: 16px;
+}
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.section-header p {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 576px;
+  margin: 0 auto;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  transition: all var(--transition-fast);
+}
+.feature-card:hover {
+  box-shadow: var(--shadow-card);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.feature-icon.indigo { background: var(--bg-indigo-tint); color: var(--primary); }
+.feature-icon.green { background: var(--bg-green-tint); color: var(--green); }
+.feature-icon.purple { background: var(--bg-purple-tint); color: var(--purple); }
+.feature-icon.amber { background: var(--bg-amber-tint); color: var(--amber); }
+.feature-icon.cyan { background: var(--bg-cyan-tint); color: var(--cyan); }
+.feature-icon.pink { background: var(--bg-pink-tint); color: var(--pink); }
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.feature-card p {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   CHANNELS
+   ============================================================ */
+.channels-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.channels-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.channel-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  transition: all var(--transition-fast);
+}
+.channel-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-card);
+}
+.channel-card.active {
+  border-color: var(--primary);
+  background: var(--bg-indigo-tint);
+}
+.channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.channel-card h4 {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.channel-card p {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* Unified Inbox Mock */
+.inbox-mock {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+.inbox-channels {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.inbox-channel-avatars {
+  display: flex;
+}
+.inbox-channel-avatars span {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  margin-left: -6px;
+  border: 2px solid var(--bg-card);
+}
+.inbox-channel-avatars span:first-child { margin-left: 0; }
+.inbox-channel-avatars span:nth-child(1) { background: #6366F1; }
+.inbox-channel-avatars span:nth-child(2) { background: #10B981; }
+.inbox-channel-avatars span:nth-child(3) { background: #06B6D4; }
+.inbox-channel-avatars span:nth-child(4) { background: #1877F2; }
+.inbox-channels-label {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.inbox-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.inbox-message:last-child { border-bottom: none; }
+.inbox-msg-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  flex-shrink: 0;
+}
+.inbox-msg-content { flex: 1; }
+.inbox-msg-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.inbox-msg-name {
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--text-primary);
+}
+.inbox-msg-time {
+  font-size: var(--fs-xs);
+  color: var(--text-light);
+}
+.inbox-msg-text {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.inbox-unread {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ============================================================
+   AI ASSISTANT
+   ============================================================ */
+.ai-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.ai-chat-mock {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.ai-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.ai-chat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.ai-chat-status {
+  font-size: var(--fs-small);
+  color: var(--green);
+  font-weight: 500;
+}
+.ai-chat-status::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-right: 6px;
+}
+.ai-chat-body {
+  padding: 20px;
+  min-height: 200px;
+}
+.ai-bubble {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.ai-bubble.bot {
+  background: var(--bg-alt);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+.ai-bubble.user {
+  background: var(--primary);
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+.ai-typing {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px;
+}
+.ai-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-light);
+  animation: typing 1.4s infinite;
+}
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-typing span { animation: none; }
+}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+.pricing-card {
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.pricing-card.featured {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-primary);
+}
+.pricing-card.featured::before {
+  content: 'Most Popular';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  background: var(--primary);
+  color: #fff;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+}
+.pricing-plan {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.pricing-price span {
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.pricing-desc {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.pricing-features {
+  list-style: none;
+  margin-bottom: 28px;
+}
+.pricing-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+.pricing-features li .check {
+  color: var(--green);
+  font-weight: 700;
+}
+.pricing-card .btn {
+  width: 100%;
+}
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+.trust-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 32px 0;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.trust-item svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--text-primary);
+  color: var(--text-white);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.footer-brand-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+}
+.footer-desc {
+  font-size: var(--fs-small);
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 280px;
+}
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  transition: all var(--transition-fast);
+}
+.footer-social a:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+.footer-col h4 {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-white);
+}
+.footer-col ul {
+  list-style: none;
+}
+.footer-col li {
+  margin-bottom: 10px;
+}
+.footer-col a {
+  font-size: var(--fs-small);
+  color: var(--text-light);
+  transition: color var(--transition-fast);
+}
+.footer-col a:hover {
+  color: var(--text-white);
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: var(--fs-small);
+  color: var(--text-light);
+}
+
+/* ============================================================
+   BADGES / TAGS
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+}
+.badge-indigo { background: var(--bg-indigo-tint); color: var(--primary); }
+.badge-green { background: var(--bg-green-tint); color: var(--green); }
+.badge-amber { background: var(--bg-amber-tint); color: var(--amber); }
+.badge-cyan { background: var(--bg-cyan-tint); color: var(--cyan); }
+.badge-pink { background: var(--bg-pink-tint); color: var(--pink); }
+.badge-purple { background: var(--bg-purple-tint); color: var(--purple); }
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-input);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+.input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+.input::placeholder {
+  color: var(--text-light);
+}
+
+/* ============================================================
+   THEME TOGGLE
+   ============================================================ */
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: var(--shadow-primary);
+  transition: all var(--transition-fast);
+}
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .channels-layout,
+  .ai-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --space-section: 64px;
+    --container-padding: 16px;
+  }
+  .navbar-links { display: none; }
+  .features-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .channels-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-actions { flex-direction: column; }
+  .trust-bar { flex-direction: column; gap: 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR
+     ════════════════════════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <div class="navbar-brand-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      HelpDesk
+    </div>
+    <ul class="navbar-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#channels">Channels</a></li>
+      <li><a href="#ai">AI Assistant</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="btn btn-secondary">Sign In</button>
+      <button class="btn btn-primary">Start Free</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container reveal">
+    <div class="hero-badge">
+      <span class="star">&#9733;</span> Rated #1 in Customer Satisfaction
+    </div>
+    <h1>Delight Your Customers<br><span class="accent">With Every Interaction</span></h1>
+    <p class="hero-subtitle">The friendly helpdesk that brings all your customer conversations together. AI-powered, omnichannel, and designed for happy teams.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg btn-pill">Start 14-Day Free Trial <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button class="btn btn-secondary btn-lg btn-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch Demo
+      </button>
+    </div>
+    <p class="hero-trust">No credit card required &bull; Free migration assistance</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TICKET PREVIEW
+     ════════════════════════════════════════════════════════════ -->
+<section class="section" style="padding-top:0">
+  <div class="container reveal">
+    <div class="ticket-preview">
+      <div class="ticket-toolbar">
+        <div class="ticket-dots"><span></span><span></span><span></span></div>
+        <div class="ticket-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Search tickets...
+        </div>
+      </div>
+      <div class="ticket-list">
+        <div class="ticket-item">
+          <div class="ticket-avatar">S</div>
+          <div class="ticket-info">
+            <div class="ticket-title">Unable to access my account <span class="ticket-id">#1234</span></div>
+            <div class="ticket-meta">Sarah M. &bull; Email &bull; 2 min ago</div>
+          </div>
+          <span class="ticket-status open">Open</span>
+        </div>
+        <div class="ticket-item">
+          <div class="ticket-avatar" style="background:var(--purple)">J</div>
+          <div class="ticket-info">
+            <div class="ticket-title">Question about billing <span class="ticket-id">#1233</span></div>
+            <div class="ticket-meta">John K. &bull; Live Chat &bull; 15 min ago</div>
+          </div>
+          <span class="ticket-status pending">Pending</span>
+        </div>
+        <div class="ticket-item">
+          <div class="ticket-avatar" style="background:var(--green)">A</div>
+          <div class="ticket-info">
+            <div class="ticket-title">Feature request: dark mode <span class="ticket-id">#1232</span></div>
+            <div class="ticket-meta">Alex T. &bull; Twitter &bull; 1h ago</div>
+          </div>
+          <span class="ticket-status resolved">Resolved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURES
+     ════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="features">
+  <div class="container reveal">
+    <div class="section-header">
+      <span class="section-badge">Features</span>
+      <h2>Everything You Need to<br>Support Customers</h2>
+      <p>Powerful tools wrapped in a friendly interface. Built for teams that care about customer experience.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon indigo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Unified Inbox</h3>
+        <p>All conversations from email, chat, social media in one place. Never miss a message again.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Smart Automation</h3>
+        <p>Auto-assign, auto-respond, and auto-resolve with intelligent rules and workflows.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><circle cx="12" cy="6" r="1"/></svg>
+        </div>
+        <h3>AI Assistant</h3>
+        <p>AI-powered suggestions, auto-categorization, and instant knowledge base answers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        </div>
+        <h3>Analytics & Reports</h3>
+        <p>Real-time dashboards, SLA tracking, and custom reports to measure team performance.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon cyan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Knowledge Base</h3>
+        <p>Self-service portal with articles, FAQs, and video tutorials for your customers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon pink">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Team Collaboration</h3>
+        <p>Internal notes, @mentions, collision detection, and real-time presence indicators.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CHANNELS
+     ════════════════════════════════════════════════════════════ -->
+<section class="section" id="channels">
+  <div class="container reveal">
+    <div class="channels-layout">
+      <div>
+        <span class="section-badge">Omnichannel Support</span>
+        <h2 style="font-family:var(--font-display);font-size:var(--fs-h2);font-weight:700;color:var(--text-primary);margin-bottom:12px;letter-spacing:-0.02em">Meet Customers Where They Are</h2>
+        <p style="font-size:18px;color:var(--text-muted);margin-bottom:32px;line-height:1.7">Connect all your support channels in one unified inbox. No more switching between apps or missing messages.</p>
+        <div class="channels-grid">
+          <div class="channel-card active">
+            <div class="channel-icon" style="background:var(--bg-indigo-tint);color:var(--primary)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <h4>Email</h4>
+              <p>Connect unlimited email addresses</p>
+            </div>
+          </div>
+          <div class="channel-card">
+            <div class="channel-icon" style="background:var(--bg-green-tint);color:var(--green)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div>
+              <h4>Live Chat</h4>
+              <p>Real-time website chat widget</p>
+            </div>
+          </div>
+          <div class="channel-card">
+            <div class="channel-icon" style="background:var(--bg-green-tint);color:#25D366">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p>WhatsApp Business integration</p>
+            </div>
+          </div>
+          <div class="channel-card">
+            <div class="channel-icon" style="background:var(--bg-blue-tint);color:#1877F2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div>
+              <h4>Facebook</h4>
+              <p>Messenger & page comments</p>
+            </div>
+          </div>
+          <div class="channel-card">
+            <div class="channel-icon" style="background:var(--bg-alt);color:var(--text-primary)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+            <div>
+              <h4>Twitter</h4>
+              <p>DMs and mentions</p>
+            </div>
+          </div>
+          <div class="channel-card">
+            <div class="channel-icon" style="background:var(--bg-pink-tint);color:var(--pink)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div>
+              <h4>Instagram</h4>
+              <p>DMs and story replies</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inbox-mock">
+        <div class="inbox-channels">
+          <div class="inbox-channel-avatars">
+            <span>E</span><span>C</span><span>W</span><span>F</span>
+          </div>
+          <span class="inbox-channels-label">4 channels connected</span>
+        </div>
+        <div class="inbox-message">
+          <div class="inbox-msg-avatar">A</div>
+          <div class="inbox-msg-content">
+            <div class="inbox-msg-header">
+              <span class="inbox-msg-name">Alex Thompson</span>
+              <span class="inbox-msg-time">2m</span>
+            </div>
+            <div class="inbox-msg-text">Hi, I need help with my subscription...</div>
+          </div>
+          <div class="inbox-unread"></div>
+        </div>
+        <div class="inbox-message">
+          <div class="inbox-msg-avatar" style="background:var(--purple)">M</div>
+          <div class="inbox-msg-content">
+            <div class="inbox-msg-header">
+              <span class="inbox-msg-name">Maria Garcia</span>
+              <span class="inbox-msg-time">15m</span>
+            </div>
+            <div class="inbox-msg-text">Thanks for the quick response! &#128077;</div>
+          </div>
+        </div>
+        <div class="inbox-message">
+          <div class="inbox-msg-avatar" style="background:var(--cyan)">J</div>
+          <div class="inbox-msg-content">
+            <div class="inbox-msg-header">
+              <span class="inbox-msg-name">James Wilson</span>
+              <span class="inbox-msg-time">1h</span>
+            </div>
+            <div class="inbox-msg-text">Is there a way to export my data?</div>
+          </div>
+          <div class="inbox-unread"></div>
+        </div>
+        <div class="inbox-message">
+          <div class="inbox-msg-avatar" style="background:var(--amber)">@</div>
+          <div class="inbox-msg-content">
+            <div class="inbox-msg-header">
+              <span class="inbox-msg-name">@techuser</span>
+              <span class="inbox-msg-time">3h</span>
+            </div>
+            <div class="inbox-msg-text">Love the new update! Any plans for...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     AI ASSISTANT
+     ════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="ai">
+  <div class="container reveal">
+    <div class="ai-layout">
+      <div class="ai-chat-mock">
+        <div class="ai-chat-header">
+          <div class="ai-chat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:var(--fs-body);color:var(--text-primary)">AI Assistant</div>
+            <div class="ai-chat-status">Online</div>
+          </div>
+        </div>
+        <div class="ai-chat-body">
+          <div class="ai-bubble user">How do I reset my password?</div>
+          <div class="ai-bubble bot">I can help with that! To reset your password, go to Settings &gt; Security &gt; Change Password. You'll receive a verification email within 2 minutes.</div>
+          <div class="ai-bubble user">What about two-factor authentication?</div>
+          <div class="ai-bubble bot">2FA is available in the same Security section. I recommend enabling it for extra protection. Would you like me to walk you through the setup?</div>
+          <div class="ai-typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="section-badge" style="background:var(--bg-purple-tint);color:var(--purple)">AI-Powered</span>
+        <h2 style="font-family:var(--font-display);font-size:var(--fs-h2);font-weight:700;color:var(--text-primary);margin-bottom:12px;letter-spacing:-0.02em">Your AI Co-Pilot for<br>Customer Support</h2>
+        <p style="font-size:18px;color:var(--text-muted);margin-bottom:32px;line-height:1.7">Let AI handle the routine while your team focuses on what matters. Smart suggestions, auto-categorization, and instant answers.</p>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--bg-indigo-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--primary);font-size:16px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:var(--fs-body);color:var(--text-primary);margin-bottom:2px">Smart Replies</div>
+              <div style="font-size:var(--fs-small);color:var(--text-muted)">AI suggests contextual responses based on conversation history</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--bg-green-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--green);font-size:16px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:var(--fs-body);color:var(--text-primary);margin-bottom:2px">Auto Categorization</div>
+              <div style="font-size:var(--fs-small);color:var(--text-muted)">Tickets automatically tagged by topic, urgency, and sentiment</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--bg-purple-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--purple);font-size:16px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:var(--fs-body);color:var(--text-primary);margin-bottom:2px">Knowledge Base Search</div>
+              <div style="font-size:var(--fs-small);color:var(--text-muted)">Instantly surfaces relevant articles for agents and customers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRICING
+     ════════════════════════════════════════════════════════════ -->
+<section class="section" id="pricing">
+  <div class="container reveal">
+    <div class="section-header">
+      <span class="section-badge">Pricing</span>
+      <h2>Simple, Transparent Pricing</h2>
+      <p>Start free, scale as you grow. No hidden fees, no surprises.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price">$0 <span>/ month</span></div>
+        <div class="pricing-desc">Perfect for small teams getting started</div>
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> Up to 3 agents</li>
+          <li><span class="check">&#10003;</span> Email & live chat</li>
+          <li><span class="check">&#10003;</span> Basic automation</li>
+          <li><span class="check">&#10003;</span> 1,000 tickets/month</li>
+          <li><span class="check">&#10003;</span> Community support</li>
+        </ul>
+        <button class="btn btn-secondary btn-pill" style="width:100%">Start Free Trial</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-plan">Professional</div>
+        <div class="pricing-price">$29 <span>/ agent / month</span></div>
+        <div class="pricing-desc">For growing teams that need more power</div>
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> Unlimited agents</li>
+          <li><span class="check">&#10003;</span> All channels</li>
+          <li><span class="check">&#10003;</span> Advanced automation</li>
+          <li><span class="check">&#10003;</span> Custom reports</li>
+          <li><span class="check">&#10003;</span> Priority support</li>
+        </ul>
+        <button class="btn btn-primary btn-pill" style="width:100%">Start Free Trial</button>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-plan">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For large organizations with complex needs</div>
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> Everything in Pro</li>
+          <li><span class="check">&#10003;</span> SSO & SAML</li>
+          <li><span class="check">&#10003;</span> 99.99% SLA</li>
+          <li><span class="check">&#10003;</span> Dedicated account manager</li>
+          <li><span class="check">&#10003;</span> Custom integrations</li>
+        </ul>
+        <button class="btn btn-secondary btn-pill" style="width:100%">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     TRUST BAR
+     ════════════════════════════════════════════════════════════ -->
+<div class="container reveal">
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      SOC 2 Compliant
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      GDPR Ready
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      No credit card required
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Cancel anytime
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          HelpDesk
+        </div>
+        <p class="footer-desc">The friendly helpdesk for modern support teams.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Channels</a></li>
+          <li><a href="#">AI Assistant</a></li>
+          <li><a href="#">Integrations</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Reference</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">GDPR</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 HelpDesk. All rights reserved.</span>
+      <span>Made with &#10084; for support teams</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">&#9790;</button>
+
+<script>
+// Theme toggle
+(function() {
+  var toggle = document.getElementById('themeToggle');
+  var html = document.documentElement;
+  toggle.addEventListener('click', function() {
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    toggle.innerHTML = isDark ? '&#9790;' : '&#9788;';
+  });
+})();
+
+// IntersectionObserver reveal
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

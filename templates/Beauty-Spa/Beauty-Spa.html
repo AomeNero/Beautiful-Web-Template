@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beauty-Spa — Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Colors */
+    --bg: #FFF5F5;
+    --surface: #FFFFFF;
+    --foreground: #0F172A;
+    --foreground-secondary: #2D2D2D;
+    --muted: #6B7280;
+    --muted-light: #9CA3AF;
+    --accent: #FFD700;
+    --accent-pink: #FFB6C1;
+    --accent-pink-soft: rgba(255, 182, 193, 0.15);
+    --accent-green: #90EE90;
+    --border: #E2E8F0;
+    --border-soft: #F3E8E8;
+
+    /* Typography */
+    --font-display: "Playfair Display", Georgia, serif;
+    --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+
+    /* Spacing */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: 80px;
+
+    /* Radius */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-full: 999px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.12);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.6s ease;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); }
+
+  /* ===== HEADER / NAV ===== */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-sm) 0;
+  }
+  .header .container {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: 700;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent-pink); }
+  .nav-links { display: flex; gap: var(--space-lg); list-style: none; }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 15px; font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .nav-links a:hover { color: var(--foreground); }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    padding: 10px 28px;
+    background: var(--accent);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 15px; font-weight: 600;
+    border-radius: var(--radius-full);
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  /* Mobile menu toggle */
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .menu-toggle svg { width: 24px; height: 24px; stroke: var(--foreground); }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: var(--space-2xl) 0;
+  }
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: var(--space-xs);
+    padding: 8px 20px;
+    background: var(--accent-pink-soft);
+    border-radius: var(--radius-full);
+    font-size: 14px; font-weight: 500;
+    color: var(--foreground-secondary);
+    margin-bottom: var(--space-md);
+  }
+  .hero-badge .star { color: var(--accent); }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 56px; font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+    margin-bottom: var(--space-md);
+  }
+  .hero-title .highlight { color: var(--accent-pink); }
+  .hero-desc {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+    max-width: 480px;
+  }
+  .hero-buttons { display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-xl); }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 32px;
+    font-family: var(--font-body);
+    font-size: 16px; font-weight: 600;
+    border-radius: var(--radius-full);
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    line-height: 1;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--foreground);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--accent-pink);
+    color: var(--foreground);
+  }
+  .btn-outline:hover { background: var(--accent-pink-soft); }
+
+  .btn-full { width: 100%; padding: 18px 32px; font-size: 17px; }
+
+  /* ===== STATS ===== */
+  .stats { display: flex; gap: var(--space-xl); }
+  .stat-number {
+    font-family: var(--font-body);
+    font-size: 32px; font-weight: 700;
+    color: var(--foreground);
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ===== HERO IMAGE ===== */
+  .hero-image-wrap { position: relative; }
+  .hero-image {
+    width: 100%; height: 520px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  .float-badge {
+    position: absolute;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 12px 18px;
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; gap: 10px;
+    animation: float 3s ease-in-out infinite;
+  }
+  .float-badge.top-right { top: -16px; right: -16px; }
+  .float-badge.bottom-left { bottom: -16px; left: -16px; animation-delay: 1.5s; }
+  .float-badge .badge-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .float-badge .badge-icon.green { background: rgba(144, 238, 144, 0.25); color: #22c55e; }
+  .float-badge .badge-text { font-size: 14px; font-weight: 600; color: var(--foreground-secondary); }
+  .float-badge .badge-sub { font-size: 12px; color: var(--muted); font-weight: 400; }
+  .float-badge .stars { color: var(--accent); font-size: 14px; letter-spacing: 2px; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-pink);
+    margin-bottom: var(--space-sm);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 40px; font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+    margin-bottom: var(--space-md);
+  }
+  .section-title .highlight { color: var(--accent-pink); }
+
+  /* ===== ABOUT ===== */
+  .about { padding: var(--space-2xl) 0; background: var(--surface); }
+  .about .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .about-image {
+    width: 100%; height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  .about-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+  .feature-item {
+    display: flex; align-items: center; gap: var(--space-sm);
+  }
+  .feature-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent-pink-soft);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+  .feature-text { font-size: 15px; font-weight: 500; color: var(--foreground-secondary); }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials { padding: var(--space-2xl) 0; text-align: center; }
+  .testimonials .section-title { margin-bottom: var(--space-xl); }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    text-align: left;
+  }
+  .testimonial-card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+  }
+  .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+  .testimonial-stars { color: var(--accent); font-size: 16px; letter-spacing: 2px; margin-bottom: var(--space-sm); }
+  .testimonial-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+    font-style: italic;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: var(--space-sm); }
+  .testimonial-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent-pink-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 600;
+    color: var(--accent-pink);
+  }
+  .testimonial-name { font-size: 15px; font-weight: 600; color: var(--foreground-secondary); }
+  .testimonial-role { font-size: 13px; color: var(--muted); }
+
+  /* ===== BOOKING FORM ===== */
+  .booking { padding: var(--space-2xl) 0; }
+  .booking-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+  }
+  .booking-card .section-title { text-align: center; margin-bottom: var(--space-lg); }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 14px; font-weight: 500;
+    color: var(--foreground-secondary);
+  }
+  .form-input, .form-select, .form-textarea {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--foreground);
+    background: var(--surface);
+    transition: border-color var(--transition-fast);
+    outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--accent-pink);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--muted-light); }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--bg);
+    padding: var(--space-2xl) 0 var(--space-lg);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+  .footer-brand .logo { font-size: 28px; display: inline-block; margin-bottom: var(--space-sm); }
+  .footer-tagline { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: var(--space-md); }
+  .social-links { display: flex; gap: var(--space-sm); }
+  .social-link {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--accent-pink-soft);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    font-size: 18px;
+  }
+  .social-link:hover { background: var(--accent-pink); transform: translateY(-2px); }
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: var(--space-md);
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a {
+    font-size: 15px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .footer-col a:hover { color: var(--foreground); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .footer-bottom-links { display: flex; gap: var(--space-md); }
+  .footer-bottom-links a { color: var(--muted); text-decoration: none; transition: color var(--transition-fast); }
+  .footer-bottom-links a:hover { color: var(--foreground); }
+
+  /* ===== BADGE ===== */
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .badge-pink { background: var(--accent-pink-soft); color: var(--foreground-secondary); }
+  .badge-gold { background: rgba(255, 215, 0, 0.2); color: #92700a; }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+  }
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .hero .container,
+    .about .container {
+      grid-template-columns: 1fr;
+    }
+    .hero-image { height: 400px; }
+    .hero-title { font-size: 44px; }
+    .section-title { font-size: 34px; }
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .menu-toggle { display: block; }
+    .hero-title { font-size: 36px; }
+    .hero-image { height: 300px; }
+    .stats { gap: var(--space-md); }
+    .stat-number { font-size: 26px; }
+    .section-title { font-size: 28px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: var(--space-sm); text-align: center; }
+    .float-badge { display: none; }
+    .hero-buttons { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+  }
+
+  /* ===== REDUCED MOTION ===== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .fade-in-up { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="container">
+    <a href="#" class="logo">Serenity<span>Spa</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#booking" class="nav-cta">Book Now</a>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="services">
+  <div class="container">
+    <div class="hero-content fade-in-up">
+      <div class="hero-badge"><span class="star">&#9733;</span> Award-Winning Spa Experience</div>
+      <h1 class="hero-title">Relax, Rejuvenate,<br><span class="highlight">Renew</span></h1>
+      <p class="hero-desc">Escape the everyday and discover a sanctuary of peace. Our expert therapists provide personalized treatments for your mind, body, and soul.</p>
+      <div class="hero-buttons">
+        <a href="#booking" class="btn btn-primary">Book Appointment</a>
+        <a href="#services" class="btn btn-outline">View Services</a>
+      </div>
+      <div class="stats">
+        <div>
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div>
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div>
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Treatments</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-wrap fade-in-up">
+      <img class="hero-image" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="Spa massage treatment" />
+      <div class="float-badge top-right">
+        <div>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="badge-text">4.9 Rating</div>
+        </div>
+      </div>
+      <div class="float-badge bottom-left">
+        <div class="badge-icon green">&#10003;</div>
+        <div>
+          <div class="badge-text">100% Organic</div>
+          <div class="badge-sub">Natural Products</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="fade-in-up">
+      <img class="about-image" src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=80" alt="Spa interior" />
+    </div>
+    <div class="fade-in-up">
+      <span class="section-label">About Us</span>
+      <h2 class="section-title">Your Journey to <span class="highlight">Wellness</span></h2>
+      <p class="about-desc">Founded in 2008, Serenity Spa has been a sanctuary for those seeking relaxation and rejuvenation. Our team of certified therapists combines ancient healing traditions with modern techniques.</p>
+      <p class="about-desc">We use only the finest organic products, ensuring every treatment nurtures your body while being kind to the environment.</p>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">&#10024;</div>
+          <span class="feature-text">100% Organic</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#9829;</div>
+          <span class="feature-text">Expert Therapists</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#10024;</div>
+          <span class="feature-text">Premium Products</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#9201;</div>
+          <span class="feature-text">Flexible Hours</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials" id="reviews">
+  <div class="container">
+    <span class="section-label fade-in-up">Testimonials</span>
+    <h2 class="section-title fade-in-up">What Our <span class="highlight">Clients Say</span></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in-up">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"The most relaxing experience I've ever had. The therapists are incredibly skilled and the atmosphere is pure bliss."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">S</div>
+          <div>
+            <div class="testimonial-name">Sarah Mitchell</div>
+            <div class="testimonial-role">Regular Client</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in-up">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"I've been coming here for 3 years. Every visit feels like a retreat. The organic products make such a difference."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">J</div>
+          <div>
+            <div class="testimonial-name">James Chen</div>
+            <div class="testimonial-role">Loyal Member</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in-up">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Perfect gift for my wife's birthday. She hasn't stopped talking about how amazing the treatment was."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">E</div>
+          <div>
+            <div class="testimonial-name">Emily Rodriguez</div>
+            <div class="testimonial-role">First-time Visitor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOOKING ===== -->
+<section class="booking" id="booking">
+  <div class="container">
+    <div class="booking-card fade-in-up">
+      <span class="section-label" style="text-align:center;display:block;">Book Now</span>
+      <h2 class="section-title" style="text-align:center;">Schedule Your <span class="highlight">Visit</span></h2>
+      <form onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-input" placeholder="Your phone" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service</label>
+            <select class="form-select">
+              <option>Swedish Massage</option>
+              <option>Deep Tissue Massage</option>
+              <option>Hot Stone Therapy</option>
+              <option>Aromatherapy</option>
+              <option>Facial Treatment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Date</label>
+            <input type="date" class="form-input" />
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Special Requests</label>
+            <textarea class="form-textarea" placeholder="Any allergies or preferences we should know about?"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Book Appointment</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Serenity<span>Spa</span></a>
+        <p class="footer-tagline">Your sanctuary for relaxation and rejuvenation. Experience the art of wellness.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">&#9679;</a>
+          <a href="#" class="social-link" aria-label="Facebook">&#9679;</a>
+          <a href="#" class="social-link" aria-label="Pinterest">&#9679;</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Massage</a></li>
+          <li><a href="#">Facials</a></li>
+          <li><a href="#">Body Treatments</a></li>
+          <li><a href="#">Packages</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Gift Cards</a></li>
+          <li><a href="#">Membership</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 SerenitySpa. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver fade-in animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

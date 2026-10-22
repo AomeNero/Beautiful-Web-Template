@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding & Events — Eternal Moments Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   CSS Custom Properties — Design Tokens
+   ======================================== */
+:root {
+  /* Backgrounds */
+  --color-bg: #FFFAF5;
+  --color-bg-alt: #FFF5F5;
+  --color-bg-cream: #FFF8F0;
+  --color-surface: #FFFFFF;
+
+  /* Text */
+  --color-text-heading: #4A3728;
+  --color-text-body: #7D6B5D;
+  --color-text-muted: #7D6B5D;
+  --color-text-white: #FFFFFF;
+  --color-text-dark: #0F172A;
+
+  /* Accents */
+  --color-accent-pink: #E8B4B8;
+  --color-accent-pink-light: #FFE8EE;
+  --color-accent-pink-hover: #D9A0A4;
+  --color-accent-gold: #D4AF37;
+
+  /* Borders */
+  --color-border: #E2E8F0;
+  --color-border-pink: #E8B4B8;
+  --color-border-warm: #F0E6E0;
+
+  /* Shadows — Soft UI */
+  --shadow-soft: rgba(232, 180, 184, 0.15) 8px 8px 20px 0px,
+                 rgba(255, 255, 255, 0.8) -8px -8px 20px 0px;
+  --shadow-soft-hover: rgba(232, 180, 184, 0.25) 10px 10px 24px 0px,
+                       rgba(255, 255, 255, 0.9) -10px -10px 24px 0px;
+  --shadow-card: 0 4px 20px rgba(232, 180, 184, 0.12);
+
+  /* Typography */
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Font Sizes */
+  --fs-hero: 4rem;
+  --fs-section: 2.5rem;
+  --fs-card: 1.5rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+
+  /* Border Radius */
+  --radius-button: 50px;
+  --radius-badge: 50px;
+  --radius-card: 16px;
+  --radius-image: 16px;
+  --radius-circle: 50%;
+
+  /* Spacing */
+  --section-padding: 96px 0;
+  --container-max: 1280px;
+  --container-padding: 0 32px;
+  --card-gap: 32px;
+  --element-gap: 24px;
+
+  /* Transitions */
+  --transition: 0.3s ease;
+}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-body);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition);
+}
+
+ul { list-style: none; }
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--container-padding);
+}
+
+/* ========================================
+   Typography
+   ======================================== */
+.heading-serif {
+  font-family: var(--font-heading);
+  color: var(--color-text-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  color: var(--color-accent-gold);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-section);
+  color: var(--color-text-heading);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  max-width: 672px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  padding: 14px 32px;
+  border-radius: var(--radius-button);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: var(--color-accent-pink);
+  color: var(--color-text-white);
+  border-color: var(--color-accent-pink);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-pink-hover);
+  border-color: var(--color-accent-pink-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text-heading);
+  border-color: var(--color-border-pink);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-accent-pink-light);
+  border-color: var(--color-accent-pink);
+  transform: translateY(-2px);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ========================================
+   Badge
+   ======================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--color-accent-pink-light);
+  border-radius: var(--radius-badge);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-text-heading);
+}
+
+.badge-icon {
+  color: var(--color-accent-gold);
+  font-size: 14px;
+}
+
+/* ========================================
+   Card
+   ======================================== */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-soft-hover);
+  transform: translateY(-4px);
+}
+
+.card-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--radius-image) var(--radius-image) 0 0;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+/* ========================================
+   Header / Navigation
+   ======================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-accent-pink-light);
+  height: 81px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-brand svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--color-accent-pink);
+}
+
+.navbar-brand span {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-links a {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.navbar-links a:hover {
+  color: var(--color-text-heading);
+}
+
+.navbar-cta {
+  padding: 10px 24px;
+  font-size: var(--fs-small);
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-heading);
+  margin: 5px 0;
+  transition: var(--transition);
+}
+
+/* ========================================
+   Hero Section
+   ======================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 81px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  mask-image: linear-gradient(to right, transparent 0%, black 30%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  padding: 80px 32px;
+}
+
+.hero-badge {
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-hero);
+  color: var(--color-text-heading);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.hero-title-accent {
+  display: block;
+  color: var(--color-accent-pink);
+  font-style: italic;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.hero-divider-line {
+  width: 60px;
+  height: 1px;
+  background: var(--color-accent-pink);
+}
+
+.hero-divider-icon {
+  color: var(--color-accent-gold);
+  font-size: 20px;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+}
+
+.hero-stat-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-accent-gold);
+}
+
+.hero-stat-label {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  z-index: 2;
+}
+
+.hero-scroll-arrow {
+  display: block;
+  margin-top: 8px;
+  font-size: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ========================================
+   Services Section
+   ======================================== */
+.services {
+  padding: var(--section-padding);
+  background: var(--color-bg-cream);
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+}
+
+.service-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition);
+}
+
+.service-card:hover {
+  box-shadow: var(--shadow-soft-hover);
+  transform: translateY(-4px);
+}
+
+.service-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-circle);
+  background: var(--color-accent-pink-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.service-label {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  color: var(--color-accent-gold);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.service-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-card);
+  color: var(--color-text-heading);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.service-desc {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.service-link {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-accent-pink);
+  transition: color var(--transition);
+}
+
+.service-link:hover {
+  color: var(--color-accent-pink-hover);
+}
+
+/* ========================================
+   Portfolio / Gallery Section
+   ======================================== */
+.portfolio {
+  padding: var(--section-padding);
+  background: var(--color-surface);
+}
+
+.portfolio-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+}
+
+.portfolio-item {
+  border-radius: var(--radius-image);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.05);
+}
+
+.portfolio-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(transparent, rgba(74, 55, 40, 0.7));
+  color: white;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.portfolio-item:hover .portfolio-item-overlay {
+  opacity: 1;
+}
+
+.portfolio-item-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.portfolio-item-category {
+  font-size: var(--fs-small);
+  opacity: 0.8;
+}
+
+/* ========================================
+   Vendors Section
+   ======================================== */
+.vendors {
+  padding: var(--section-padding);
+  background: var(--color-bg-alt);
+}
+
+.vendors-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.vendors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+  margin-bottom: 48px;
+}
+
+.vendor-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition);
+}
+
+.vendor-card:hover {
+  box-shadow: var(--shadow-soft-hover);
+  transform: translateY(-4px);
+}
+
+.vendor-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.vendor-card-body {
+  padding: 24px;
+}
+
+.vendor-category {
+  font-size: var(--fs-small);
+  color: var(--color-accent-gold);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.vendor-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--color-text-heading);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.vendor-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.vendor-stars {
+  color: var(--color-accent-gold);
+}
+
+.vendors-cta {
+  text-align: center;
+}
+
+/* ========================================
+   Planning / Contact Form Section
+   ======================================== */
+.planning {
+  padding: var(--section-padding);
+  background: var(--color-bg-cream);
+}
+
+.planning-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.planning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.planning-image {
+  border-radius: var(--radius-image);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.planning-image img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
+
+.planning-form-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  box-shadow: var(--shadow-soft);
+}
+
+.planning-form-title {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  color: var(--color-text-heading);
+  margin-bottom: 8px;
+}
+
+.planning-form-subtitle {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-text-heading);
+  margin-bottom: 6px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--color-text-body);
+  background: var(--color-surface);
+  transition: border-color var(--transition);
+  outline: none;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-accent-pink);
+}
+
+.form-input::placeholder {
+  color: #B0A090;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* ========================================
+   Testimonials Section
+   ======================================== */
+.testimonials {
+  padding: var(--section-padding);
+  background: var(--color-surface);
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+}
+
+.testimonial-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition);
+}
+
+.testimonial-card:hover {
+  box-shadow: var(--shadow-soft-hover);
+}
+
+.testimonial-stars {
+  color: var(--color-accent-gold);
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.testimonial-text {
+  font-size: var(--fs-body);
+  color: var(--color-text-body);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-circle);
+  object-fit: cover;
+}
+
+.testimonial-author-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+
+.testimonial-author-role {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.footer {
+  background: var(--color-bg-cream);
+  padding: 64px 0 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--color-border-warm);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.footer-brand svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--color-accent-pink);
+}
+
+.footer-brand span {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+
+.footer-desc {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  max-width: 280px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-circle);
+  background: var(--color-accent-pink-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-pink);
+  font-size: 18px;
+  transition: all var(--transition);
+}
+
+.footer-social a:hover {
+  background: var(--color-accent-pink);
+  color: white;
+}
+
+.footer-col-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--color-text-heading);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-bottom-links a {
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.footer-bottom-links a:hover {
+  color: var(--color-text-heading);
+}
+
+.footer-featured {
+  text-align: center;
+  padding: 32px 0;
+  border-top: 1px solid var(--color-border-warm);
+}
+
+.footer-featured-label {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.footer-featured-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.footer-featured-logos span {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+/* ========================================
+   Responsive — 1024px
+   ======================================== */
+@media (max-width: 1024px) {
+  :root {
+    --fs-hero: 3rem;
+    --fs-section: 2rem;
+  }
+
+  .hero-bg {
+    width: 50%;
+    opacity: 0.6;
+  }
+
+  .services-grid,
+  .portfolio-grid,
+  .vendors-grid,
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .planning-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .planning-image img {
+    height: 360px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================
+   Responsive — 768px
+   ======================================== */
+@media (max-width: 768px) {
+  :root {
+    --fs-hero: 2.5rem;
+    --fs-section: 1.75rem;
+    --section-padding: 64px 0;
+  }
+
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 81px;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    flex-direction: column;
+    padding: 24px 32px;
+    gap: 16px;
+    border-bottom: 1px solid var(--color-accent-pink-light);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar-cta {
+    display: none;
+  }
+
+  .hero-bg {
+    width: 100%;
+    opacity: 0.2;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .hero-content {
+    padding: 60px 20px;
+  }
+
+  .hero-stats {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .services-grid,
+  .portfolio-grid,
+  .vendors-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .footer-featured-logos {
+    gap: 16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="navbar">
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span>Eternal Moments</span>
+    </a>
+    <nav class="navbar-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#vendors">Vendors</a>
+      <a href="#planning">Planning Tools</a>
+      <a href="#testimonials">Love Stories</a>
+    </nav>
+    <a href="#planning" class="btn btn-primary navbar-cta">Start Planning</a>
+    <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80" alt="Wedding bouquet">
+  <div class="hero-content">
+    <div class="badge hero-badge">
+      <span class="badge-icon">&#10084;</span>
+      Creating Magical Moments Since 2010
+    </div>
+    <h1 class="hero-title">
+      Your Perfect Day,
+      <span class="hero-title-accent">Beautifully Planned</span>
+    </h1>
+    <div class="hero-divider">
+      <span class="hero-divider-line"></span>
+      <span class="hero-divider-icon">&#10084;</span>
+      <span class="hero-divider-line"></span>
+    </div>
+    <p class="hero-description">
+      From intimate ceremonies to grand celebrations, we bring your wedding dreams to life with meticulous attention to detail and heartfelt dedication.
+    </p>
+    <div class="hero-buttons">
+      <a href="#planning" class="btn btn-primary">Schedule Consultation</a>
+      <a href="#portfolio" class="btn btn-outline">View Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-number">500+</div>
+        <div class="hero-stat-label">Weddings Planned</div>
+      </div>
+      <div>
+        <div class="hero-stat-number">14</div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="hero-stat-number">100%</div>
+        <div class="hero-stat-label">Happy Couples</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    Scroll to explore
+    <span class="hero-scroll-arrow">&#8595;</span>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header">
+      <div class="section-label">Our Services</div>
+      <h2 class="section-title">What We Offer</h2>
+      <p class="section-subtitle">From full-service planning to day-of coordination, we offer comprehensive wedding services tailored to your unique vision and budget.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#10084;</div>
+        <div class="service-label">Full Service</div>
+        <h3 class="service-title">Full Wedding Planning</h3>
+        <p class="service-desc">Complete end-to-end wedding planning from concept to execution. We handle every detail so you can enjoy the journey.</p>
+        <a href="#" class="service-link">Learn More &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#10084;</div>
+        <div class="service-label">Coordination</div>
+        <h3 class="service-title">Day-Of Coordination</h3>
+        <p class="service-desc">Professional coordination on your wedding day to ensure everything runs smoothly and on schedule.</p>
+        <a href="#" class="service-link">Learn More &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#10084;</div>
+        <div class="service-label">Destination</div>
+        <h3 class="service-title">Destination Weddings</h3>
+        <p class="service-desc">Expert planning for weddings in exotic locations worldwide. We manage travel, logistics, and local vendors.</p>
+        <a href="#" class="service-link">Learn More &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PORTFOLIO ========== -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="portfolio-header">
+      <div class="section-label">Our Portfolio</div>
+      <h2 class="section-title">Recent Celebrations</h2>
+      <p class="section-subtitle">Browse our collection of beautifully crafted weddings, each one a unique love story brought to life.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80" alt="Garden wedding ceremony">
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-title">Sarah & James</div>
+          <div class="portfolio-item-category">Garden Wedding</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80" alt="Beach wedding">
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-title">Emily & Michael</div>
+          <div class="portfolio-item-category">Beach Ceremony</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=600&q=80" alt="Rustic barn wedding">
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-title">Olivia & Daniel</div>
+          <div class="portfolio-item-category">Rustic Barn</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?w=600&q=80" alt="Elegant ballroom wedding">
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-title">Sophia & Alexander</div>
+          <div class="portfolio-item-category">Elegant Ballroom</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80" alt="Vineyard wedding">
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-title">Isabella & William</div>
+          <div class="portfolio-item-category">Vineyard Estate</div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=600&q=80" alt="Intimate wedding">
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-title">Ava & Ethan</div>
+          <div class="portfolio-item-category">Intimate Ceremony</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VENDORS ========== -->
+<section class="vendors" id="vendors">
+  <div class="container">
+    <div class="vendors-header">
+      <div class="section-label">Featured Vendors</div>
+      <h2 class="section-title">Featured Vendors</h2>
+      <p class="section-subtitle">We partner with the finest vendors to ensure every aspect of your wedding exceeds expectations.</p>
+    </div>
+    <div class="vendors-grid">
+      <div class="vendor-card">
+        <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=600&q=80" alt="Floral arrangement">
+        <div class="vendor-card-body">
+          <div class="vendor-category">Florist</div>
+          <div class="vendor-name">Bloom & Petal Studio</div>
+          <div class="vendor-rating">
+            <span class="vendor-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            5 (128 reviews)
+          </div>
+        </div>
+      </div>
+      <div class="vendor-card">
+        <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&q=80" alt="Wedding photography">
+        <div class="vendor-card-body">
+          <div class="vendor-category">Photography</div>
+          <div class="vendor-name">Captured Moments</div>
+          <div class="vendor-rating">
+            <span class="vendor-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            4.9 (256 reviews)
+          </div>
+        </div>
+      </div>
+      <div class="vendor-card">
+        <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&q=80" alt="Wedding musicians">
+        <div class="vendor-card-body">
+          <div class="vendor-category">Musicians</div>
+          <div class="vendor-name">Harmony Strings</div>
+          <div class="vendor-rating">
+            <span class="vendor-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            5 (89 reviews)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vendors-cta">
+      <a href="#" class="btn btn-outline">Browse All Vendors</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PLANNING TOOLS ========== -->
+<section class="planning" id="planning">
+  <div class="container">
+    <div class="planning-header">
+      <div class="section-label">Planning Tools</div>
+      <h2 class="section-title">Tools to Plan Your Perfect Day</h2>
+      <p class="section-subtitle">Use our free consultation to start planning the wedding of your dreams. We'll guide you through every step.</p>
+    </div>
+    <div class="planning-grid">
+      <div class="planning-image">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80" alt="Wedding planning">
+      </div>
+      <div class="planning-form-card">
+        <h3 class="planning-form-title">Free Consultation</h3>
+        <p class="planning-form-subtitle">Let's discuss your vision and how we can bring it to life.</p>
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-input" placeholder="Full name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Wedding Date</label>
+              <input type="date" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Budget Range</label>
+              <select class="form-select">
+                <option>Select an option</option>
+                <option>Under $10,000</option>
+                <option>$10,000 - $25,000</option>
+                <option>$25,000 - $50,000</option>
+                <option>$50,000+</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">How Did You Hear About Us?</label>
+            <select class="form-select">
+              <option>Select an option</option>
+              <option>Google Search</option>
+              <option>Social Media</option>
+              <option>Friend Referral</option>
+              <option>Wedding Blog</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Request Consultation</button>
+          <p class="form-note">By submitting this form, you agree to our privacy policy. We'll never share your information.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <div class="section-label">Love Stories</div>
+      <h2 class="section-title">What Couples Say</h2>
+      <p class="section-subtitle">Hear from the wonderful couples who trusted us with their most special day.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Eternal Moments made our dream wedding a reality. Every detail was perfect, from the flowers to the timeline. We couldn't have asked for a better experience."</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Sarah">
+          <div>
+            <div class="testimonial-author-name">Sarah & James</div>
+            <div class="testimonial-author-role">June 2024 Wedding</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"The team's attention to detail is unmatched. They understood our vision immediately and executed it flawlessly. Our guests are still talking about it!"</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Michael">
+          <div>
+            <div class="testimonial-author-name">Emily & Michael</div>
+            <div class="testimonial-author-role">September 2024 Wedding</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Planning a destination wedding seemed impossible until we found Eternal Moments. They handled everything seamlessly. Truly the best decision we made."</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Olivia">
+          <div>
+            <div class="testimonial-author-name">Olivia & Daniel</div>
+            <div class="testimonial-author-role">March 2024 Wedding</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span>Eternal Moments</span>
+        </div>
+        <p class="footer-desc">Creating magical wedding experiences since 2010. Let us help you write your love story.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">&#9679;</a>
+          <a href="#" aria-label="Pinterest">&#9679;</a>
+          <a href="#" aria-label="Facebook">&#9679;</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Services</h4>
+        <div class="footer-links">
+          <a href="#">Full Planning</a>
+          <a href="#">Day-Of Coordination</a>
+          <a href="#">Destination Weddings</a>
+          <a href="#">Design & Styling</a>
+          <a href="#">Vendor Management</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Resources</h4>
+        <div class="footer-links">
+          <a href="#">Planning Tools</a>
+          <a href="#">Vendor Directory</a>
+          <a href="#">Wedding Blog</a>
+          <a href="#">Style Quiz</a>
+          <a href="#">Budget Calculator</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Company</h4>
+        <div class="footer-links">
+          <a href="#">About Us</a>
+          <a href="#">Our Team</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 Eternal Moments. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+    <div class="footer-featured">
+      <div class="footer-featured-label">As Featured In</div>
+      <div class="footer-featured-logos">
+        <span>The Knot</span>
+        <span>Martha Stewart Weddings</span>
+        <span>Brides Magazine</span>
+        <span>Style Me Pretty</span>
+        <span>Vogue Weddings</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile navigation toggle
+document.getElementById('navToggle').addEventListener('click', function() {
+  document.getElementById('navLinks').classList.toggle('active');
+});
+
+// Close mobile nav on link click
+document.querySelectorAll('.navbar-links a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.getElementById('navLinks').classList.remove('active');
+  });
+});
+</script>
+</body>
+</html>

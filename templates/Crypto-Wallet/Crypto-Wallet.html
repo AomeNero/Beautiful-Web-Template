@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Crypto Wallet — Dark Crypto Wallet UI Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ===== Design Tokens ===== */
+:root {
+  --bg: #0A0E17;
+  --bg-alt: #111827;
+  --bg-surface: rgba(255,255,255,0.05);
+  --bg-surface-hover: rgba(255,255,255,0.08);
+  --bg-nav: rgba(10,14,23,0.9);
+  --border: rgba(255,255,255,0.1);
+  --border-strong: rgba(255,255,255,0.2);
+  --text: #FFFFFF;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --accent-cyan: #00D4FF;
+  --accent-purple: #7B61FF;
+  --accent-green: #00FF88;
+  --accent-red: #FF4757;
+  --accent-orange: #F7931A;
+  --gradient-primary: linear-gradient(135deg, #00D4FF 0%, #7B61FF 100%);
+  --gradient-text: linear-gradient(to right bottom, #00D4FF 0%, #7B61FF 100%);
+  --gradient-card: linear-gradient(to right bottom, rgba(0,212,255,0.08) 0%, rgba(123,97,255,0.08) 100%);
+  --shadow-card: rgba(0,0,0,0.4) 0px 4px 6px -1px, rgba(0,0,0,0.3) 0px 2px 4px -2px;
+  --shadow-glow-cyan: rgba(0,212,255,0.2) 0px 0px 60px 0px;
+  --shadow-glow-purple: rgba(123,97,255,0.2) 0px 0px 60px 0px;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 50px;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --container: 1280px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Light Theme ===== */
+html[data-theme="light"] {
+  --bg: #F8FAFC;
+  --bg-alt: #F1F5F9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-hover: #F8FAFC;
+  --bg-nav: rgba(248,250,252,0.9);
+  --border: rgba(0,0,0,0.1);
+  --border-strong: rgba(0,0,0,0.2);
+  --text: #0F172A;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+  --shadow-card: rgba(0,0,0,0.08) 0px 4px 6px -1px, rgba(0,0,0,0.04) 0px 2px 4px -2px;
+  --shadow-glow-cyan: rgba(0,212,255,0.1) 0px 0px 40px 0px;
+  --shadow-glow-purple: rgba(123,97,255,0.1) 0px 0px 40px 0px;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ===== Container ===== */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ===== Reveal Animation ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation-duration: 0s !important; transition-duration: 0s !important; }
+}
+
+/* ===== Header / Nav ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bg-nav);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  height: 65px;
+  display: flex;
+  align-items: center;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.navbar-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.navbar-links a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.navbar-links a:hover { color: var(--text); }
+.navbar-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: var(--transition);
+}
+.theme-toggle:hover { background: var(--bg-surface-hover); }
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--gradient-primary);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-glow-cyan);
+}
+.btn-primary:hover {
+  box-shadow: var(--shadow-glow-cyan), var(--shadow-glow-purple);
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+}
+.btn-secondary:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-strong);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+.btn-outline:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-strong);
+}
+.btn-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-icon:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.btn-icon .icon { font-size: 20px; }
+.btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== Section Label ===== */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-purple);
+  margin-bottom: 16px;
+}
+
+/* ===== Typography ===== */
+.gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.hero-desc {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.hero-chains {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chain-tag {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+.chain-tag:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+/* ===== Wallet Card (Hero Right) ===== */
+.wallet-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+.wallet-balance-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.wallet-balance {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.wallet-change {
+  font-size: 0.9rem;
+  color: var(--accent-green);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.wallet-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.wallet-asset {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+  transition: var(--transition);
+}
+.wallet-asset:hover { border-color: var(--border-strong); }
+.wallet-asset-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wallet-asset-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #fff;
+}
+.wallet-asset-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.wallet-asset-amount {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.wallet-asset-value {
+  text-align: right;
+}
+.wallet-asset-price {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.wallet-asset-change {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.wallet-asset-change.positive { color: var(--accent-green); }
+.wallet-asset-change.negative { color: var(--accent-red); }
+
+/* ===== Swap Notification ===== */
+.swap-notify {
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  right: 20px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+}
+.swap-notify-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,255,136,0.15);
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.swap-notify-title { font-weight: 600; font-size: 0.9rem; }
+.swap-notify-desc { font-size: 0.8rem; color: var(--text-muted); }
+
+/* ===== Features Section ===== */
+.features {
+  padding: 96px 0;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: var(--transition);
+}
+.feature-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.feature-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.feature-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ===== Chains Section ===== */
+.chains {
+  padding: 96px 0;
+  background: var(--bg-alt);
+}
+.chains-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.chain-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  transition: var(--transition);
+}
+.chain-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.chain-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #fff;
+  margin: 0 auto 14px;
+}
+.chain-card-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+.chain-card-tvl {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.chains-cta {
+  text-align: center;
+}
+
+/* ===== Security Section ===== */
+.security {
+  padding: 96px 0;
+}
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.security-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  gap: 20px;
+  transition: var(--transition);
+}
+.security-card:hover {
+  border-color: var(--border-strong);
+}
+.security-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.security-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.security-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ===== Download / CTA Section ===== */
+.download {
+  padding: 96px 0;
+  background: var(--bg-alt);
+}
+.download-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 64px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.download-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(123,97,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.download-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.download-desc {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.download-platforms {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.platform-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+.platform-btn:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.platform-btn .icon { font-size: 24px; }
+.platform-btn .label { font-size: 0.8rem; color: var(--text-muted); }
+.platform-btn .name { font-weight: 600; font-size: 1rem; }
+.download-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ===== Footer ===== */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+}
+.footer-tagline {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.footer-col-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-links a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+.footer-links a:hover { color: var(--text); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.footer-copy {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+.footer-social {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+.footer-social:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .hero .container { grid-template-columns: 1fr; gap: 48px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .chains-grid { grid-template-columns: repeat(2, 1fr); }
+  .security-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .navbar-links { display: none; }
+  .hero { min-height: auto; padding: 100px 0 64px; }
+  .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .features-grid { grid-template-columns: 1fr; }
+  .chains-grid { grid-template-columns: repeat(2, 1fr); }
+  .download-card { padding: 40px 24px; }
+  .download-platforms { flex-direction: column; align-items: center; }
+  .download-stats { gap: 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .wallet-actions { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <div class="navbar-logo">&#x1F512;</div>
+      <span>VaultX</span>
+    </div>
+    <div class="navbar-links">
+      <a href="#features">Features</a>
+      <a href="#chains">Chains</a>
+      <a href="#security">Security</a>
+      <a href="#download">Download</a>
+    </div>
+    <div class="navbar-cta">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#x2600;</button>
+      <a href="#" class="btn btn-primary" style="padding:10px 22px;font-size:0.85rem;">Launch App</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="reveal">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Secure &amp; Non-Custodial
+      </div>
+      <h1 class="hero-title">Your Keys, Your<br/><span class="gradient-text">Crypto</span></h1>
+      <p class="hero-desc">The most secure multi-chain wallet. Store, swap, and manage your digital assets across 50+ blockchains with complete control.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">&#x2B07; Download Wallet</a>
+        <a href="#" class="btn btn-secondary">Web App</a>
+      </div>
+      <div class="hero-chains">
+        <span class="chain-tag">Ethereum</span>
+        <span class="chain-tag">Bitcoin</span>
+        <span class="chain-tag">Solana</span>
+        <span class="chain-tag">Polygon</span>
+        <span class="chain-tag">Arbitrum</span>
+        <span class="chain-tag">+45</span>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay:0.15s;">
+      <div class="wallet-card">
+        <div class="wallet-balance-label">Total Balance</div>
+        <div class="wallet-balance">$98,546.50</div>
+        <div class="wallet-change">&#x2197; +4.32% today</div>
+        <div class="wallet-actions">
+          <button class="btn-icon"><span class="icon">&#x2191;</span>Send</button>
+          <button class="btn-icon"><span class="icon">&#x2193;</span>Receive</button>
+          <button class="btn-icon"><span class="icon">&#x21C4;</span>Swap</button>
+          <button class="btn-icon"><span class="icon">&#x1F517;</span>Bridge</button>
+        </div>
+        <div class="wallet-asset">
+          <div class="wallet-asset-left">
+            <div class="wallet-asset-icon" style="background:#F7931A;">B</div>
+            <div>
+              <div class="wallet-asset-name">BTC</div>
+              <div class="wallet-asset-amount">1.2456</div>
+            </div>
+          </div>
+          <div class="wallet-asset-value">
+            <div class="wallet-asset-price">$54,234.50</div>
+            <div class="wallet-asset-change positive">+5.2%</div>
+          </div>
+        </div>
+        <div class="wallet-asset">
+          <div class="wallet-asset-left">
+            <div class="wallet-asset-icon" style="background:#627EEA;">E</div>
+            <div>
+              <div class="wallet-asset-name">ETH</div>
+              <div class="wallet-asset-amount">12.8</div>
+            </div>
+          </div>
+          <div class="wallet-asset-value">
+            <div class="wallet-asset-price">$28,672.00</div>
+            <div class="wallet-asset-change positive">+3.8%</div>
+          </div>
+        </div>
+        <div class="wallet-asset">
+          <div class="wallet-asset-left">
+            <div class="wallet-asset-icon" style="background:#00FFA3;">S</div>
+            <div>
+              <div class="wallet-asset-name">SOL</div>
+              <div class="wallet-asset-amount">156.4</div>
+            </div>
+          </div>
+          <div class="wallet-asset-value">
+            <div class="wallet-asset-price">$15,640.00</div>
+            <div class="wallet-asset-change negative">-1.2%</div>
+          </div>
+        </div>
+        <div class="swap-notify">
+          <div class="swap-notify-icon">&#x2713;</div>
+          <div>
+            <div class="swap-notify-title">Swap Complete</div>
+            <div class="swap-notify-desc">0.5 ETH &rarr; 1,250 USDC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Everything You Need to<br/><span class="gradient-text">Manage Crypto</span></h2>
+      <p class="section-subtitle">A complete suite of tools for storing, swapping, and growing your digital assets across every major blockchain.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(0,212,255,0.125);color:var(--accent-cyan);">&#x1F6E1;</div>
+        <div class="feature-title">Non-Custodial Security</div>
+        <div class="feature-desc">Your private keys never leave your device. Military-grade encryption protects your assets at all times.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.1s;">
+        <div class="feature-icon" style="background:rgba(123,97,255,0.125);color:var(--accent-purple);">&#x26A1;</div>
+        <div class="feature-title">Lightning Swaps</div>
+        <div class="feature-desc">Cross-chain swaps executed in seconds with optimized routing and minimal slippage across all networks.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.2s;">
+        <div class="feature-icon" style="background:rgba(0,255,136,0.125);color:var(--accent-green);">&#x1F4CA;</div>
+        <div class="feature-title">Portfolio Analytics</div>
+        <div class="feature-desc">Real-time tracking of your assets across all chains with detailed performance metrics and insights.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(247,147,26,0.125);color:var(--accent-orange);">&#x1F310;</div>
+        <div class="feature-title">Multi-Chain Support</div>
+        <div class="feature-desc">One wallet for 50+ blockchains. Manage Ethereum, Bitcoin, Solana, and more from a single interface.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.1s;">
+        <div class="feature-icon" style="background:rgba(255,71,87,0.125);color:var(--accent-red);">&#x1F504;</div>
+        <div class="feature-title">Bridge Assets</div>
+        <div class="feature-desc">Seamlessly move assets between chains with our integrated bridge protocol. Low fees, fast confirmation.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.2s;">
+        <div class="feature-icon" style="background:rgba(0,212,255,0.125);color:var(--accent-cyan);">&#x1F4B3;</div>
+        <div class="feature-title">DeFi Integration</div>
+        <div class="feature-desc">Access lending, staking, and yield farming directly from your wallet. No need to connect to external dApps.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHAINS ===== -->
+<section class="chains" id="chains">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">Multi-Chain</span>
+      <h2 class="section-title">50+ Blockchains, <span class="gradient-text">One Wallet</span></h2>
+      <p class="section-subtitle">Manage all your assets across every major blockchain from a single interface.</p>
+    </div>
+    <div class="chains-grid">
+      <div class="chain-card reveal">
+        <div class="chain-card-icon" style="background:#627EEA;">ET</div>
+        <div class="chain-card-name">Ethereum</div>
+        <div class="chain-card-tvl">$45.2B TVL</div>
+      </div>
+      <div class="chain-card reveal" style="transition-delay:0.05s;">
+        <div class="chain-card-icon" style="background:#F7931A;">BT</div>
+        <div class="chain-card-name">Bitcoin</div>
+        <div class="chain-card-tvl">$38.1B TVL</div>
+      </div>
+      <div class="chain-card reveal" style="transition-delay:0.1s;">
+        <div class="chain-card-icon" style="background:#00FFA3;">SO</div>
+        <div class="chain-card-name">Solana</div>
+        <div class="chain-card-tvl">$12.4B TVL</div>
+      </div>
+      <div class="chain-card reveal" style="transition-delay:0.15s;">
+        <div class="chain-card-icon" style="background:#8247E5;">MA</div>
+        <div class="chain-card-name">Polygon</div>
+        <div class="chain-card-tvl">$8.7B TVL</div>
+      </div>
+      <div class="chain-card reveal">
+        <div class="chain-card-icon" style="background:#28A0F0;">AR</div>
+        <div class="chain-card-name">Arbitrum</div>
+        <div class="chain-card-tvl">$6.2B TVL</div>
+      </div>
+      <div class="chain-card reveal" style="transition-delay:0.05s;">
+        <div class="chain-card-icon" style="background:#E84142;">AV</div>
+        <div class="chain-card-name">Avalanche</div>
+        <div class="chain-card-tvl">$4.8B TVL</div>
+      </div>
+      <div class="chain-card reveal" style="transition-delay:0.1s;">
+        <div class="chain-card-icon" style="background:#F3BA2F;">BN</div>
+        <div class="chain-card-name">BNB Chain</div>
+        <div class="chain-card-tvl">$3.9B TVL</div>
+      </div>
+      <div class="chain-card reveal" style="transition-delay:0.15s;">
+        <div class="chain-card-icon" style="background:#FF0420;">OP</div>
+        <div class="chain-card-name">Optimism</div>
+        <div class="chain-card-tvl">$2.1B TVL</div>
+      </div>
+    </div>
+    <div class="chains-cta reveal">
+      <a href="#" class="btn btn-outline">View All 50+ Chains</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECURITY ===== -->
+<section class="security" id="security">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">Security</span>
+      <h2 class="section-title">Bank-Grade <span class="gradient-text">Protection</span></h2>
+      <p class="section-subtitle">Your assets are protected by multiple layers of security, from hardware-level encryption to real-time threat monitoring.</p>
+    </div>
+    <div class="security-grid">
+      <div class="security-card reveal">
+        <div class="security-icon" style="background:rgba(0,212,255,0.125);color:var(--accent-cyan);">&#x1F510;</div>
+        <div>
+          <div class="security-title">End-to-End Encryption</div>
+          <div class="security-desc">All data is encrypted using AES-256. Your private keys are stored locally and never transmitted to any server.</div>
+        </div>
+      </div>
+      <div class="security-card reveal" style="transition-delay:0.1s;">
+        <div class="security-icon" style="background:rgba(123,97,255,0.125);color:var(--accent-purple);">&#x1F4F1;</div>
+        <div>
+          <div class="security-title">Biometric Authentication</div>
+          <div class="security-desc">Support for Face ID, Touch ID, and hardware security keys. Multi-factor authentication for every transaction.</div>
+        </div>
+      </div>
+      <div class="security-card reveal">
+        <div class="security-icon" style="background:rgba(0,255,136,0.125);color:var(--accent-green);">&#x1F6E1;</div>
+        <div>
+          <div class="security-title">Real-Time Threat Detection</div>
+          <div class="security-desc">AI-powered monitoring scans every transaction for suspicious activity. Instant alerts for unauthorized access attempts.</div>
+        </div>
+      </div>
+      <div class="security-card reveal" style="transition-delay:0.1s;">
+        <div class="security-icon" style="background:rgba(247,147,26,0.125);color:var(--accent-orange);">&#x1F511;</div>
+        <div>
+          <div class="security-title">Recovery Phrase Backup</div>
+          <div class="security-desc">12 or 24-word recovery phrase ensures you can always regain access. Encrypted cloud backup option available.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOWNLOAD / CTA ===== -->
+<section class="download" id="download">
+  <div class="container">
+    <div class="download-card reveal">
+      <h2 class="download-title">Start Your <span class="gradient-text">Crypto Journey</span></h2>
+      <p class="download-desc">Download VaultX and take control of your digital assets. Available on all platforms.</p>
+      <div class="download-platforms">
+        <div class="platform-btn">
+          <span class="icon">&#x1F34E;</span>
+          <div><div class="label">Download for</div><div class="name">iOS</div></div>
+        </div>
+        <div class="platform-btn">
+          <span class="icon">&#x1F916;</span>
+          <div><div class="label">Download for</div><div class="name">Android</div></div>
+        </div>
+        <div class="platform-btn">
+          <span class="icon">&#x1F310;</span>
+          <div><div class="label">Download for</div><div class="name">Chrome</div></div>
+        </div>
+        <div class="platform-btn">
+          <span class="icon">&#x1F4BB;</span>
+          <div><div class="label">Download for</div><div class="name">Desktop</div></div>
+        </div>
+      </div>
+      <div class="download-stats">
+        <div>
+          <div class="stat-value">2M+</div>
+          <div class="stat-label">Downloads</div>
+        </div>
+        <div>
+          <div class="stat-value">4.9</div>
+          <div class="stat-label">App Rating</div>
+        </div>
+        <div>
+          <div class="stat-value">$10B+</div>
+          <div class="stat-label">Assets Secured</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="navbar-logo" style="width:32px;height:32px;font-size:16px;">&#x1F512;</div>
+          <span>VaultX</span>
+        </div>
+        <div class="footer-tagline">Your keys, your crypto.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Product</div>
+        <div class="footer-links">
+          <a href="#">Features</a>
+          <a href="#">Security</a>
+          <a href="#">Chains</a>
+          <a href="#">Download</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <div class="footer-links">
+          <a href="#">Docs</a>
+          <a href="#">API</a>
+          <a href="#">Support</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Security</a>
+          <a href="#">Bug Bounty</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2024 VaultX. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" title="X">&#x1D54F;</a>
+        <a href="#" class="footer-social" title="Discord">&#x1F3AE;</a>
+        <a href="#" class="footer-social" title="GitHub">&#x2699;</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Theme toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600' : '\u263E';
+}
+
+// IntersectionObserver reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Force reveal for screenshot capture
+window.addEventListener('load', () => {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NFT-Art-Gallery — Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  /* ========== Design Tokens ========== */
+  :root {
+    /* Colors */
+    --bg: #FFFFFF;
+    --bg-alt: #FAFAFA;
+    --bg-overlay: rgba(250, 250, 250, 0.95);
+    --foreground: #0F172A;
+    --foreground-secondary: #1A1A1A;
+    --muted: #666666;
+    --muted-light: #999999;
+    --accent: #0F172A;
+    --border: #E2E8F0;
+    --border-dark: #E5E5E5;
+    --border-strong: #1A1A1A;
+
+    /* Typography */
+    --font-display: "Playfair Display", Georgia, serif;
+    --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+
+    /* Font Sizes */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+    --text-4xl: 36px;
+    --text-5xl: 48px;
+    --text-6xl: 60px;
+    --text-7xl: 72px;
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-8: 48px;
+    --space-10: 64px;
+    --space-12: 80px;
+    --space-16: 128px;
+
+    /* Radius */
+    --radius-none: 0px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-none: none;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.25s ease;
+    --transition-slow: 0.4s ease;
+  }
+
+  /* ========== Dark Mode ========== */
+  html[data-theme="dark"] {
+    --bg: #0A0A0A;
+    --bg-alt: #141414;
+    --bg-overlay: rgba(10, 10, 10, 0.95);
+    --foreground: #F5F5F5;
+    --foreground-secondary: #E5E5E5;
+    --muted: #A0A0A0;
+    --muted-light: #707070;
+    --accent: #F5F5F5;
+    --border: #2A2A2A;
+    --border-dark: #333333;
+    --border-strong: #F5F5F5;
+  }
+
+  /* ========== Reset & Base ========== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background var(--transition-base), color var(--transition-base);
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+
+  /* ========== Reveal Animation ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ========== Typography ========== */
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .heading-xl {
+    font-family: var(--font-display);
+    font-size: var(--text-7xl);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--foreground);
+  }
+  .heading-lg {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--foreground);
+  }
+  .heading-md {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--foreground);
+  }
+  .heading-sm {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--foreground);
+  }
+
+  /* ========== Header / Nav ========== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-4) 0;
+  }
+  .header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-logo {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    list-style: none;
+  }
+  .header-nav a {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .header-nav a:hover { color: var(--foreground); }
+
+  /* ========== Buttons ========== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: 1px solid var(--border-strong);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    line-height: 1;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: var(--foreground-secondary);
+    border-color: var(--foreground-secondary);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--foreground);
+    border-color: var(--border-strong);
+  }
+  .btn-outline:hover {
+    background: var(--foreground);
+    color: var(--bg);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--foreground);
+    border-color: transparent;
+    padding: 14px 0;
+  }
+  .btn-ghost:hover { opacity: 0.7; }
+  .btn-disabled {
+    background: var(--border);
+    color: var(--muted-light);
+    border-color: var(--border);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .btn-sm {
+    font-size: var(--text-xs);
+    padding: 10px 20px;
+  }
+
+  /* ========== Hero Section ========== */
+  .hero {
+    padding: var(--space-16) 0 var(--space-12);
+    text-align: center;
+  }
+  .hero .label { margin-bottom: var(--space-5); display: block; }
+  .hero .heading-xl { margin-bottom: var(--space-5); }
+  .hero .heading-xl em {
+    font-style: italic;
+  }
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--muted);
+    max-width: 672px;
+    margin: 0 auto var(--space-8);
+    line-height: 1.6;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  /* ========== Featured Artwork ========== */
+  .featured {
+    padding: 0 0 var(--space-12);
+  }
+  .featured-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-none);
+  }
+  .featured-image-wrapper img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+  }
+  .featured-overlay {
+    position: absolute;
+    bottom: var(--space-8);
+    left: var(--space-8);
+    background: var(--bg-overlay);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: var(--space-5) var(--space-6);
+    max-width: 448px;
+  }
+  .featured-overlay .label { margin-bottom: var(--space-2); display: block; }
+  .featured-overlay .heading-md { margin-bottom: var(--space-2); }
+  .featured-overlay p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ========== Artists Section ========== */
+  .artists {
+    padding: var(--space-12) 0;
+    background: var(--bg-alt);
+  }
+  .artists .label { text-align: center; margin-bottom: var(--space-4); display: block; }
+  .artists .heading-lg { text-align: center; margin-bottom: var(--space-10); }
+  .artists .heading-lg em { font-style: italic; }
+  .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+  .artist-card {
+    border: 1px solid var(--border);
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    background: var(--bg);
+    transition: border-color var(--transition-base);
+  }
+  .artist-card:hover { border-color: var(--border-strong); }
+  .artist-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    margin: 0 auto var(--space-4);
+    display: block;
+    filter: grayscale(1);
+  }
+  .artist-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+  }
+  .artist-works {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  /* ========== Collection / Works Section ========== */
+  .collection {
+    padding: var(--space-12) 0;
+  }
+  .collection-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+  }
+  .collection-header .label { margin-bottom: var(--space-2); display: block; }
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+  .work-card {
+    border: 1px solid var(--border);
+    background: var(--bg);
+    overflow: hidden;
+    transition: border-color var(--transition-base);
+  }
+  .work-card:hover { border-color: var(--border-strong); }
+  .work-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+  .work-card-body { padding: var(--space-5) var(--space-6); }
+  .work-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+  }
+  .work-card-artist {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    margin-bottom: var(--space-4);
+  }
+  .work-card-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: var(--space-4);
+  }
+  .work-card-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .work-card-price-label {
+    font-size: var(--text-xs);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .work-card-price {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* ========== Footer ========== */
+  .footer {
+    padding: var(--space-12) 0 var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: var(--space-8);
+    margin-bottom: var(--space-10);
+  }
+  .footer-brand .header-logo {
+    display: inline-block;
+    margin-bottom: var(--space-4);
+  }
+  .footer-brand p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+  .footer-col-title {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--foreground);
+    margin-bottom: var(--space-5);
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .footer-links a {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .footer-links a:hover { color: var(--foreground); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-6);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  /* ========== Theme Toggle ========== */
+  .theme-toggle {
+    position: fixed;
+    bottom: var(--space-6);
+    right: var(--space-6);
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--foreground);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all var(--transition-base);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .theme-toggle:hover {
+    border-color: var(--border-strong);
+    transform: scale(1.05);
+  }
+
+  /* ========== Section Divider ========== */
+  .section-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: var(--space-4);
+  }
+
+  /* ========== Responsive ========== */
+  @media (max-width: 1024px) {
+    .artists-grid,
+    .collection-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .heading-xl { font-size: var(--text-5xl); }
+    .heading-lg { font-size: var(--text-3xl); }
+  }
+
+  @media (max-width: 768px) {
+    .header-nav { display: none; }
+    .artists-grid,
+    .collection-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero { padding: var(--space-10) 0 var(--space-8); }
+    .heading-xl { font-size: var(--text-4xl); }
+    .heading-lg { font-size: var(--text-3xl); }
+    .featured-overlay {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      max-width: 100%;
+      border-top: 1px solid var(--border);
+    }
+    .collection-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="container">
+    <a href="#" class="header-logo">GALERIE</a>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="#">Exhibitions</a></li>
+        <li><a href="#">Artists</a></li>
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+    <a href="#" class="btn btn-outline btn-sm">Connect</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero reveal">
+  <div class="container">
+    <span class="label">Current Exhibition</span>
+    <h1 class="heading-xl">Digital <em>Renaissance</em></h1>
+    <p class="hero-subtitle">A curated collection of contemporary digital art exploring the intersection of technology and human expression.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">View Exhibition</a>
+      <a href="#" class="btn btn-outline">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED ARTWORK ===== -->
+<section class="featured reveal">
+  <div class="container">
+    <div class="featured-image-wrapper">
+      <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=1280&h=500&fit=crop" alt="Featured artwork - Ethereal Landscapes" />
+      <div class="featured-overlay">
+        <span class="label">Featured</span>
+        <h2 class="heading-md">Ethereal Landscapes</h2>
+        <p>A journey through digitally rendered dreamscapes that blur the line between reality and imagination.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTISTS ===== -->
+<section class="artists reveal" id="artists">
+  <div class="container">
+    <span class="label">Featured Artists</span>
+    <h2 class="heading-lg">Curated <em>Creators</em></h2>
+    <div class="artists-grid">
+      <div class="artist-card">
+        <img class="artist-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face" alt="Marina Chen" />
+        <div class="artist-name">Marina Chen</div>
+        <div class="artist-works">24 Works</div>
+      </div>
+      <div class="artist-card">
+        <img class="artist-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="James Wright" />
+        <div class="artist-name">James Wright</div>
+        <div class="artist-works">18 Works</div>
+      </div>
+      <div class="artist-card">
+        <img class="artist-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face" alt="Sofia Laurent" />
+        <div class="artist-name">Sofia Laurent</div>
+        <div class="artist-works">32 Works</div>
+      </div>
+      <div class="artist-card">
+        <img class="artist-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="Alex Kim" />
+        <div class="artist-name">Alex Kim</div>
+        <div class="artist-works">15 Works</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLLECTION ===== -->
+<section class="collection reveal">
+  <div class="container">
+    <div class="collection-header">
+      <div>
+        <span class="label">Collection</span>
+        <h2 class="heading-lg">Available <em>Works</em></h2>
+      </div>
+      <a href="#" class="btn btn-outline btn-sm">View All</a>
+    </div>
+    <div class="collection-grid">
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop" alt="Solitude" />
+        <div class="work-card-body">
+          <div class="work-card-title">Solitude</div>
+          <div class="work-card-artist">by Marina Chen</div>
+          <hr class="work-card-divider" />
+          <div class="work-card-price-row">
+            <span class="work-card-price-label">Price</span>
+            <span class="work-card-price">8.5 ETH</span>
+          </div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400&h=300&fit=crop" alt="Urban Dreams" />
+        <div class="work-card-body">
+          <div class="work-card-title">Urban Dreams</div>
+          <div class="work-card-artist">by James Wright</div>
+          <hr class="work-card-divider" />
+          <div class="work-card-price-row">
+            <span class="work-card-price-label">Price</span>
+            <span class="work-card-price">5.2 ETH</span>
+          </div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=400&h=300&fit=crop" alt="Metamorphosis" />
+        <div class="work-card-body">
+          <div class="work-card-title">Metamorphosis</div>
+          <div class="work-card-artist">by Sofia Laurent</div>
+          <hr class="work-card-divider" />
+          <div class="work-card-price-row">
+            <span class="work-card-price-label">Price</span>
+            <span class="work-card-price">12 ETH</span>
+          </div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop" alt="Digital Bloom" />
+        <div class="work-card-body">
+          <div class="work-card-title">Digital Bloom</div>
+          <div class="work-card-artist">by Alex Kim</div>
+          <hr class="work-card-divider" />
+          <div class="work-card-price-row">
+            <span class="work-card-price-label">Price</span>
+            <span class="work-card-price">6.8 ETH</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer reveal">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="header-logo">GALERIE</a>
+        <p>Curating the finest digital art for discerning collectors.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Gallery</div>
+        <ul class="footer-links">
+          <li><a href="#">Exhibitions</a></li>
+          <li><a href="#">Artists</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Auctions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Information</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 Galerie. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- ===== THEME TOGGLE ===== -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">&#9790;</button>
+
+<script>
+  // Theme toggle
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    toggle.innerHTML = isDark ? '&#9790;' : '&#9788;';
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel-Tourism Component Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Design Tokens ===== */
+    :root {
+      /* Colors */
+      --background: #EDE9FE;
+      --background-white: #FFFFFF;
+      --foreground: #0F172A;
+      --foreground-body: #64748B;
+      --accent-orange: #FF7F00;
+      --accent-orange-hover: #E67300;
+      --accent-blue: #0080FF;
+      --accent-blue-soft: #DBEAFE;
+      --muted: #94A3B8;
+      --border: #E2E8F0;
+      --footer-bg: #0F172A;
+      --footer-text: #94A3B8;
+      --footer-text-hover: #E2E8F0;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+
+      /* Spacing */
+      --space-xs: 8px;
+      --space-sm: 16px;
+      --space-md: 24px;
+      --space-lg: 32px;
+      --space-xl: 48px;
+      --space-2xl: 64px;
+      --space-3xl: 80px;
+      --space-4xl: 96px;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+      /* Transitions */
+      --transition-fast: 0.18s ease;
+      --transition-base: 0.3s ease;
+      --transition-slow: 0.5s ease;
+    }
+
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--foreground-body);
+      background: var(--background);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    /* ===== Typography ===== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      color: var(--foreground);
+      line-height: 1.2;
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-size: 40px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      letter-spacing: -0.01em;
+    }
+
+    .section-title .highlight {
+      color: var(--accent-blue);
+    }
+
+    /* ===== Header / Navbar ===== */
+    .header {
+      position: sticky;
+      top: var(--space-md);
+      z-index: 100;
+      padding: 0 var(--space-md);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--background-white);
+      border-radius: var(--radius-lg);
+      padding: 14px 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--foreground);
+    }
+
+    .header-logo svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent-orange);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .header-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--foreground-body);
+      transition: color var(--transition-fast);
+    }
+
+    .header-nav a:hover {
+      color: var(--foreground);
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 24px;
+      background: var(--accent-orange);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .header-cta:hover {
+      background: var(--accent-orange-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 127, 0, 0.3);
+    }
+
+    .header-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .header-mobile-toggle svg {
+      width: 24px;
+      height: 24px;
+      color: var(--foreground);
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: var(--space-3xl) 0 var(--space-4xl);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-blue-soft);
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent-blue);
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-title {
+      font-size: 60px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-title .highlight {
+      color: var(--accent-blue);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--foreground-body);
+      margin-bottom: var(--space-xl);
+      max-width: 480px;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--background-white);
+      border-radius: var(--radius-lg);
+      padding: 8px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .search-field {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--foreground);
+      outline: none;
+    }
+
+    .search-field::placeholder {
+      color: var(--muted);
+    }
+
+    .search-field:focus {
+      border-bottom: 2px solid var(--accent-blue);
+    }
+
+    .search-divider {
+      width: 1px;
+      height: 32px;
+      background: var(--border);
+    }
+
+    .search-btn {
+      padding: 12px 28px;
+      background: var(--accent-orange);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      background: var(--accent-orange-hover);
+    }
+
+    /* Stats */
+    .hero-stats {
+      display: flex;
+      gap: var(--space-xl);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--foreground);
+      line-height: 1.2;
+    }
+
+    .stat-number .star {
+      color: var(--accent-orange);
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Photo Collage */
+    .hero-collage {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: var(--space-sm);
+      height: 420px;
+    }
+
+    .collage-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--border);
+    }
+
+    .collage-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .collage-img:first-child {
+      grid-row: 1 / 3;
+    }
+
+    .floating-card {
+      position: absolute;
+      bottom: -16px;
+      left: -16px;
+      background: var(--background-white);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .floating-card-icon {
+      width: 40px;
+      height: 40px;
+      background: #FEE2D0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .floating-card-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent-orange);
+    }
+
+    .floating-card-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+
+    .floating-card-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ===== Features ===== */
+    .features {
+      background: var(--background-white);
+      padding: var(--space-4xl) 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: var(--space-lg);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-blue-soft);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent-blue);
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: var(--space-xs);
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--foreground-body);
+    }
+
+    /* ===== Destination Cards ===== */
+    .destinations {
+      padding: var(--space-4xl) 0;
+    }
+
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .dest-card {
+      background: var(--background-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-base);
+    }
+
+    .dest-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .dest-card-img {
+      height: 200px;
+      overflow: hidden;
+      background: var(--border);
+    }
+
+    .dest-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-base);
+    }
+
+    .dest-card:hover .dest-card-img img {
+      transform: scale(1.05);
+    }
+
+    .dest-card-body {
+      padding: var(--space-md);
+    }
+
+    .dest-card-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 4px;
+    }
+
+    .dest-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--foreground-body);
+    }
+
+    .dest-card-price {
+      font-weight: 600;
+      color: var(--foreground);
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--accent-orange);
+      color: #fff;
+      border-radius: var(--radius-md);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 127, 0, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-outline {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--foreground);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--foreground);
+      background: rgba(15, 23, 42, 0.03);
+    }
+
+    .btn-pill {
+      border-radius: var(--radius-pill);
+    }
+
+    .btn-sm {
+      padding: 8px 18px;
+      font-size: 13px;
+    }
+
+    .btn-lg {
+      padding: 16px 36px;
+      font-size: 16px;
+    }
+
+    /* ===== Input Fields ===== */
+    .input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--foreground);
+      background: var(--background-white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .input::placeholder {
+      color: var(--muted);
+    }
+
+    .input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.12);
+    }
+
+    .input-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 6px;
+    }
+
+    /* ===== Badges ===== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--radius-pill);
+    }
+
+    .badge-blue {
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
+    }
+
+    .badge-orange {
+      background: #FEE2D0;
+      color: var(--accent-orange);
+    }
+
+    .badge-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--foreground-body);
+    }
+
+    /* ===== CTA Section ===== */
+    .cta-section {
+      background: var(--background);
+      padding: var(--space-4xl) 0;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 44px;
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.01em;
+    }
+
+    .cta-title .highlight {
+      color: var(--accent-blue);
+    }
+
+    .cta-subtitle {
+      font-size: 18px;
+      color: var(--foreground-body);
+      max-width: 520px;
+      margin: 0 auto var(--space-xl);
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .cta-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--foreground-body);
+    }
+
+    .trust-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-blue);
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background: var(--footer-bg);
+      padding: var(--space-3xl) 0 var(--space-xl);
+      color: var(--footer-text);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-brand svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent-orange);
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--footer-text);
+      max-width: 280px;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-fast);
+    }
+
+    .footer-social a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-social svg {
+      width: 16px;
+      height: 16px;
+      color: #fff;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--footer-text);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-links a:hover {
+      color: var(--footer-text-hover);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .footer-bottom-links a {
+      color: var(--footer-text);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--footer-text-hover);
+    }
+
+    /* ===== Scroll Animations ===== */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+    .animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+    .animate-on-scroll:nth-child(4) { transition-delay: 0.3s; }
+
+    /* ===== Reduced Motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .animate-on-scroll {
+        opacity: 1;
+        transform: none;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* ===== Responsive: 1024px ===== */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+
+      .hero-title {
+        font-size: 48px;
+      }
+
+      .hero-collage {
+        height: 340px;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-lg);
+      }
+
+      .section-title {
+        font-size: 34px;
+      }
+
+      .cta-title {
+        font-size: 36px;
+      }
+    }
+
+    /* ===== Responsive: 768px ===== */
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+
+      .header-mobile-toggle {
+        display: block;
+      }
+
+      .header-cta {
+        display: none;
+      }
+
+      .hero {
+        padding: var(--space-xl) 0 var(--space-2xl);
+      }
+
+      .hero-title {
+        font-size: 36px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .search-bar {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .search-divider {
+        width: 100%;
+        height: 1px;
+      }
+
+      .search-btn {
+        width: 100%;
+        padding: 14px;
+      }
+
+      .hero-stats {
+        gap: var(--space-lg);
+      }
+
+      .hero-collage {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+      }
+
+      .collage-img:first-child {
+        grid-row: auto;
+      }
+
+      .collage-img {
+        height: 200px;
+      }
+
+      .floating-card {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: var(--space-sm);
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .destinations-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .cta-title {
+        font-size: 30px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 22h20L12 2z"/>
+          <path d="M12 8l-4 8h8l-4-8z"/>
+        </svg>
+        Wanderlust
+      </a>
+      <nav class="header-nav">
+        <a href="#">Destinations</a>
+        <a href="#">Experiences</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+      <button class="header-cta">Plan Your Trip</button>
+      <button class="header-mobile-toggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge animate-on-scroll">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Rated #1 Travel Agency 2024
+          </div>
+          <h1 class="hero-title animate-on-scroll">
+            Discover Your<br><span class="highlight">Next Adventure</span>
+          </h1>
+          <p class="hero-subtitle animate-on-scroll">
+            Explore breathtaking destinations, create unforgettable memories, and experience the world like never before with our curated travel experiences.
+          </p>
+
+          <!-- Search Bar -->
+          <div class="search-bar animate-on-scroll">
+            <input type="text" class="search-field" placeholder="Where to?">
+            <div class="search-divider"></div>
+            <input type="text" class="search-field" placeholder="Check in">
+            <div class="search-divider"></div>
+            <input type="text" class="search-field" placeholder="Travelers">
+            <button class="search-btn">Search</button>
+          </div>
+
+          <!-- Stats -->
+          <div class="hero-stats animate-on-scroll">
+            <div class="stat-item">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Destinations</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">50K+</span>
+              <span class="stat-label">Happy Travelers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number"><span class="star">&#9733;</span> 4.9</span>
+              <span class="stat-label">Rating</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Collage -->
+        <div class="hero-collage animate-on-scroll">
+          <div class="collage-img">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=500&fit=crop" alt="Tropical beach">
+          </div>
+          <div class="collage-img">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h=240&fit=crop" alt="Paris bridge">
+          </div>
+          <div class="collage-img">
+            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=240&fit=crop" alt="Japan street">
+          </div>
+          <div class="floating-card">
+            <div class="floating-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
+            </div>
+            <div>
+              <div class="floating-card-title">Next Trip</div>
+              <div class="floating-card-sub">Bali, Indonesia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="features">
+    <div class="container">
+      <div class="section-label animate-on-scroll">Why Choose Us</div>
+      <h2 class="section-title animate-on-scroll">Travel with <span class="highlight">Confidence</span></h2>
+      <div class="features-grid">
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3 class="feature-title">Curated Experiences</h3>
+          <p class="feature-desc">Hand-picked destinations and activities tailored to your preferences.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <h3 class="feature-title">Best Price Guarantee</h3>
+          <p class="feature-desc">We match any competitor's price and offer exclusive deals.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 class="feature-title">24/7 Support</h3>
+          <p class="feature-desc">Round-the-clock assistance wherever you are in the world.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3 class="feature-title">Flexible Booking</h3>
+          <p class="feature-desc">Free cancellation and easy rebooking on most trips.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Destinations ===== -->
+  <section class="destinations">
+    <div class="container">
+      <div class="section-label animate-on-scroll">Popular Destinations</div>
+      <h2 class="section-title animate-on-scroll">Explore the <span class="highlight">World</span></h2>
+      <div class="destinations-grid">
+        <div class="dest-card animate-on-scroll">
+          <div class="dest-card-img">
+            <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=300&fit=crop" alt="Santorini">
+          </div>
+          <div class="dest-card-body">
+            <h3 class="dest-card-title">Santorini, Greece</h3>
+            <div class="dest-card-meta">
+              <span class="dest-card-price">$1,299 / 7 days</span>
+            </div>
+          </div>
+        </div>
+        <div class="dest-card animate-on-scroll">
+          <div class="dest-card-img">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=300&fit=crop" alt="Bali">
+          </div>
+          <div class="dest-card-body">
+            <h3 class="dest-card-title">Bali, Indonesia</h3>
+            <div class="dest-card-meta">
+              <span class="dest-card-price">$899 / 5 days</span>
+            </div>
+          </div>
+        </div>
+        <div class="dest-card animate-on-scroll">
+          <div class="dest-card-img">
+            <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&h=300&fit=crop" alt="Swiss Alps">
+          </div>
+          <div class="dest-card-body">
+            <h3 class="dest-card-title">Swiss Alps</h3>
+            <div class="dest-card-meta">
+              <span class="dest-card-price">$1,599 / 6 days</span>
+            </div>
+          </div>
+        </div>
+        <div class="dest-card animate-on-scroll">
+          <div class="dest-card-img">
+            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop" alt="Tokyo">
+          </div>
+          <div class="dest-card-body">
+            <h3 class="dest-card-title">Tokyo, Japan</h3>
+            <div class="dest-card-meta">
+              <span class="dest-card-price">$1,199 / 6 days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA Section ===== -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title animate-on-scroll">Ready for Your Next <span class="highlight">Adventure</span>?</h2>
+      <p class="cta-subtitle animate-on-scroll">Start planning your dream trip today. Our travel experts are ready to help you create unforgettable memories.</p>
+      <div class="cta-buttons animate-on-scroll">
+        <a href="#" class="btn btn-primary btn-lg">Plan Your Trip &rarr;</a>
+        <a href="#" class="btn btn-outline btn-lg">Talk to Expert</a>
+      </div>
+      <div class="cta-trust animate-on-scroll">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secure Booking
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Best Price Guarantee
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          50K+ Happy Travelers
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 22h20L12 2z"/>
+              <path d="M12 8l-4 8h8l-4-8z"/>
+            </svg>
+            Wanderlust
+          </div>
+          <p class="footer-desc">Discover the world with us. Curated travel experiences that create lasting memories.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Destinations</h4>
+          <ul class="footer-links">
+            <li><a href="#">Europe</a></li>
+            <li><a href="#">Asia</a></li>
+            <li><a href="#">Americas</a></li>
+            <li><a href="#">Africa</a></li>
+            <li><a href="#">Oceania</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Travel Insurance</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 Wanderlust. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Scroll Animation Script ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

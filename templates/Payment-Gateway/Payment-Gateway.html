@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Payment-Gateway — 支付网关风格组件库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ===== Design Tokens ===== */
+  :root {
+    --bg: #FFFFFF;
+    --bg-alt: #F6F9FC;
+    --bg-code: #0A2540;
+    --bg-surface: #FFFFFF;
+    --bg-badge: rgba(99, 91, 255, 0.08);
+    --border: #E2E8F0;
+    --border-light: #E6EBF1;
+    --text: #0A2540;
+    --text-heading: #0F1740;
+    --text-muted: #425466;
+    --text-dim: #8898AA;
+    --accent: #635BFF;
+    --accent-hover: #524AE0;
+    --accent-cyan: #00D4FF;
+    --accent-green: #30D158;
+    --accent-green-dark: #27C93F;
+    --gradient-primary: linear-gradient(135deg, #635BFF 0%, #00D4FF 100%);
+    --gradient-text: linear-gradient(135deg, #635BFF, #00D4FF);
+    --shadow-sm: 0 1px 3px rgba(10, 37, 64, 0.06);
+    --shadow-md: 0 4px 12px rgba(10, 37, 64, 0.08);
+    --shadow-lg: 0 8px 30px rgba(10, 37, 64, 0.1);
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 9999px;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'DM Sans', 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --container: 1280px;
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ===== Dark Theme ===== */
+  html[data-theme="dark"] {
+    --bg: #0A2540;
+    --bg-alt: #0D2F4F;
+    --bg-code: #061A2E;
+    --bg-surface: #0F3055;
+    --bg-badge: rgba(99, 91, 255, 0.15);
+    --border: #1A4070;
+    --border-light: #1E4A7A;
+    --text: #E6EBF1;
+    --text-heading: #FFFFFF;
+    --text-muted: #8898AA;
+    --text-dim: #5A6B80;
+    --accent: #635BFF;
+    --accent-hover: #7B73FF;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background var(--transition), color var(--transition);
+  }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  ul { list-style: none; }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ===== Typography ===== */
+  .heading-xl {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-heading);
+  }
+  .heading-lg {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text-heading);
+  }
+  .heading-md {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-heading);
+  }
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-muted { color: var(--text-muted); }
+  .text-dim { color: var(--text-dim); }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #FFFFFF;
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(99, 91, 255, 0.3);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover {
+    border-color: var(--text-muted);
+    background: var(--bg-alt);
+  }
+  .btn-sm {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .btn:disabled, .btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ===== Badge / Tag ===== */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.02em;
+  }
+  .badge-accent {
+    background: var(--bg-badge);
+    color: var(--accent);
+  }
+  .badge-green {
+    background: rgba(48, 209, 88, 0.1);
+    color: var(--accent-green-dark);
+  }
+  .badge-popular {
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+
+  /* ===== Cards ===== */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all var(--transition);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-light);
+  }
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-badge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  /* ===== Code Block ===== */
+  .code-block {
+    background: var(--bg-code);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    color: #E6EBF1;
+    overflow-x: auto;
+    position: relative;
+  }
+  .code-block .code-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .code-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .code-dot-red { background: #FF5F56; }
+  .code-dot-yellow { background: #FFBD2E; }
+  .code-dot-green { background: #27C93F; }
+  .code-filename {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #8898AA;
+    margin-left: 8px;
+  }
+  .code-keyword { color: #FF7B72; }
+  .code-string { color: #A5D6FF; }
+  .code-function { color: #D2A8FF; }
+  .code-variable { color: #79C0FF; }
+  .code-comment { color: #8B949E; }
+  .code-number { color: #FFA657; }
+
+  /* ===== Input ===== */
+  .input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    color: var(--text);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+  }
+  .input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.12);
+  }
+  .input::placeholder {
+    color: var(--text-dim);
+  }
+
+  /* ===== Check List ===== */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .check-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .check-icon svg {
+    width: 12px;
+    height: 12px;
+    fill: #FFFFFF;
+  }
+
+  /* ===== Stats ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .stat-value {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ===== Pricing Card ===== */
+  .pricing-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    position: relative;
+    transition: all var(--transition);
+  }
+  .pricing-card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  .pricing-card.featured {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+  .pricing-card .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .pricing-name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 4px;
+  }
+  .pricing-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .pricing-amount {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    line-height: 1.1;
+  }
+  .pricing-amount span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .pricing-period {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  /* ===== Security Badge ===== */
+  .security-badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all var(--transition);
+  }
+  .security-badge:hover {
+    box-shadow: var(--shadow-sm);
+  }
+  .security-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(48, 209, 88, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .security-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--accent-green-dark);
+  }
+  .security-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-heading);
+  }
+  .security-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== Feature Row ===== */
+  .feature-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--bg-alt);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+  }
+  .feature-row-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .feature-row-icon svg {
+    width: 12px;
+    height: 12px;
+    fill: #FFFFFF;
+  }
+  .feature-row-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-heading);
+  }
+  .feature-row-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== Section Spacing ===== */
+  .section {
+    padding: 96px 0;
+  }
+  .section-alt {
+    background: var(--bg-alt);
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .section-header .heading-lg {
+    margin-bottom: 16px;
+  }
+  .section-header p {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 672px;
+    margin: 0 auto;
+  }
+
+  /* ===== Grid ===== */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 128px 0 80px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-badge .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero .heading-xl {
+    margin-bottom: 24px;
+  }
+  .hero-desc {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 520px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  /* ===== Navbar ===== */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    height: 65px;
+    display: flex;
+    align-items: center;
+    transition: background var(--transition);
+  }
+  html[data-theme="dark"] .navbar {
+    background: rgba(10, 37, 64, 0.95);
+  }
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--text-heading);
+  }
+  .navbar-logo {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar-logo svg {
+    width: 18px;
+    height: 18px;
+    fill: #FFFFFF;
+  }
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .navbar-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color var(--transition);
+  }
+  .navbar-links a:hover {
+    color: var(--text-heading);
+  }
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .navbar-actions .btn-signin {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color var(--transition);
+  }
+  .navbar-actions .btn-signin:hover {
+    color: var(--text-heading);
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 64px 0 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    max-width: 240px;
+    line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 20px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    transition: color var(--transition);
+  }
+  .footer-col a:hover {
+    color: var(--text-heading);
+  }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .footer-bottom-links {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-bottom-links a {
+    color: var(--text-dim);
+    transition: color var(--transition);
+  }
+  .footer-bottom-links a:hover {
+    color: var(--text-muted);
+  }
+
+  /* ===== Theme Toggle ===== */
+  .theme-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition);
+    font-size: 18px;
+  }
+  .theme-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  /* ===== Reveal Animation ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section { padding: 64px 0; }
+    .hero { padding: 96px 0 64px; }
+    .container { padding: 0 20px; }
+    .grid-3, .grid-2 {
+      grid-template-columns: 1fr;
+    }
+    .grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .hero-stats {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .hero-actions {
+      flex-direction: column;
+    }
+    .navbar-links { display: none; }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero-badge .dot { animation: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <div class="navbar-logo">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
+      </div>
+      PayFlow
+    </div>
+    <div class="navbar-links">
+      <a href="#products">Products</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#docs">Docs</a>
+      <a href="#support">Support</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="btn-signin">Sign In</button>
+      <button class="btn btn-primary btn-sm">Get Started</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          99.99% UPTIME
+        </div>
+        <h1 class="heading-xl">Payments infrastructure for the <span class="text-gradient">internet</span></h1>
+        <p class="hero-desc">Accept payments, send payouts, and manage your business online. Build with our powerful APIs and start accepting payments in minutes.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary">Start Now &rarr;</button>
+          <button class="btn btn-outline">Contact Sales</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-value">$500B+</div>
+            <div class="stat-label">Processed annually</div>
+          </div>
+          <div>
+            <div class="stat-value">135+</div>
+            <div class="stat-label">Currencies supported</div>
+          </div>
+          <div>
+            <div class="stat-value">99.99%</div>
+            <div class="stat-label">Uptime SLA</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-dot code-dot-red"></span>
+            <span class="code-dot code-dot-yellow"></span>
+            <span class="code-dot code-dot-green"></span>
+            <span class="code-filename">checkout.js</span>
+          </div>
+          <div><span class="code-comment">// Create a payment intent</span></div>
+          <div><span class="code-keyword">const</span> <span class="code-variable">paymentIntent</span> = <span class="code-keyword">await</span> <span class="code-function">payflow.paymentIntents.create</span>({</div>
+          <div>&nbsp;&nbsp;amount: <span class="code-number">2000</span>,</div>
+          <div>&nbsp;&nbsp;currency: <span class="code-string">'usd'</span>,</div>
+          <div>&nbsp;&nbsp;payment_method_types: [<span class="code-string">'card'</span>],</div>
+          <div>});</div>
+          <div style="margin-top: 16px;"><span class="code-comment">// Confirm the payment</span></div>
+          <div><span class="code-keyword">const</span> <span class="code-variable">result</span> = <span class="code-keyword">await</span> <span class="code-function">payflow.confirmPayment</span>({</div>
+          <div>&nbsp;&nbsp;clientSecret: paymentIntent.client_secret,</div>
+          <div>&nbsp;&nbsp;confirmParams: {</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;return_url: <span class="code-string">'https://example.com/success'</span>,</div>
+          <div>&nbsp;&nbsp;},</div>
+          <div>});</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Products / Features ===== -->
+<section class="section section-alt" id="products">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="heading-lg">A complete payments platform</h2>
+      <p>Everything you need to build, scale, and manage your payment infrastructure.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="card-icon">&#x1F4B3;</div>
+        <h3 class="heading-md">Payments</h3>
+        <p class="text-muted" style="margin-top: 12px; font-size: 15px;">Accept payments online, in person, or through your platform with a unified API.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">&#x1F4B8;</div>
+        <h3 class="heading-md">Billing</h3>
+        <p class="text-muted" style="margin-top: 12px; font-size: 15px;">Automate recurring revenue with smart invoicing and subscription management.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">&#x1F517;</div>
+        <h3 class="heading-md">Connect</h3>
+        <p class="text-muted" style="margin-top: 12px; font-size: 15px;">Build a marketplace or platform with multi-party payments and onboarding.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">&#x1F4CA;</div>
+        <h3 class="heading-md">Subscriptions</h3>
+        <p class="text-muted" style="margin-top: 12px; font-size: 15px;">Build and scale recurring revenue with flexible billing logic and smart retries.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">&#x1F4C8;</div>
+        <h3 class="heading-md">Reporting</h3>
+        <p class="text-muted" style="margin-top: 12px; font-size: 15px;">Real-time dashboards and detailed reports to understand your business performance.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">&#x1F4BB;</div>
+        <h3 class="heading-md">Developer First</h3>
+        <p class="text-muted" style="margin-top: 12px; font-size: 15px;">Clean APIs, comprehensive docs, and SDKs for every major language and framework.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Pricing ===== -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="heading-lg">Simple, transparent pricing</h2>
+      <p>Pay only for what you use. No setup fees, no monthly fees, no hidden costs.</p>
+    </div>
+    <div class="grid-3">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Standard</div>
+        <div class="pricing-desc">For most businesses</div>
+        <div class="pricing-amount">2.9% <span>+ 30&#162;</span></div>
+        <div class="pricing-period">per successful card charge</div>
+        <ul class="check-list">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>All payment methods</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Basic fraud protection</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Standard support</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Dashboard access</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured reveal">
+        <span class="badge badge-popular popular-badge">Popular</span>
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-desc">For large businesses</div>
+        <div class="pricing-amount">Custom</div>
+        <div class="pricing-period">volume-based pricing</div>
+        <ul class="check-list">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Everything in Standard</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Volume discounts</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Advanced fraud tools</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Dedicated support</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Custom integrations</li>
+        </ul>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Platform</div>
+        <div class="pricing-desc">For marketplaces</div>
+        <div class="pricing-amount">0.5% <span>+ standard fees</span></div>
+        <div class="pricing-period">per transaction</div>
+        <ul class="check-list">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Multi-party payments</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Split payments</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Onboarding tools</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Platform reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Security ===== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="grid-2" style="align-items: center;">
+      <div class="reveal">
+        <h2 class="heading-lg" style="margin-bottom: 16px;">Enterprise-grade security</h2>
+        <p class="text-muted" style="font-size: 17px; line-height: 1.7; margin-bottom: 36px;">Your data is protected with the highest security standards. We're certified by the most rigorous industry standards.</p>
+        <div class="grid-2" style="gap: 20px;">
+          <div class="security-badge">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <div>
+              <div class="security-title">PCI DSS Level 1</div>
+              <div class="security-desc">Highest level of certification</div>
+            </div>
+          </div>
+          <div class="security-badge">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <div>
+              <div class="security-title">SOC 2 Type II</div>
+              <div class="security-desc">Audited security controls</div>
+            </div>
+          </div>
+          <div class="security-badge">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <div>
+              <div class="security-title">ISO 27001</div>
+              <div class="security-desc">Information security management</div>
+            </div>
+          </div>
+          <div class="security-badge">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <div>
+              <div class="security-title">GDPR Compliant</div>
+              <div class="security-desc">EU data protection</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="feature-row">
+          <div class="feature-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="feature-row-title">End-to-end encryption</div>
+            <div class="feature-row-desc">All data encrypted in transit and at rest</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="feature-row-title">Tokenization</div>
+            <div class="feature-row-desc">Sensitive data replaced with secure tokens</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="feature-row-title">3D Secure 2</div>
+            <div class="feature-row-desc">Additional authentication for card payments</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="feature-row-title">Real-time monitoring</div>
+            <div class="feature-row-desc">24/7 threat detection and response</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Component Showcase ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="heading-lg">Component Library</h2>
+      <p>All UI components used in the Payment-Gateway design system.</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="reveal" style="margin-bottom: 48px;">
+      <h3 class="heading-md" style="margin-bottom: 20px;">Buttons</h3>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-primary btn-sm">Small Primary</button>
+        <button class="btn btn-outline btn-sm">Small Outline</button>
+        <button class="btn btn-primary" disabled>Disabled</button>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="reveal" style="margin-bottom: 48px;">
+      <h3 class="heading-md" style="margin-bottom: 20px;">Badges & Tags</h3>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <span class="badge badge-accent">Accent Badge</span>
+        <span class="badge badge-green">Success Badge</span>
+        <span class="badge badge-popular">Popular</span>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <div class="reveal" style="margin-bottom: 48px;">
+      <h3 class="heading-md" style="margin-bottom: 20px;">Inputs</h3>
+      <div style="max-width: 400px; display: flex; flex-direction: column; gap: 16px;">
+        <input class="input" type="text" placeholder="Email address" />
+        <input class="input" type="password" placeholder="Password" />
+        <input class="input" type="text" placeholder="Card number" value="4242 4242 4242 4242" />
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="reveal" style="margin-bottom: 48px;">
+      <h3 class="heading-md" style="margin-bottom: 20px;">Cards</h3>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">&#x1F4B3;</div>
+          <h3 class="heading-md">Card Title</h3>
+          <p class="text-muted" style="margin-top: 12px; font-size: 14px;">Card description text goes here with relevant details.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#x1F512;</div>
+          <h3 class="heading-md">Secure Card</h3>
+          <p class="text-muted" style="margin-top: 12px; font-size: 14px;">Another card variant with different icon and content.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#x26A1;</div>
+          <h3 class="heading-md">Fast Card</h3>
+          <p class="text-muted" style="margin-top: 12px; font-size: 14px;">Third card showing the consistent card component style.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Block -->
+    <div class="reveal" style="margin-bottom: 48px;">
+      <h3 class="heading-md" style="margin-bottom: 20px;">Code Block</h3>
+      <div class="code-block" style="max-width: 640px;">
+        <div class="code-header">
+          <span class="code-dot code-dot-red"></span>
+          <span class="code-dot code-dot-yellow"></span>
+          <span class="code-dot code-dot-green"></span>
+          <span class="code-filename">api.js</span>
+        </div>
+        <div><span class="code-keyword">import</span> PayFlow <span class="code-keyword">from</span> <span class="code-string">'@payflow/sdk'</span>;</div>
+        <div style="margin-top: 8px;"><span class="code-keyword">const</span> <span class="code-variable">client</span> = <span class="code-keyword">new</span> <span class="code-function">PayFlow</span>(<span class="code-string">'sk_live_...'</span>);</div>
+        <div style="margin-top: 8px;"><span class="code-keyword">const</span> <span class="code-variable">charge</span> = <span class="code-keyword">await</span> client.charges.<span class="code-function">create</span>({</div>
+        <div>&nbsp;&nbsp;amount: <span class="code-number">5000</span>,</div>
+        <div>&nbsp;&nbsp;currency: <span class="code-string">'usd'</span>,</div>
+        <div>&nbsp;&nbsp;source: <span class="code-string">'tok_visa'</span>,</div>
+        <div>});</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-brand">
+          <div class="navbar-logo">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
+          </div>
+          PayFlow
+        </div>
+        <p>Payments infrastructure for the internet.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="#">Payments</a>
+        <a href="#">Billing</a>
+        <a href="#">Connect</a>
+        <a href="#">Radar</a>
+      </div>
+      <div class="footer-col">
+        <h4>Developers</h4>
+        <a href="#">Documentation</a>
+        <a href="#">API Reference</a>
+        <a href="#">SDKs</a>
+        <a href="#">Plugins</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Customers</a>
+        <a href="#">Partners</a>
+        <a href="#">Jobs</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">Support</a>
+        <a href="#">Contact</a>
+        <a href="#">Blog</a>
+        <a href="#">Status</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 PayFlow, Inc. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Theme Toggle ===== -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">&#x1F319;</button>
+
+<script>
+  // Theme toggle
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    toggle.textContent = isDark ? '\u{1F319}' : '\u{2600}\u{FE0F}';
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DeFi-Yield — Nexus Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-alt: #0d0d15;
+    --card: #0d0d15;
+    --card-hover: #111120;
+    --fg: #ffffff;
+    --muted: #8b8b9a;
+    --accent-cyan: #00ffff;
+    --accent-green: #39ff14;
+    --accent-magenta: #ff00ff;
+    --accent-pink: #ff1493;
+    --accent-orange: #ff6600;
+    --border: rgba(0, 255, 255, 0.3);
+    --border-solid: #00ffff;
+    --gradient-primary: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+    --glow-cyan: 0 0 10px rgba(0, 255, 255, 0.5);
+    --glow-green: 0 0 10px rgba(57, 255, 20, 0.5);
+    --glow-magenta: 0 0 10px rgba(255, 0, 255, 0.5);
+    --glow-pink: 0 0 10px rgba(255, 20, 147, 0.5);
+    --glow-orange: 0 0 10px rgba(255, 102, 0, 0.5);
+    --radius: 4px;
+    --radius-full: 9999px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Grid background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  ::selection { background: var(--accent-cyan); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+
+  h1, h2, h3, h4 { font-family: "Space Grotesk", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+  }
+  .brand {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
+    color: var(--accent-cyan);
+    text-shadow: var(--glow-cyan);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .brand-icon {
+    width: 32px; height: 32px;
+    border: 2px solid var(--accent-cyan);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem;
+    box-shadow: var(--glow-cyan);
+  }
+  .nav-links { display: none; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-family: "Space Mono", monospace;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    transition: color 200ms;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; flex-direction: column; gap: 4px; background: none; border: 1px solid var(--border); cursor: pointer; padding: 8px; }
+  .nav-burger span { width: 20px; height: 2px; background: var(--accent-cyan); }
+  @media (min-width: 1024px) {
+    .nav-links { display: flex; }
+    .nav-cta { display: inline-flex; }
+    .nav-burger { display: none; }
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: none;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+  .btn:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; }
+
+  .btn-gradient {
+    background: var(--gradient-primary);
+    color: var(--bg);
+    font-weight: 700;
+  }
+  .btn-gradient:hover { filter: brightness(1.15); box-shadow: 0 0 20px rgba(0,255,255,0.4), 0 0 40px rgba(255,0,255,0.2); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+  }
+  .btn-outline:hover { background: rgba(0,255,255,0.1); box-shadow: var(--glow-cyan); }
+
+  .btn-outline-white {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--fg);
+  }
+  .btn-outline-white:hover { border-color: var(--fg); }
+
+  .btn-block { width: 100%; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 0 0;
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+  }
+  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-cyan);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: var(--fg);
+  }
+  .hero h1 .neon {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px var(--accent-cyan), 0 0 30px rgba(0,255,255,0.4);
+  }
+  .hero p {
+    font-family: "Space Mono", monospace;
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    text-align: center;
+  }
+  .stat-card .stat-value {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    color: var(--accent-cyan);
+    text-shadow: var(--glow-cyan);
+    margin-bottom: 0.25rem;
+  }
+  .stat-card .stat-label {
+    font-family: "Space Mono", monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  /* APY Calculator */
+  .calculator {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+  .calculator h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: var(--fg);
+  }
+  .calculator h3 .accent { color: var(--accent-cyan); text-shadow: var(--glow-cyan); }
+  .calc-label {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .calc-input-row {
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 1.5rem;
+  }
+  .calc-input-row input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-family: "Space Mono", monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    outline: none;
+  }
+  .calc-input-row .currency {
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    color: var(--accent-cyan);
+  }
+  .lock-periods {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .lock-period {
+    font-family: "Space Mono", monospace;
+    font-size: 0.8125rem;
+    text-align: center;
+    padding: 10px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 200ms;
+  }
+  .lock-period:hover { border-color: var(--accent-cyan); color: var(--fg); }
+  .lock-period.active {
+    border-color: var(--accent-cyan);
+    background: rgba(0,255,255,0.1);
+    color: var(--accent-cyan);
+  }
+  .calc-result {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .calc-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .calc-result-row:last-child { margin-bottom: 0; }
+  .calc-result-label {
+    font-family: "Space Mono", monospace;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .calc-result-value {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--accent-green);
+    text-shadow: var(--glow-green);
+  }
+  .calc-result-value.earnings {
+    font-size: 1rem;
+    color: var(--accent-green);
+  }
+
+  /* ===== POOLS SECTION ===== */
+  .pools-section {
+    padding: 96px 0;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-cyan);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+  }
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+  .section-header p {
+    font-family: "Space Mono", monospace;
+    font-size: 0.9375rem;
+    color: var(--muted);
+    max-width: 672px;
+    margin: 0 auto;
+  }
+
+  .pools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) { .pools-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .pool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: all 200ms;
+  }
+  .pool-card:hover {
+    border-color: rgba(0,255,255,0.5);
+    box-shadow: 0 0 15px rgba(0,255,255,0.1);
+  }
+  .pool-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .pool-pair {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .pool-icons {
+    display: flex;
+    align-items: center;
+  }
+  .pool-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Space Mono", monospace;
+    font-size: 0.625rem;
+    font-weight: 700;
+    border: 2px solid var(--bg);
+  }
+  .pool-icon:first-child { background: rgba(0,255,255,0.2); color: var(--accent-cyan); }
+  .pool-icon:last-child { background: rgba(255,0,255,0.2); color: var(--accent-magenta); margin-left: -8px; }
+  .pool-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+  }
+  .pool-rewards {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .risk-badge {
+    font-family: "Space Mono", monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: var(--radius);
+  }
+  .risk-low { background: rgba(57,255,20,0.15); color: var(--accent-green); }
+  .risk-medium { background: rgba(255,102,0,0.15); color: var(--accent-orange); }
+  .risk-high { background: rgba(255,0,255,0.15); color: var(--accent-magenta); }
+
+  .pool-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .pool-metric {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .pool-metric-label {
+    font-family: "Space Mono", monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .pool-metric-value {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--accent-green);
+    text-shadow: var(--glow-green);
+  }
+  .pool-metric-value.tvl {
+    color: var(--fg);
+    text-shadow: none;
+  }
+
+  /* ===== TOKENOMICS ===== */
+  .tokenomics-section {
+    padding: 96px 0;
+    background: var(--bg-alt);
+  }
+  .tokenomics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 768px) { .tokenomics-grid { grid-template-columns: 1fr 1fr; } }
+
+  .tokenomics-chart {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .donut-chart {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--accent-cyan) 0% 40%,
+      var(--accent-magenta) 40% 55%,
+      var(--accent-green) 55% 75%,
+      var(--accent-pink) 75% 90%,
+      var(--accent-orange) 90% 100%
+    );
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .donut-chart::after {
+    content: "";
+    position: absolute;
+    inset: 30%;
+    background: var(--bg-alt);
+    border-radius: 50%;
+  }
+  .tokenomics-legend {
+    width: 100%;
+    max-width: 400px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+  }
+  .legend-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+  }
+  .legend-label { color: var(--muted); }
+  .legend-value { font-weight: 700; }
+
+  .tokenomics-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .tokenomics-info p {
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .tokenomics-info ul {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+  .tokenomics-info li {
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    color: var(--muted);
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .tokenomics-info li::before {
+    content: "\25B8";
+    color: var(--accent-green);
+  }
+  .token-price-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .token-price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .token-price-value {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .token-price-value.cyan { color: var(--accent-cyan); text-shadow: var(--glow-cyan); }
+  .token-price-value.magenta { color: var(--accent-magenta); text-shadow: var(--glow-magenta); }
+  .token-price-label {
+    font-family: "Space Mono", monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 64px 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+
+  .footer-brand .brand { margin-bottom: 1rem; }
+  .footer-brand p {
+    font-family: "Space Mono", monospace;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    max-width: 280px;
+  }
+  .footer-col h4 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+    color: var(--fg);
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.5rem; }
+  .footer-col a {
+    font-family: "Space Mono", monospace;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    transition: color 200ms;
+  }
+  .footer-col a:hover { color: var(--accent-cyan); }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-bottom p {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .footer-socials {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .footer-socials a {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-size: 0.875rem;
+    transition: all 200ms;
+  }
+  .footer-socials a:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <div class="brand">
+      <div class="brand-icon">&#x2B21;</div>
+      NEXUS
+    </div>
+    <div class="nav-links">
+      <a href="#pools">Pools</a>
+      <a href="#farms">Farms</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#docs">Docs</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-gradient">Connect Wallet</button>
+    </div>
+    <button class="nav-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Live on Mainnet
+        </div>
+        <h1>Maximize Your<br><span class="neon">Yield</span></h1>
+        <p>The next-gen DeFi protocol for yield farming. Stake, farm, and earn up to 500% APY on your crypto assets.</p>
+        <div class="hero-actions">
+          <button class="btn btn-gradient">Launch App</button>
+          <button class="btn btn-outline">Read Docs</button>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-value">$2.4B</div>
+            <div class="stat-label">TVL</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">156K</div>
+            <div class="stat-label">Users</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">500%</div>
+            <div class="stat-label">Max APY</div>
+          </div>
+        </div>
+      </div>
+      <div class="calculator">
+        <h3><span class="accent">APY</span> Calculator</h3>
+        <div class="calc-label">Deposit Amount</div>
+        <div class="calc-input-row">
+          <input type="text" value="10,000" readonly />
+          <span class="currency">USDC</span>
+        </div>
+        <div class="calc-label">Lock Period</div>
+        <div class="lock-periods">
+          <button class="lock-period">30D</button>
+          <button class="lock-period">90D</button>
+          <button class="lock-period active">180D</button>
+          <button class="lock-period">365D</button>
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-row">
+            <span class="calc-result-label">Estimated APY</span>
+            <span class="calc-result-value">245.8%</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-label">Est. Earnings (180D)</span>
+            <span class="calc-result-value earnings">+$12,290</span>
+          </div>
+        </div>
+        <button class="btn btn-gradient btn-block">Connect Wallet to Start</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POOLS -->
+<section class="pools-section" id="pools">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Yield Pools</div>
+      <h2>Active Pools</h2>
+      <p>Choose your risk level and start earning. All pools are audited and insured.</p>
+    </div>
+    <div class="pools-grid">
+      <!-- Pool 1 -->
+      <div class="pool-card">
+        <div class="pool-header">
+          <div class="pool-pair">
+            <div class="pool-icons">
+              <div class="pool-icon">ET</div>
+              <div class="pool-icon">US</div>
+            </div>
+            <div>
+              <div class="pool-name">ETH/USDC</div>
+              <div class="pool-rewards">Rewards: NXS + ETH</div>
+            </div>
+          </div>
+          <span class="risk-badge risk-low">Low Risk</span>
+        </div>
+        <div class="pool-metrics">
+          <div class="pool-metric">
+            <div class="pool-metric-label">APY</div>
+            <div class="pool-metric-value">125.4%</div>
+          </div>
+          <div class="pool-metric">
+            <div class="pool-metric-label">TVL</div>
+            <div class="pool-metric-value tvl">$456M</div>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-block">Deposit</button>
+      </div>
+      <!-- Pool 2 -->
+      <div class="pool-card">
+        <div class="pool-header">
+          <div class="pool-pair">
+            <div class="pool-icons">
+              <div class="pool-icon">BT</div>
+              <div class="pool-icon">ET</div>
+            </div>
+            <div>
+              <div class="pool-name">BTC/ETH</div>
+              <div class="pool-rewards">Rewards: NXS</div>
+            </div>
+          </div>
+          <span class="risk-badge risk-medium">Medium Risk</span>
+        </div>
+        <div class="pool-metrics">
+          <div class="pool-metric">
+            <div class="pool-metric-label">APY</div>
+            <div class="pool-metric-value">89.2%</div>
+          </div>
+          <div class="pool-metric">
+            <div class="pool-metric-label">TVL</div>
+            <div class="pool-metric-value tvl">$312M</div>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-block">Deposit</button>
+      </div>
+      <!-- Pool 3 -->
+      <div class="pool-card">
+        <div class="pool-header">
+          <div class="pool-pair">
+            <div class="pool-icons">
+              <div class="pool-icon">NX</div>
+              <div class="pool-icon">ET</div>
+            </div>
+            <div>
+              <div class="pool-name">NXS/ETH</div>
+              <div class="pool-rewards">Rewards: NXS</div>
+            </div>
+          </div>
+          <span class="risk-badge risk-high">High Risk</span>
+        </div>
+        <div class="pool-metrics">
+          <div class="pool-metric">
+            <div class="pool-metric-label">APY</div>
+            <div class="pool-metric-value">342.8%</div>
+          </div>
+          <div class="pool-metric">
+            <div class="pool-metric-label">TVL</div>
+            <div class="pool-metric-value tvl">$89M</div>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-block">Deposit</button>
+      </div>
+      <!-- Pool 4 -->
+      <div class="pool-card">
+        <div class="pool-header">
+          <div class="pool-pair">
+            <div class="pool-icons">
+              <div class="pool-icon">US</div>
+              <div class="pool-icon">US</div>
+            </div>
+            <div>
+              <div class="pool-name">USDC/USDT</div>
+              <div class="pool-rewards">Rewards: NXS</div>
+            </div>
+          </div>
+          <span class="risk-badge risk-low">Low Risk</span>
+        </div>
+        <div class="pool-metrics">
+          <div class="pool-metric">
+            <div class="pool-metric-label">APY</div>
+            <div class="pool-metric-value">45.6%</div>
+          </div>
+          <div class="pool-metric">
+            <div class="pool-metric-label">TVL</div>
+            <div class="pool-metric-value tvl">$678M</div>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-block">Deposit</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOKENOMICS -->
+<section class="tokenomics-section" id="tokenomics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">$NXS Token</div>
+      <h2>Tokenomics</h2>
+      <p>A deflationary token model designed for long-term value accrual.</p>
+    </div>
+    <div class="tokenomics-grid">
+      <div class="tokenomics-chart">
+        <div class="donut-chart"></div>
+        <div class="tokenomics-legend">
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--accent-cyan)"></div>
+              <span class="legend-label">Liquidity Mining</span>
+            </div>
+            <span class="legend-value" style="color:var(--accent-cyan)">40%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--accent-magenta)"></div>
+              <span class="legend-label">Team & Advisors</span>
+            </div>
+            <span class="legend-value" style="color:var(--accent-magenta)">15%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--accent-green)"></div>
+              <span class="legend-label">Treasury</span>
+            </div>
+            <span class="legend-value" style="color:var(--accent-green)">20%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--accent-pink)"></div>
+              <span class="legend-label">Public Sale</span>
+            </div>
+            <span class="legend-value" style="color:var(--accent-pink)">15%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--accent-orange)"></div>
+              <span class="legend-label">Ecosystem</span>
+            </div>
+            <span class="legend-value" style="color:var(--accent-orange)">10%</span>
+          </div>
+        </div>
+      </div>
+      <div class="tokenomics-info">
+        <h3>Stake $NXS for Benefits</h3>
+        <p>Hold and stake $NXS to unlock protocol benefits and maximize your yield farming returns.</p>
+        <ul>
+          <li>Staking rewards multiplier</li>
+          <li>Access to exclusive pools</li>
+          <li>Revenue sharing from protocol fees</li>
+        </ul>
+        <div class="token-price-row">
+          <div class="token-price-card">
+            <div class="token-price-value cyan">$0.42</div>
+            <div class="token-price-label">Current Price</div>
+          </div>
+          <div class="token-price-card">
+            <div class="token-price-value magenta">$42M</div>
+            <div class="token-price-label">Market Cap</div>
+          </div>
+        </div>
+        <button class="btn btn-gradient btn-block">Buy $NXS</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <div class="brand-icon">&#x2B21;</div>
+          NEXUS
+        </div>
+        <p>Next-gen DeFi yield protocol.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Protocol</h4>
+        <ul>
+          <li><a href="#">Pools</a></li>
+          <li><a href="#">Farms</a></li>
+          <li><a href="#">Stake</a></li>
+          <li><a href="#">Bridge</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Governance</h4>
+        <ul>
+          <li><a href="#">Vote</a></li>
+          <li><a href="#">Proposals</a></li>
+          <li><a href="#">Forum</a></li>
+          <li><a href="#">Snapshot</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Audit</a></li>
+          <li><a href="#">Bug Bounty</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Nexus Protocol. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="X">&#x1D54F;</a>
+        <a href="#" aria-label="Discord">&#x2666;</a>
+        <a href="#" aria-label="Telegram">&#x2708;</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer-Tools — Component Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Design Tokens ===== */
+    :root {
+      /* Colors */
+      --background: #0d0d0d;
+      --surface: #161616;
+      --surface-alt: #1e1e1e;
+      --foreground: #ffffff;
+      --foreground-muted: #71717a;
+      --accent: #39ff14;
+      --accent-text: #000000;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+
+      /* Typography */
+      --font-display: "Space Grotesk", sans-serif;
+      --font-body: "DM Sans", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 80px;
+      --space-5xl: 96px;
+
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 999px;
+
+      /* Shadows */
+      --shadow-none: none;
+
+      /* Transitions */
+      --transition-fast: 0.15s ease;
+      --transition-base: 0.2s ease;
+      --transition-slow: 0.3s ease;
+    }
+
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* ===== Typography ===== */
+    .text-accent { color: var(--accent); }
+    .text-muted { color: var(--foreground-muted); }
+    .font-mono { font-family: var(--font-mono); }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    /* ===== Header / Navigation ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 65px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .header-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-text);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .header-nav a {
+      font-size: 15px;
+      color: var(--foreground-muted);
+      transition: color var(--transition-base);
+    }
+
+    .header-nav a:hover {
+      color: var(--foreground);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .header-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all var(--transition-base);
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-text);
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--foreground);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    .btn-icon {
+      padding: 10px;
+      width: 40px;
+      height: 40px;
+    }
+
+    /* ===== Badge ===== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--foreground-muted);
+      background: var(--surface);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .badge-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ===== Cards ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      transition: border-color var(--transition-base);
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      font-size: 20px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .card p {
+      font-size: 15px;
+      color: var(--foreground-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== Code Block ===== */
+    .code-block {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .code-dot--red { background: #ff5f57; }
+    .code-dot--yellow { background: #febc2e; }
+    .code-dot--green { background: #28c840; }
+
+    .code-filename {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--foreground-muted);
+      margin-left: var(--space-sm);
+    }
+
+    .code-body {
+      padding: var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .code-body .keyword { color: #ff79c6; }
+    .code-body .string { color: #f1fa8c; }
+    .code-body .comment { color: #6272a4; }
+    .code-body .function { color: #50fa7b; }
+    .code-body .variable { color: #f8f8f2; }
+    .code-body .operator { color: #ff79c6; }
+
+    /* ===== Command Bar ===== */
+    .command-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+
+    .command-bar .prompt {
+      color: var(--foreground-muted);
+    }
+
+    .command-bar .command {
+      color: var(--foreground);
+    }
+
+    .command-bar .copy-btn {
+      background: none;
+      border: none;
+      color: var(--foreground-muted);
+      cursor: pointer;
+      padding: var(--space-xs);
+      transition: color var(--transition-base);
+    }
+
+    .command-bar .copy-btn:hover {
+      color: var(--foreground);
+    }
+
+    /* ===== Input ===== */
+    .input {
+      width: 100%;
+      padding: 12px var(--space-md);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--foreground);
+      font-family: var(--font-body);
+      font-size: 15px;
+      transition: border-color var(--transition-base);
+      outline: none;
+    }
+
+    .input::placeholder {
+      color: var(--foreground-muted);
+    }
+
+    .input:focus {
+      border-color: var(--accent);
+    }
+
+    /* ===== Stats ===== */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3xl);
+      padding-top: var(--space-2xl);
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--foreground-muted);
+      margin-top: var(--space-xs);
+    }
+
+    /* ===== Check List ===== */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 15px;
+    }
+
+    .check-list .check-icon {
+      color: var(--accent);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ===== CTA Card ===== */
+    .cta-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-3xl) var(--space-xl);
+      text-align: center;
+    }
+
+    .cta-card h2 {
+      font-size: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .cta-card p {
+      font-size: 16px;
+      color: var(--foreground-muted);
+      max-width: 480px;
+      margin: 0 auto var(--space-xl);
+    }
+
+    .cta-card .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .cta-promises {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xl);
+      flex-wrap: wrap;
+    }
+
+    .cta-promises li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 14px;
+      color: var(--foreground-muted);
+      list-style: none;
+    }
+
+    .cta-promises .check-icon {
+      color: var(--accent);
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: var(--space-3xl) 0 var(--space-xl);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-2xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--foreground-muted);
+      margin-top: var(--space-md);
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: border-color var(--transition-base);
+    }
+
+    .footer-social a:hover {
+      border-color: var(--border-hover);
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-col a {
+      font-size: 14px;
+      color: var(--foreground-muted);
+      transition: color var(--transition-base);
+    }
+
+    .footer-col a:hover {
+      color: var(--foreground);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--foreground-muted);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .footer-bottom-links a {
+      color: var(--foreground-muted);
+      transition: color var(--transition-base);
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--foreground);
+    }
+
+    /* ===== Section Styles ===== */
+    .section {
+      padding: var(--space-4xl) 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-header .badge-label {
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-header h2 {
+      font-size: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--foreground-muted);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      padding: var(--space-5xl) 0 var(--space-4xl);
+      text-align: center;
+    }
+
+    .hero .badge {
+      margin-bottom: var(--space-xl);
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      line-height: 1.1;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero .subtitle {
+      font-size: 18px;
+      color: var(--foreground-muted);
+      max-width: 640px;
+      margin: 0 auto var(--space-xl);
+      line-height: 1.6;
+    }
+
+    .hero .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .hero .command-bar {
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ===== Features Grid ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    /* ===== Code Preview Section ===== */
+    .code-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3xl);
+      align-items: center;
+    }
+
+    .code-preview-text .badge-label {
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+
+    .code-preview-text h2 {
+      font-size: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .code-preview-text p {
+      font-size: 16px;
+      color: var(--foreground-muted);
+      margin-bottom: var(--space-xl);
+      line-height: 1.6;
+    }
+
+    /* ===== Integration Grid ===== */
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .integration-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      text-align: center;
+      transition: border-color var(--transition-base);
+    }
+
+    .integration-item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .integration-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-md);
+      background: var(--surface-alt);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .integration-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .integration-item p {
+      font-size: 13px;
+      color: var(--foreground-muted);
+    }
+
+    /* ===== Entrance Animation ===== */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Responsive: 1024px ===== */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 52px; }
+      .section-header h2,
+      .code-preview-text h2,
+      .cta-card h2 { font-size: 36px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .integration-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+    }
+
+    /* ===== Responsive: 768px ===== */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .section-header h2,
+      .code-preview-text h2,
+      .cta-card h2 { font-size: 28px; }
+      .stat-value { font-size: 24px; }
+      .stats { gap: var(--space-xl); }
+
+      .header-nav { display: none; }
+      .header-hamburger { display: block; }
+
+      .code-preview {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+
+      .features-grid { grid-template-columns: 1fr; }
+      .integration-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+
+      .hero .btn-group,
+      .cta-card .btn-group {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-promises {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
+      }
+    }
+
+    /* ===== Reduced Motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .animate-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn-primary:hover {
+        transform: none;
+      }
+    }
+
+    /* ===== Component Showcase ===== */
+    .showcase-section {
+      padding: var(--space-3xl) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .showcase-section h2 {
+      font-size: 24px;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .showcase-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .showcase-label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--foreground-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      width: 100%;
+      margin-bottom: var(--space-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="header-logo">
+        <span class="header-logo-icon">&lt;/&gt;</span>
+        <span>DevKit</span>
+      </a>
+      <nav class="header-nav">
+        <a href="#features">Features</a>
+        <a href="#docs">Docs</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#blog">Blog</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#" class="btn btn-outline btn-sm">Sign In</a>
+        <a href="#" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+      <button class="header-hamburger" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge animate-in">
+        <span class="badge-dot"></span>
+        v2.0 Now Available
+      </div>
+      <h1 class="animate-in">Build faster with<br><span class="text-accent">modern dev tools</span></h1>
+      <p class="subtitle animate-in">A complete toolkit for modern developers. Ship production-ready code faster with intelligent autocomplete, real-time collaboration, and seamless integrations.</p>
+      <div class="btn-group animate-in">
+        <a href="#" class="btn btn-primary">Start Building Free <span>&rarr;</span></a>
+        <a href="#" class="btn btn-outline">View Documentation</a>
+      </div>
+      <div class="command-bar animate-in">
+        <span class="prompt">$</span>
+        <span class="command">npm install @devkit/cli</span>
+        <button class="copy-btn" aria-label="Copy command">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="stats animate-in">
+        <div>
+          <div class="stat-value">50K+</div>
+          <div class="stat-label">Developers</div>
+        </div>
+        <div>
+          <div class="stat-value">1M+</div>
+          <div class="stat-label">Downloads</div>
+        </div>
+        <div>
+          <div class="stat-value">99.9%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header animate-in">
+        <span class="badge-label">Features</span>
+        <h2>Everything you need to <span class="text-accent">build faster</span></h2>
+        <p>Powerful tools designed for modern development workflows.</p>
+      </div>
+      <div class="features-grid">
+        <div class="card animate-in">
+          <div class="card-icon">&#9889;</div>
+          <h3>Lightning Fast</h3>
+          <p>Optimized performance with minimal resource usage. Build and deploy in seconds.</p>
+        </div>
+        <div class="card animate-in">
+          <div class="card-icon">&#128268;</div>
+          <h3>Extensible</h3>
+          <p>Thousands of extensions to customize your workflow. Build your perfect setup.</p>
+        </div>
+        <div class="card animate-in">
+          <div class="card-icon">&#128279;</div>
+          <h3>Cross-Platform</h3>
+          <p>Sync settings and projects across all your devices. Work anywhere, anytime.</p>
+        </div>
+        <div class="card animate-in">
+          <div class="card-icon">&#129302;</div>
+          <h3>AI-Powered</h3>
+          <p>Intelligent autocomplete and suggestions that understand your codebase context.</p>
+        </div>
+        <div class="card animate-in">
+          <div class="card-icon">&#128274;</div>
+          <h3>Secure by Default</h3>
+          <p>Enterprise-grade security with end-to-end encryption and SOC2 compliance.</p>
+        </div>
+        <div class="card animate-in">
+          <div class="card-icon">&#128640;</div>
+          <h3>One-Click Deploy</h3>
+          <p>Deploy to any cloud provider with a single command. Zero configuration needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CODE PREVIEW ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="code-preview">
+        <div class="code-preview-text animate-in">
+          <span class="badge-label">Code Preview</span>
+          <h2>Write code <span class="text-accent">smarter</span></h2>
+          <p>Our intelligent code editor understands your codebase and provides context-aware suggestions, helping you write better code faster.</p>
+          <ul class="check-list">
+            <li><span class="check-icon">&#10003;</span> AI-powered autocomplete with 95% accuracy</li>
+            <li><span class="check-icon">&#10003;</span> Real-time error detection and fixes</li>
+            <li><span class="check-icon">&#10003;</span> Smart refactoring suggestions</li>
+            <li><span class="check-icon">&#10003;</span> Inline documentation on hover</li>
+          </ul>
+        </div>
+        <div class="animate-in">
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-dot code-dot--red"></span>
+              <span class="code-dot code-dot--yellow"></span>
+              <span class="code-dot code-dot--green"></span>
+              <span class="code-filename">app.ts</span>
+            </div>
+            <div class="code-body">
+<span class="keyword">import</span> { DevKit } <span class="keyword">from</span> <span class="string">'@devkit/core'</span>;
+
+<span class="keyword">const</span> app = <span class="keyword">new</span> <span class="function">DevKit</span>({
+  ai: <span class="variable">true</span>,
+  collab: <span class="variable">true</span>,
+  theme: <span class="string">'dark'</span>
+});
+
+<span class="comment">// AI suggests: Add error handling</span>
+app.<span class="function">start</span>().<span class="function">then</span>(() =&gt; {
+  console.<span class="function">log</span>(<span class="string">'Ready!'</span>);
+});
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRATIONS ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-in">
+        <span class="badge-label">Integrations</span>
+        <h2>Works with your <span class="text-accent">favorite tools</span></h2>
+        <p>Seamlessly integrate with the tools you already use and love.</p>
+      </div>
+      <div class="integration-grid">
+        <div class="integration-item animate-in">
+          <div class="integration-icon">&#128640;</div>
+          <h4>GitHub</h4>
+          <p>Version control</p>
+        </div>
+        <div class="integration-item animate-in">
+          <div class="integration-icon">&#9889;</div>
+          <h4>Vercel</h4>
+          <p>Deployment</p>
+        </div>
+        <div class="integration-item animate-in">
+          <div class="integration-icon">&#128295;</div>
+          <h4>Docker</h4>
+          <p>Containers</p>
+        </div>
+        <div class="integration-item animate-in">
+          <div class="integration-icon">&#128202;</div>
+          <h4>Datadog</h4>
+          <p>Monitoring</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-card animate-in">
+        <h2>Ready to build <span class="text-accent">faster</span>?</h2>
+        <p>Join thousands of developers who ship better code with DevKit. Start free, no credit card required.</p>
+        <div class="btn-group">
+          <a href="#" class="btn btn-primary">Get Started Free</a>
+          <a href="#" class="btn btn-outline">Schedule Demo</a>
+        </div>
+        <ul class="cta-promises">
+          <li><span class="check-icon">&#10003;</span> Free forever plan</li>
+          <li><span class="check-icon">&#10003;</span> No credit card</li>
+          <li><span class="check-icon">&#10003;</span> Cancel anytime</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="header-logo">
+            <span class="header-logo-icon">&lt;/&gt;</span>
+            <span>DevKit</span>
+          </a>
+          <p>Modern developer tools for building better software, faster.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub">&#9679;</a>
+            <a href="#" aria-label="Twitter">&#10005;</a>
+            <a href="#" aria-label="Discord">&#9679;</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="#">Roadmap</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Guides</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 DevKit. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== IntersectionObserver Entrance Animation ===== -->
+  <script>
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.animate-in').forEach(function(el) {
+          el.classList.add('visible');
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.animate-in').forEach(function(el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>

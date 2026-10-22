@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sustainability Platform — EcoTrack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* ── Canvas ── */
+    --bg: #FAFAF5;
+    --card-bg: #FFFFFF;
+    --cta-bg: #1B4332;
+
+    /* ── Foreground ─ */
+    --fg: #0F172A;
+    --fg-muted: #52796F;
+    --fg-nav: #52796F;
+
+    /* ─ Accent (Forest Green Palette) ─ */
+    --green: #228B22;
+    --green-light: #4CAF50;
+    --green-dark: #1B4332;
+    --green-soft: rgba(34, 139, 34, 0.1);
+    --sky-blue: #87CEEB;
+    --amber: #FFB300;
+
+    /* ── Shadow / Border ── */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --border: #D8E2DC;
+    --border-light: #E8E8E0;
+
+    /* ── Radius ── */
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 999px;
+
+    /* ── Typography ── */
+    --font-heading: "Fraunces", "Noto Serif SC", Georgia, serif;
+    --font-body: "DM Sans", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+    /* ── Spacing ── */
+    --section-padding: 96px;
+    --container-max: 1200px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: 1.15; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  ::selection { background: var(--green-light); color: #fff; }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ═══════════════════════════════════════
+     NAVBAR
+  ═══════════════════════════════════════ */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--fg);
+  }
+  .navbar-brand .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar-brand .logo-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .navbar-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg-nav);
+    transition: color 0.2s;
+  }
+  .navbar-links a:hover { color: var(--fg); }
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .navbar-actions .login-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg-nav);
+    transition: color 0.2s;
+  }
+  .navbar-actions .login-link:hover { color: var(--fg); }
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--fg);
+    margin: 5px 0;
+    transition: all 0.3s;
+  }
+
+  /* ═══════════════════════════════════════
+     BUTTONS
+  ═══════════════════════════════════════ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--green-light);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #43a047;
+  }
+  .btn-outline {
+    background: var(--card-bg);
+    color: var(--green);
+    border: 2px solid var(--green-light);
+  }
+  .btn-outline:hover {
+    background: var(--green-soft);
+  }
+  .btn-white-outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .btn-white-outline:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.08);
+  }
+  .btn-sm {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+
+  /* ═══════════════════════════════════════
+     BADGES
+  ═══════════════════════════════════════ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .badge-green {
+    background: var(--green-soft);
+    color: var(--green);
+  }
+  .badge-green .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .badge-white {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+  }
+
+  /* ═══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .hero {
+    padding: 80px 0 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -40px;
+    width: 300px;
+    height: 300px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 20 C130 20, 160 50, 160 90 C160 130, 130 170, 100 180 C70 170, 40 130, 40 90 C40 50, 70 20, 100 20Z' fill='%23228B22' opacity='0.06'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-content { max-width: 560px; }
+  .hero-badge { margin-bottom: 24px; }
+  .hero-title {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .hero-title .accent { color: var(--green); }
+  .hero-desc {
+    font-size: 18px;
+    color: var(--fg-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-trust {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--fg-muted);
+  }
+  .hero-trust-item .check {
+    width: 20px;
+    height: 20px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-trust-item .check svg {
+    width: 12px;
+    height: 12px;
+    fill: white;
+  }
+
+  /* Dashboard Card */
+  .hero-dashboard {
+    position: relative;
+  }
+  .dashboard-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 32px;
+    position: relative;
+  }
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .dashboard-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .dashboard-ring {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .ring-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+  }
+  .ring-container svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .ring-container .ring-bg {
+    fill: none;
+    stroke: var(--border-light);
+    stroke-width: 12;
+  }
+  .ring-container .ring-fill {
+    fill: none;
+    stroke: url(#ringGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: 408;
+    stroke-dashoffset: 102;
+    transition: stroke-dashoffset 1.5s ease;
+  }
+  .ring-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .ring-center .value {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1;
+  }
+  .ring-center .unit {
+    font-size: 13px;
+    color: var(--fg-muted);
+    margin-top: 4px;
+  }
+  .dashboard-note {
+    text-align: center;
+    font-size: 14px;
+    color: var(--fg-muted);
+    margin-bottom: 24px;
+  }
+  .dashboard-bars { display: flex; flex-direction: column; gap: 16px; }
+  .bar-row { display: flex; flex-direction: column; gap: 6px; }
+  .bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .bar-label .name { color: var(--fg-muted); }
+  .bar-label .val { font-weight: 600; color: var(--fg); }
+  .bar-track {
+    height: 8px;
+    background: var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1.2s ease;
+  }
+  .bar-fill.green { background: var(--green-light); }
+  .bar-fill.sky { background: var(--sky-blue); }
+
+  /* Floating Badges */
+  .floating-badge {
+    position: absolute;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+  }
+  .floating-badge .icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .floating-badge .icon-circle.green { background: var(--green-light); }
+  .floating-badge .icon-circle.amber { background: var(--amber); }
+  .floating-badge .icon-circle svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+  }
+  .floating-badge .fb-value {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--fg);
+  }
+  .floating-badge .fb-label {
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+  .fb-trend { top: -10px; left: -20px; }
+  .fb-renewable { bottom: -10px; right: -20px; }
+
+  /* ═══════════════════════════════════════
+     IMPACT STATS
+  ═══════════════════════════════════════ */
+  .impact {
+    padding: var(--section-padding) 0;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-header h2 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 16px;
+  }
+  .section-header p {
+    font-size: 17px;
+    color: var(--fg-muted);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 32px 24px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .stat-card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  .stat-value {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--fg-muted);
+  }
+
+  /* ═══════════════════════════════════════
+     FEATURED PROJECTS
+  ═══════════════════════════════════════ */
+  .projects {
+    padding: 0 0 var(--section-padding);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .project-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .project-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+  .project-card .card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: var(--border-light);
+  }
+  .project-card .card-body {
+    padding: 20px 24px 24px;
+  }
+  .project-card .card-tag {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .project-card .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 12px;
+  }
+  .project-card .card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--fg-muted);
+  }
+  .project-card .card-meta .tons {
+    font-weight: 600;
+    color: var(--green);
+  }
+  .projects-cta {
+    text-align: center;
+  }
+
+  /* ══════════════════════════════════════
+     CTA SECTION
+  ═══════════════════════════════════════ */
+  .cta-section {
+    background: var(--cta-bg);
+    padding: var(--section-padding) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(76,175,80,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cta-section h2 .accent { color: var(--green-light); }
+  .cta-section .cta-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+    position: relative;
+  }
+  .cta-section .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .cta-section .cta-trust {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .cta-section .cta-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+  .cta-section .cta-trust-item .check {
+    width: 20px;
+    height: 20px;
+    background: var(--green-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cta-section .cta-trust-item .check svg {
+    width: 12px;
+    height: 12px;
+    fill: white;
+  }
+
+  /* ═══════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════ */
+  .footer {
+    background: var(--bg);
+    padding: 64px 0 32px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .footer-brand .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .footer-brand .brand-row .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-brand .brand-row .logo-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+  .footer-brand .brand-row span {
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .footer-brand .brand-desc {
+    font-size: 14px;
+    color: var(--fg-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 240px;
+  }
+  .footer-social {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-social a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--green-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .footer-social a:hover { background: var(--green); }
+  .footer-social a:hover svg { fill: white; }
+  .footer-social a svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--green);
+    transition: fill 0.2s;
+  }
+  .footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 16px;
+  }
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-col a {
+    font-size: 14px;
+    color: var(--fg-muted);
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--fg); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--fg-muted);
+  }
+  .footer-bottom .carbon-neutral {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-bottom .carbon-neutral svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--green);
+  }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .hero .container {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .hero-content { max-width: 100%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 768px) {
+    :root { --section-padding: 64px; }
+
+    .navbar-links { display: none; }
+    .hamburger { display: block; }
+
+    .hero { padding: 48px 0 64px; }
+    .hero-title { font-size: 36px; }
+    .hero-desc { font-size: 16px; }
+    .hero-ctas { flex-direction: column; }
+    .hero-ctas .btn { width: 100%; }
+    .hero-trust { flex-direction: column; gap: 12px; }
+    .hero-dashboard { order: -1; }
+    .floating-badge { display: none; }
+
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat-card { padding: 24px 16px; }
+    .stat-value { font-size: 36px; }
+
+    .projects-grid { grid-template-columns: 1fr; }
+
+    .cta-section .cta-buttons { flex-direction: column; align-items: center; }
+    .cta-section .cta-buttons .btn { width: 100%; max-width: 320px; }
+    .cta-section .cta-trust { flex-direction: column; align-items: center; gap: 12px; }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar">
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <span class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22L6.66 19.7C7.14 19.87 7.64 20 8 20C19 20 22 3 22 3C21 5 14 5.25 9 6.25C4 7.25 2 11.5 2 13.5C2 15.5 3.75 17.25 3.75 17.25C7 8 17 8 17 8Z"/></svg>
+      </span>
+      EcoTrack
+    </a>
+    <ul class="navbar-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="#" class="login-link">Log in</a>
+      <a href="#" class="btn btn-primary btn-sm">Get Started Free</a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge badge-green"><span class="dot"></span> B Corp Certified Platform</span>
+      </div>
+      <h1 class="hero-title">Track Your <span class="accent">Carbon</span> Footprint</h1>
+      <p class="hero-desc">Measure, reduce, and offset your environmental impact. Join thousands of businesses committed to a sustainable future.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Calculate Your Impact
+        </a>
+        <a href="#" class="btn btn-outline">View Demo</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+          Free to start
+        </div>
+        <div class="hero-trust-item">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+          ISO 14064 compliant
+        </div>
+        <div class="hero-trust-item">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+          10,000+ companies
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-dashboard">
+      <!-- Floating Badge: Trend -->
+      <div class="floating-badge fb-trend">
+        <div class="icon-circle green">
+          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+        </div>
+        <div>
+          <div class="fb-value">-15%</div>
+          <div class="fb-label">vs last month</div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="dashboard-header">
+          <h3>Carbon Footprint</h3>
+          <span class="badge badge-white">Live Data</span>
+        </div>
+
+        <div class="dashboard-ring">
+          <div class="ring-container">
+            <svg viewBox="0 0 140 140">
+              <defs>
+                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#4CAF50"/>
+                  <stop offset="100%" style="stop-color:#228B22"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-bg" cx="70" cy="70" r="60"/>
+              <circle class="ring-fill" cx="70" cy="70" r="60"/>
+            </svg>
+            <div class="ring-center">
+              <div class="value">2.4</div>
+              <div class="unit">tons CO&#8322;e</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-note">25% below industry average</div>
+
+        <div class="dashboard-bars">
+          <div class="bar-row">
+            <div class="bar-label">
+              <span class="name">Energy</span>
+              <span class="val">0.8t</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill green" style="width: 60%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">
+              <span class="name">Transport</span>
+              <span class="val">0.6t</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill green" style="width: 45%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">
+              <span class="name">Supply Chain</span>
+              <span class="val">1.0t</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill sky" style="width: 75%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Badge: Renewable -->
+      <div class="floating-badge fb-renewable">
+        <div class="icon-circle amber">
+          <svg viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
+        </div>
+        <div>
+          <div class="fb-value">100%</div>
+          <div class="fb-label">Renewable</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ IMPACT STATS ═══════════════ -->
+<section class="impact" id="impact">
+  <div class="container">
+    <div class="section-header">
+      <h2>Making a Real Difference</h2>
+      <p>Together with our community, we're creating measurable environmental impact.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">2.5M+</div>
+        <div class="stat-label">Tons CO&#8322; Tracked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">500K+</div>
+        <div class="stat-label">Tons Offset</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">10K+</div>
+        <div class="stat-label">Companies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">45</div>
+        <div class="stat-label">Countries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FEATURED PROJECTS ═══════════════ -->
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Offset Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=600&h=400&fit=crop" alt="Amazon Rainforest" loading="lazy" />
+        <div class="card-body">
+          <div class="card-tag">Forest Conservation</div>
+          <h3 class="card-title">Amazon Rainforest Protection</h3>
+          <div class="card-meta">
+            <span>Brazil</span>
+            <span class="tons">125,000 tons</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=600&h=400&fit=crop" alt="Wind Farm" loading="lazy" />
+        <div class="card-body">
+          <div class="card-tag">Renewable Energy</div>
+          <h3 class="card-title">Wind Farm Development</h3>
+          <div class="card-meta">
+            <span>India</span>
+            <span class="tons">85,000 tons</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=400&fit=crop" alt="Mangrove Restoration" loading="lazy" />
+        <div class="card-body">
+          <div class="card-tag">Blue Carbon</div>
+          <h3 class="card-title">Mangrove Restoration</h3>
+          <div class="card-meta">
+            <span>Indonesia</span>
+            <span class="tons">45,000 tons</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="projects-cta">
+      <a href="#" class="btn btn-outline">View All Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA SECTION ═══════════════ -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Make a <span class="accent">Positive Impact</span>?</h2>
+    <p class="cta-desc">Join thousands of businesses committed to a sustainable future. Start measuring your carbon footprint today&mdash;it's free.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn btn-primary">Get Started Free</a>
+      <a href="#" class="btn btn-white-outline">Schedule Demo</a>
+    </div>
+    <div class="cta-trust">
+      <div class="cta-trust-item">
+        <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+        Free forever plan
+      </div>
+      <div class="cta-trust-item">
+        <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+        No credit card required
+      </div>
+      <div class="cta-trust-item">
+        <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+        Setup in 5 minutes
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-row">
+          <span class="logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22L6.66 19.7C7.14 19.87 7.64 20 8 20C19 20 22 3 22 3C21 5 14 5.25 9 6.25C4 7.25 2 11.5 2 13.5C2 15.5 3.75 17.25 3.75 17.25C7 8 17 8 17 8Z"/></svg>
+          </span>
+          <span>EcoTrack</span>
+        </div>
+        <p class="brand-desc">Empowering businesses to measure, reduce, and offset their environmental impact.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Carbon Tracking</a></li>
+          <li><a href="#">Reduction Planning</a></li>
+          <li><a href="#">Offsetting</a></li>
+          <li><a href="#">ESG Reporting</a></li>
+          <li><a href="#">Supply Chain</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Reference</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 EcoTrack. All rights reserved.</span>
+      <span class="carbon-neutral">
+        <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22L6.66 19.7C7.14 19.87 7.64 20 8 20C19 20 22 3 22 3C21 5 14 5.25 9 6.25C4 7.25 2 11.5 2 13.5C2 15.5 3.75 17.25 3.75 17.25C7 8 17 8 17 8Z"/></svg>
+        Carbon Neutral Company
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

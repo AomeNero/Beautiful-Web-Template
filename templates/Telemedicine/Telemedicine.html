@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telemedicine — Component Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== DESIGN TOKENS ========== */
+    :root {
+      /* Colors */
+      --background: #FFFFFF;
+      --background-soft: #F8FAFC;
+      --background-accent: #EEF4FF;
+      --foreground: #0F172A;
+      --foreground-muted: #64748B;
+      --accent: #4F8CFF;
+      --accent-hover: #3A7BFF;
+      --accent-secondary: #00C9A7;
+      --accent-gradient: linear-gradient(135deg, #4F8CFF 0%, #00C9A7 100%);
+      --border: #E2E8F0;
+      --border-strong: #1E293B;
+      --footer-bg: #1A2744;
+      --footer-text: #94A3B8;
+      --footer-text-hover: #CBD5E1;
+      --success: #00C9A7;
+      --warning: #FF9F43;
+      --danger: #FF4757;
+      --info: #00D4FF;
+      --purple: #8B5CF6;
+      --pink: #FF6B9D;
+      --star: #FBBF24;
+      --white: #FFFFFF;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+      --text-5xl: 3rem;
+      --text-6xl: 3.75rem;
+
+      /* Spacing */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      --radius-circle: 50%;
+
+      /* Shadows */
+      --shadow-sm: 0 4px 14px rgba(79, 140, 255, 0.3);
+      --shadow-md: 0 20px 60px rgba(79, 140, 255, 0.15);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(79, 140, 255, 0.08);
+      --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 16px 40px rgba(79, 140, 255, 0.12);
+
+      /* Transitions */
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Layout */
+      --container-max: 1200px;
+      --header-height: 72px;
+    }
+
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: var(--text-base);
+    }
+    /* Image placeholders */
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: rgba(79, 140, 255, 0.3);
+    }
+    .img-placeholder.hero-ph {
+      background: linear-gradient(135deg, #E8F0FE 0%, #D4EDDA 100%);
+      height: 400px;
+    }
+    .img-placeholder.doctor-ph {
+      background: linear-gradient(135deg, #F0F4FF 0%, #E8FFF8 100%);
+      height: 220px;
+    }
+    .img-placeholder.avatar-ph {
+      background: linear-gradient(135deg, #4F8CFF 0%, #00C9A7 100%);
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .card-image-wrap {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      border-radius: 12px 12px 0 0;
+    }
+    .hero-image-inner {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); line-height: 1.2; }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradient {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    @keyframes glow {
+      0% { box-shadow: 0 0 20px rgba(79, 140, 255, 0.3); }
+      100% { box-shadow: 0 0 40px rgba(79, 140, 255, 0.6); }
+    }
+
+    .animate-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .animate-on-scroll { opacity: 1; transform: none; }
+    }
+
+    /* ========== LAYOUT ========== */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+    }
+    .section {
+      padding: var(--space-24) 0;
+    }
+    .section-alt {
+      background: var(--background-soft);
+    }
+    .text-center { text-align: center; }
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: var(--header-height);
+    }
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--foreground);
+    }
+    .header-logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+    }
+    .header-nav a {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--foreground-muted);
+      transition: color var(--transition-fast);
+    }
+    .header-nav a:hover { color: var(--foreground); }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .header-actions .btn-signin {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--foreground-muted);
+      transition: color var(--transition-fast);
+    }
+    .header-actions .btn-signin:hover { color: var(--foreground); }
+    .header-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+    }
+    .header-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--foreground);
+      border-radius: 2px;
+      transition: var(--transition-fast);
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      border-radius: var(--radius-full);
+      padding: 14px 28px;
+      transition: all var(--transition-base);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(79, 140, 255, 0.4);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .btn-outline:hover {
+      background: var(--background-accent);
+      transform: translateY(-2px);
+    }
+    .btn-gradient {
+      background: var(--accent-gradient);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(79, 140, 255, 0.4);
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: var(--white);
+    }
+    .btn-danger:hover {
+      background: #E8404F;
+      transform: translateY(-2px);
+    }
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: var(--text-xs);
+    }
+    .btn-lg {
+      padding: 16px 36px;
+      font-size: var(--text-base);
+    }
+    .btn-icon {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: var(--radius-circle);
+      background: var(--white);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all var(--transition-fast);
+    }
+    .btn-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .btn-icon.active {
+      background: var(--danger);
+      color: var(--white);
+      border-color: var(--danger);
+    }
+
+    /* ========== BADGES ========== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+    .badge-trust {
+      background: var(--background-accent);
+      color: var(--accent);
+    }
+    .badge-success {
+      background: var(--success);
+      color: var(--white);
+    }
+    .badge-live {
+      background: var(--success);
+      color: var(--white);
+      font-size: 11px;
+      padding: 4px 10px;
+    }
+    .badge-live::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: var(--radius-circle);
+      background: var(--white);
+      animation: pulse 2s ease infinite;
+    }
+    .badge-category {
+      background: var(--white);
+      color: var(--foreground-muted);
+      border: 1px solid var(--border);
+      padding: 8px 20px;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .badge-category:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .badge-category.active {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    /* ========== CARDS ========== */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-base);
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .card-body {
+      padding: var(--space-6);
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+    .card-subtitle {
+      font-size: var(--text-sm);
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: var(--space-3);
+    }
+    .card-text {
+      font-size: var(--text-sm);
+      color: var(--foreground-muted);
+      line-height: 1.6;
+    }
+
+    /* Doctor Card Specific */
+    .doctor-card { position: relative; }
+    .doctor-card .card-image { height: 220px; }
+    .doctor-badge {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+    }
+    .doctor-rating {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin: var(--space-3) 0;
+      font-size: var(--text-sm);
+    }
+    .doctor-rating .star { color: var(--star); }
+    .doctor-rating .score { font-weight: 700; color: var(--foreground); }
+    .doctor-rating .count { color: var(--foreground-muted); }
+    .doctor-next {
+      font-size: var(--text-sm);
+      color: var(--foreground-muted);
+      margin-bottom: var(--space-4);
+    }
+    .doctor-next strong { color: var(--foreground); }
+    .doctor-card .btn { width: 100%; }
+
+    /* Feature Card */
+    .feature-card {
+      padding: var(--space-8);
+      text-align: center;
+    }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+      font-size: 24px;
+    }
+    .feature-icon.blue { background: rgba(79, 140, 255, 0.1); color: var(--accent); }
+    .feature-icon.green { background: rgba(0, 201, 167, 0.1); color: var(--accent-secondary); }
+    .feature-icon.purple { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+    .feature-icon.pink { background: rgba(255, 107, 157, 0.1); color: var(--pink); }
+    .feature-icon.orange { background: rgba(255, 159, 67, 0.1); color: var(--warning); }
+    .feature-icon.cyan { background: rgba(0, 212, 255, 0.1); color: var(--info); }
+    .feature-card h3 {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+    .feature-card p {
+      font-size: var(--text-sm);
+      color: var(--foreground-muted);
+      line-height: 1.6;
+    }
+
+    /* ========== INPUTS ========== */
+    .input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      color: var(--foreground);
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+    .input::placeholder { color: var(--foreground-muted); }
+    .input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.15);
+    }
+    .input-group {
+      position: relative;
+    }
+    .input-group .input { padding-left: 44px; }
+    .input-group-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--foreground-muted);
+      font-size: 18px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: var(--space-20) 0 var(--space-24);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      border-radius: var(--radius-circle);
+      background: radial-gradient(circle, rgba(79, 140, 255, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: var(--radius-circle);
+      background: radial-gradient(circle, rgba(0, 201, 167, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content { max-width: 560px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--background-accent);
+      color: var(--accent);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-6);
+    }
+    .hero-title {
+      font-size: var(--text-5xl);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-6);
+    }
+    .hero-description {
+      font-size: var(--text-lg);
+      color: var(--foreground-muted);
+      line-height: 1.7;
+      margin-bottom: var(--space-8);
+    }
+    .hero-buttons {
+      display: flex;
+      gap: var(--space-4);
+      margin-bottom: var(--space-12);
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      gap: var(--space-10);
+    }
+    .hero-stat-value {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: var(--text-sm);
+      color: var(--foreground-muted);
+      margin-top: var(--space-1);
+    }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-image-wrapper {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-float-card {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero-float-card img {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+    }
+    .hero-float-card .name {
+      font-weight: 600;
+      font-size: var(--text-sm);
+    }
+    .hero-float-card .role {
+      font-size: var(--text-xs);
+      color: var(--foreground-muted);
+    }
+    .hero-controls {
+      position: absolute;
+      bottom: var(--space-4);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--space-3);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ========== SECTION HEADERS ========== */
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto var(--space-16);
+    }
+    .section-header h2 {
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.01em;
+    }
+    .section-header p {
+      font-size: var(--text-lg);
+      color: var(--foreground-muted);
+      line-height: 1.7;
+    }
+
+    /* ========== DOCTOR GRID ========== */
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-12);
+      flex-wrap: wrap;
+    }
+    .doctor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    /* ========== FEATURE GRID ========== */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    /* ========== CTA SECTION ========== */
+    .cta-section {
+      background: var(--accent-gradient);
+      border-radius: var(--radius-xl);
+      padding: var(--space-16) var(--space-12);
+      text-align: center;
+      color: var(--white);
+      margin: var(--space-12) 0;
+    }
+    .cta-section h2 {
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+    }
+    .cta-section p {
+      font-size: var(--text-lg);
+      opacity: 0.9;
+      margin-bottom: var(--space-8);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-section .btn {
+      background: var(--white);
+      color: var(--accent);
+    }
+    .cta-section .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: var(--space-16) 0 var(--space-8);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+      gap: var(--space-8);
+      margin-bottom: var(--space-12);
+    }
+    .footer-brand .header-logo {
+      color: var(--white);
+      margin-bottom: var(--space-4);
+    }
+    .footer-brand p {
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-social {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--footer-text);
+      font-size: 16px;
+      transition: all var(--transition-fast);
+    }
+    .footer-social a:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--white);
+    }
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: var(--space-3); }
+    .footer-col a {
+      font-size: var(--text-sm);
+      color: var(--footer-text);
+      transition: color var(--transition-fast);
+    }
+    .footer-col a:hover { color: var(--footer-text-hover); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: var(--space-8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .footer-bottom p {
+      font-size: var(--text-sm);
+    }
+    .footer-certifications {
+      display: flex;
+      gap: var(--space-6);
+      align-items: center;
+    }
+    .footer-cert {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+    .footer-cert .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-circle);
+    }
+    .footer-cert .dot.green { background: var(--success); }
+    .footer-cert .dot.blue { background: var(--accent); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        gap: var(--space-12);
+      }
+      .hero-content { max-width: 100%; }
+      .hero-title { font-size: var(--text-4xl); }
+      .doctor-grid { grid-template-columns: repeat(2, 1fr); }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+      }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      .header-nav { display: none; }
+      .header-hamburger { display: flex; }
+      .hero { padding: var(--space-12) 0 var(--space-16); }
+      .hero-title { font-size: var(--text-3xl); }
+      .hero-description { font-size: var(--text-base); }
+      .hero-stats { gap: var(--space-6); flex-wrap: wrap; }
+      .hero-stat-value { font-size: var(--text-3xl); }
+      .hero-buttons { flex-direction: column; }
+      .hero-buttons .btn { width: 100%; }
+      .section { padding: var(--space-16) 0; }
+      .section-header h2 { font-size: var(--text-3xl); }
+      .doctor-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .category-filter { gap: var(--space-2); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-certifications { justify-content: center; }
+      .cta-section { padding: var(--space-12) var(--space-6); }
+      .cta-section h2 { font-size: var(--text-3xl); }
+    }
+
+    /* ========== COMPONENT SHOWCASE (for preview) ========== */
+    .showcase-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--foreground-muted);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .showcase-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .showcase-section {
+      margin-bottom: var(--space-12);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="container">
+      <a href="#" class="header-logo">
+        <div class="header-logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        MediConnect
+      </a>
+      <nav class="header-nav">
+        <a href="#features">Features</a>
+        <a href="#doctors">Find Doctors</a>
+        <a href="#tracking">Health Tracking</a>
+        <a href="#download">Download App</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#" class="btn-signin">Sign In</a>
+        <a href="#" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+      <button class="header-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content animate-on-scroll">
+        <div class="hero-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Trusted by 500K+ Patients
+        </div>
+        <h1 class="hero-title">Healthcare at Your <span class="gradient-text">Fingertips</span></h1>
+        <p class="hero-description">Connect with certified doctors instantly via video consultation. Get prescriptions, track your health, and manage appointments — all from your phone.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            Start Consultation
+          </a>
+          <a href="#" class="btn btn-outline btn-lg">Download App</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">500K+</div>
+            <div class="hero-stat-label">Active Users</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">2,000+</div>
+            <div class="hero-stat-label">Verified Doctors</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">4.9</div>
+            <div class="hero-stat-label">App Rating</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual animate-on-scroll">
+        <div class="hero-image-wrapper">
+          <div class="hero-image-inner">
+            <div class="img-placeholder hero-ph">
+              <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+                <rect x="10" y="5" width="100" height="65" rx="8" fill="#4F8CFF" opacity="0.15"/>
+                <rect x="15" y="10" width="90" height="50" rx="4" fill="#4F8CFF" opacity="0.1"/>
+                <circle cx="45" cy="35" r="12" fill="#4F8CFF" opacity="0.3"/>
+                <circle cx="80" cy="30" r="8" fill="#00C9A7" opacity="0.4"/>
+                <rect x="30" y="55" width="60" height="4" rx="2" fill="#4F8CFF" opacity="0.2"/>
+                <polygon points="50,28 50,42 62,35" fill="#4F8CFF" opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+          <div class="hero-float-card">
+            <div class="img-placeholder avatar-ph" style="width:40px;height:40px;min-width:40px;">SM</div>
+            <div>
+              <div class="name">Dr. Sarah Mitchell</div>
+              <div class="role">General Physician</div>
+            </div>
+            <span class="badge badge-live" style="margin-left:auto;">Live</span>
+          </div>
+          <div class="hero-controls">
+            <button class="btn-icon" aria-label="Microphone">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </button>
+            <button class="btn-icon" aria-label="Camera">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </button>
+            <button class="btn-icon active" aria-label="End call">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </button>
+            <button class="btn-icon" aria-label="Chat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section section-alt" id="features">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2>Why Choose <span class="gradient-text">MediConnect</span></h2>
+        <p>Experience healthcare reimagined with cutting-edge technology and compassionate care.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="card feature-card animate-on-scroll">
+          <div class="feature-icon blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3>Video Consultations</h3>
+          <p>Connect face-to-face with certified doctors from the comfort of your home through secure HD video calls.</p>
+        </div>
+        <div class="card feature-card animate-on-scroll">
+          <div class="feature-icon green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>Digital Prescriptions</h3>
+          <p>Receive prescriptions instantly after your consultation. Share directly with your preferred pharmacy.</p>
+        </div>
+        <div class="card feature-card animate-on-scroll">
+          <div class="feature-icon purple">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Health Tracking</h3>
+          <p>Monitor your vitals, medications, and health goals with our comprehensive tracking dashboard.</p>
+        </div>
+        <div class="card feature-card animate-on-scroll">
+          <div class="feature-icon pink">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>Easy Scheduling</h3>
+          <p>Book appointments with your preferred doctors at times that work for you. Smart reminders included.</p>
+        </div>
+        <div class="card feature-card animate-on-scroll">
+          <div class="feature-icon orange">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Secure & Private</h3>
+          <p>HIPAA compliant platform with end-to-end encryption. Your health data is always protected.</p>
+        </div>
+        <div class="card feature-card animate-on-scroll">
+          <div class="feature-icon cyan">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>24/7 Availability</h3>
+          <p>Access healthcare anytime, anywhere. Our global network of doctors ensures round-the-clock coverage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FIND DOCTORS ===== -->
+  <section class="section" id="doctors">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2>Connect with <span class="gradient-text">Specialists</span></h2>
+        <p>Browse our network of 2,000+ verified doctors across 50+ specialties.</p>
+      </div>
+      <div class="category-filter animate-on-scroll">
+        <button class="badge badge-category active">All</button>
+        <button class="badge badge-category">General</button>
+        <button class="badge badge-category">Cardiology</button>
+        <button class="badge badge-category">Dermatology</button>
+        <button class="badge badge-category">Psychiatry</button>
+        <button class="badge badge-category">Pediatrics</button>
+      </div>
+      <div class="doctor-grid">
+        <!-- Doctor 1 -->
+        <div class="card doctor-card animate-on-scroll">
+          <div class="doctor-badge"><span class="badge badge-success">Available Now</span></div>
+          <div class="card-image-wrap">
+            <div class="img-placeholder doctor-ph">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" fill="#4F8CFF" opacity="0.2"/><path d="M10 55c0-11 9-20 20-20s20 9 20 20" fill="#4F8CFF" opacity="0.15"/><rect x="22" y="30" width="16" height="20" rx="3" fill="#00C9A7" opacity="0.2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Dr. Sarah Mitchell</h3>
+            <div class="card-subtitle">General Physician</div>
+            <div class="doctor-rating">
+              <span class="star">&#9733;</span>
+              <span class="score">4.9</span>
+              <span class="count">(324 reviews)</span>
+            </div>
+            <div class="doctor-next">Next: <strong>Today, 2:00 PM</strong></div>
+            <a href="#" class="btn btn-primary">Book Consultation</a>
+          </div>
+        </div>
+        <!-- Doctor 2 -->
+        <div class="card doctor-card animate-on-scroll">
+          <div class="doctor-badge"><span class="badge badge-success">Available Now</span></div>
+          <div class="card-image-wrap">
+            <div class="img-placeholder doctor-ph">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" fill="#8B5CF6" opacity="0.2"/><path d="M10 55c0-11 9-20 20-20s20 9 20 20" fill="#8B5CF6" opacity="0.15"/><rect x="22" y="30" width="16" height="20" rx="3" fill="#4F8CFF" opacity="0.2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Dr. James Chen</h3>
+            <div class="card-subtitle">Cardiologist</div>
+            <div class="doctor-rating">
+              <span class="star">&#9733;</span>
+              <span class="score">4.8</span>
+              <span class="count">(256 reviews)</span>
+            </div>
+            <div class="doctor-next">Next: <strong>Today, 4:30 PM</strong></div>
+            <a href="#" class="btn btn-primary">Book Consultation</a>
+          </div>
+        </div>
+        <!-- Doctor 3 -->
+        <div class="card doctor-card animate-on-scroll">
+          <div class="doctor-badge"><span class="badge badge-success">Available Now</span></div>
+          <div class="card-image-wrap">
+            <div class="img-placeholder doctor-ph">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" fill="#FF6B9D" opacity="0.2"/><path d="M10 55c0-11 9-20 20-20s20 9 20 20" fill="#FF6B9D" opacity="0.15"/><rect x="22" y="30" width="16" height="20" rx="3" fill="#00C9A7" opacity="0.2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Dr. Emily Rodriguez</h3>
+            <div class="card-subtitle">Dermatologist</div>
+            <div class="doctor-rating">
+              <span class="star">&#9733;</span>
+              <span class="score">4.9</span>
+              <span class="count">(412 reviews)</span>
+            </div>
+            <div class="doctor-next">Next: <strong>Tomorrow, 10:00 AM</strong></div>
+            <a href="#" class="btn btn-primary">Book Consultation</a>
+          </div>
+        </div>
+        <!-- Doctor 4 -->
+        <div class="card doctor-card animate-on-scroll">
+          <div class="doctor-badge"><span class="badge badge-success">Available Now</span></div>
+          <div class="card-image-wrap">
+            <div class="img-placeholder doctor-ph">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" fill="#FF9F43" opacity="0.2"/><path d="M10 55c0-11 9-20 20-20s20 9 20 20" fill="#FF9F43" opacity="0.15"/><rect x="22" y="30" width="16" height="20" rx="3" fill="#4F8CFF" opacity="0.2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Dr. Michael Thompson</h3>
+            <div class="card-subtitle">Psychiatrist</div>
+            <div class="doctor-rating">
+              <span class="star">&#9733;</span>
+              <span class="score">4.7</span>
+              <span class="count">(189 reviews)</span>
+            </div>
+            <div class="doctor-next">Next: <strong>Today, 6:00 PM</strong></div>
+            <a href="#" class="btn btn-primary">Book Consultation</a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top: var(--space-12);">
+        <a href="#" class="btn btn-outline">View All Doctors</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section animate-on-scroll">
+        <h2>Ready to Get Started?</h2>
+        <p>Join 500,000+ patients who trust MediConnect for their healthcare needs.</p>
+        <a href="#" class="btn btn-lg">Start Your First Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="header-logo">
+            <div class="header-logo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            MediConnect
+          </a>
+          <p>Healthcare at your fingertips. Connect with doctors anytime, anywhere.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Find Doctors</a></li>
+            <li><a href="#">Health Tracking</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">For Doctors</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">HIPAA</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 MediConnect. All rights reserved.</p>
+        <div class="footer-certifications">
+          <div class="footer-cert">
+            <span class="dot green"></span>
+            HIPAA Compliant
+          </div>
+          <div class="footer-cert">
+            <span class="dot blue"></span>
+            SOC 2 Certified
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+        observer.observe(el);
+      });
+
+      // Category filter toggle
+      document.querySelectorAll('.badge-category').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.badge-category').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
